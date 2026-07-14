@@ -1,0 +1,13 @@
+name: Deploy Hugo site
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Build to Caddy dir
+        run: hugo --minify --destination /home/dboy/docker/caddy/site/blog_site/public
