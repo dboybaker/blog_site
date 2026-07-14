@@ -1,0 +1,103 @@
+{{/*
+    Chart shortcode for rendering Chart.js charts in blog posts.
+
+    Usage:
+    {{< chart type="bar" height=400 >}}
+    {
+      "labels": ["Jan", "Feb", "Mar", "Apr"],
+      "datasets": [{
+        "label": "My Dataset",
+        "data": [65, 59, 80, 81],
+        "backgroundColor": "rgba(124, 92, 252, 0.6)",
+        "borderColor": "rgba(124, 92, 252, 1)",
+        "borderWidth": 2
+      }]
+    }
+    {{< /chart >}}
+
+    Parameters:
+    - type: Chart type (bar, line, pie, doughnut, radar, polarArea, scatter) - required
+    - height: Chart height in pixels (default: 400)
+    - width: Chart width in pixels or "100%" (default: "100%")
+
+    The content between the shortcode tags is a JSON object with Chart.js
+    chart data (labels and datasets).
+*/}}
+
+{{ $chartType := .Get "type" | default "bar" }}
+{{ $chartHeight := .Get "height" | default "400" }}
+{{ $chartWidth := .Get "width" | default "100%" }}
+{{ $chartId := printf "chart-%d" (now.UnixNano) }}
+
+<div class="chart-container" style="position: relative; height: {{ $chartHeight }}px; width: {{ $chartWidth }}; margin: 24px 0;">
+  <canvas id="{{ $chartId }}"></canvas>
+</div>
+
+<script>
+(function() {
+  var ctx = document.getElementById('{{ $chartId }}').getContext('2d');
+  var chartData = {{ .Inner | safeJS }};
+
+  // Ensure datasets have default colors if not provided
+  var defaultColors = [
+    { bg: 'rgba(124, 92, 252, 0.6)', border: 'rgba(124, 92, 252, 1)' },
+    { bg: 'rgba(255, 107, 156, 0.6)', border: 'rgba(255, 107, 156, 1)' },
+    { bg: 'rgba(92, 252, 252, 0.6)', border: 'rgba(92, 252, 252, 1)' },
+    { bg: 'rgba(252, 252, 92, 0.6)', border: 'rgba(252, 252, 92, 1)' },
+    { bg: 'rgba(92, 252, 124, 0.6)', border: 'rgba(92, 252, 124, 1)' },
+  ];
+
+  if (chartData.datasets) {
+    chartData.datasets.forEach(function(dataset, i) {
+      if (!dataset.backgroundColor) dataset.backgroundColor = defaultColors[i % defaultColors.length].bg;
+      if (!dataset.borderColor) dataset.borderColor = defaultColors[i % defaultColors.length].border;
+      if (!dataset.borderWidth) dataset.borderWidth = 2;
+    });
+  }
+
+  new Chart(ctx, {
+    type: '{{ $chartType }}',
+    data: chartData,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: {
+            color: '#e8e8f0',
+            font: {
+              family: "'Inter', sans-serif"
+            }
+          }
+        },
+        title: {
+          display: false,
+          color: '#e8e8f0',
+          font: {
+            family: "'Inter', sans-serif"
+          }
+        }
+      },
+      scales: chartData.scales ? Object.assign({}, chartData.scales, {
+        x: (chartData.scales.x || Object.assign({}, {
+          ticks: { color: '#9898a8' },
+          grid: { color: 'rgba(42, 42, 58, 0.5)' }
+        })),
+        y: (chartData.scales.y || Object.assign({}, {
+          ticks: { color: '#9898a8' },
+          grid: { color: 'rgba(42, 42, 58, 0.5)' }
+        }))
+      }) : {
+        x: {
+          ticks: { color: '#9898a8' },
+          grid: { color: 'rgba(42, 42, 58, 0.5)' }
+        },
+        y: {
+          ticks: { color: '#9898a8' },
+          grid: { color: 'rgba(42, 42, 58, 0.5)' }
+        }
+      }
+    }
+  });
+})();
+</script>

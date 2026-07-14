@@ -1,0 +1,14 @@
+{{/*
+    Context bar for benchmark reports showing model/hardware/OS/engine info.
+
+    Usage:
+    {{< ctx-bar >}}
+    - **Model** Qwen3.6-27B
+    - **Hardware** 2× RTX 3090 · 48 GB
+    - **OS** Debian 13
+    - **Engines** llama.cpp + vLLM
+    {{< /ctx-bar >}}
+*/}}
+<div class="benchmark-ctx">
+  {{ .Inner }}
+</div>

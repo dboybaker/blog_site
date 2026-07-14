@@ -1,0 +1,16 @@
+{{/*
+    Single recommendation card.
+
+    Usage:
+    {{< card use="Daily solo chat" pick="Q6_K_XL · llama.cpp" color="q6" >}}
+    Cool, quiet, full 262K, near-lossless.
+    {{< /card >}}
+*/}}
+{{ $use := .Get "use" }}
+{{ $pick := .Get "pick" }}
+{{ $color := .Get "color" | default "" }}
+<div class="rec-card">
+  <p class="rec-use">{{ $use }}</p>
+  <p class="rec-pick m-{{ $color }}">{{ $pick }}</p>
+  <p class="rec-desc">{{ .Inner | safeHTML }}</p>
+</div>

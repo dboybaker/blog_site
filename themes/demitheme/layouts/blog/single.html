@@ -1,0 +1,25 @@
+{{ define "main" }}
+<article>
+  <header class="post-header">
+    <div class="container">
+      <h1>{{ .Title }}</h1>
+      <div class="post-meta">
+        {{ .Date.Format "January 2, 2006" }}
+        {{ if .Params.readingTime }}
+          · {{ .ReadingTime }} min read
+        {{ end }}
+      </div>
+      {{ if .Params.tags }}
+        <div class="blog-card-tags" style="justify-content: center; margin-top: 16px;">
+          {{ range .Params.tags }}
+            <a href="/blog/#tag:{{ . | urlize }}" class="tag">{{ . }}</a>
+          {{ end }}
+        </div>
+      {{ end }}
+    </div>
+  </header>
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+</article>
+{{ end }}

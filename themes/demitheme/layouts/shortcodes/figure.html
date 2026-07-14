@@ -1,0 +1,31 @@
+{{/*
+    Figure shortcode for images with optional captions.
+
+    Usage:
+    {{< figure src="/images/example.jpg" caption="This is a caption" >}}
+    {{< figure src="/images/example.jpg" caption="This is a caption" align="center" >}}
+
+    Parameters:
+    - src: Image source path (required)
+    - caption: Optional caption text
+    - alt: Alternative text for the image
+    - width: Image width (default: 100%)
+    - height: Image height (default: auto)
+    - class: Additional CSS classes
+*/}}
+
+{{ $src := .Get "src" }}
+{{ $caption := .Get "caption" }}
+{{ $alt := .Get "alt" | default $caption }}
+{{ $width := .Get "width" | default "100%" }}
+{{ $height := .Get "height" | default "auto" }}
+{{ $align := .Get "align" | default "center" }}
+
+<div class="figure-wrapper" style="text-align: {{ $align }};">
+  {{ with $src }}
+    <img src="{{ . }}" alt="{{ $alt }}" style="width: {{ $width }}; height: {{ $height }};" />
+  {{ end }}
+  {{ with $caption }}
+    <p class="figure-caption">{{ . }}</p>
+  {{ end }}
+</div>

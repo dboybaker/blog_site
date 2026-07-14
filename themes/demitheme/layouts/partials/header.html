@@ -1,0 +1,21 @@
+<header class="header">
+  <div class="container">
+    <a href="/" class="logo">
+      <span class="logo-bracket"><</span>de<span class="logo-bracket">/></span>
+    </a>
+    <nav class="nav">
+      {{ range site.Menus.main }}
+        {{ $isActive := eq $.Page.RelPermalink .URL }}
+        {{ if and (eq .Name "Home") (eq $.Page.RelPermalink "/") }}{{ $isActive = true }}{{ end }}
+        <a href="{{ .URL }}" class="nav-link{{ if $isActive }} active{{ end }}">
+          {{ .Name }}
+        </a>
+      {{ end }}
+    </nav>
+    <button class="mobile-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>

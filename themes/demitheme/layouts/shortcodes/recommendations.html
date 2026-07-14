@@ -1,0 +1,16 @@
+{{/*
+    Recommendation cards grid for benchmark reports.
+
+    Usage:
+    {{< recommendations >}}
+    {{< card use="Daily solo chat · max context" pick="Q6_K_XL · llama.cpp" color="q6" >}}
+    Cool, quiet, full 262K, near-lossless. The default driver.
+    {{< /card >}}
+    {{< card use="Free up a GPU" pick="Q4_K_XL · llama.cpp" color="q4" >}}
+    Fits one 3090. Quality within noise of Q6.
+    {{< /card >}}
+    {{< /recommendations >}}
+*/}}
+<div class="recommendation-cards">
+  {{ .Inner }}
+</div>

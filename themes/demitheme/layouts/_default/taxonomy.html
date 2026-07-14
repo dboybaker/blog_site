@@ -1,0 +1,27 @@
+{{ define "main" }}
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Tag: <span>{{ .Title }}</span></h2>
+    <div class="blog-grid">
+      {{ range .Pages }}
+        <article class="blog-card">
+          <div class="blog-card-date">{{ .Date.Format "Jan 2, 2006" }}</div>
+          <h3 class="blog-card-title">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </h3>
+          <p class="blog-card-summary">
+            {{ .Summary | truncate 120 }}
+          </p>
+          {{ if .Params.tags }}
+            <div class="blog-card-tags">
+              {{ range .Params.tags }}
+                <span class="tag">{{ . }}</span>
+              {{ end }}
+            </div>
+          {{ end }}
+        </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,131 @@
+{{/*
+    Inline SVG error-bar chart for quality scores.
+    Embeds the SVG directly for pixel-perfect rendering.
+*/}}
+<div class="chart benchmark-chart">
+  <svg viewBox="0 0 760 590" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace,Menlo,Consolas,monospace">
+    <!-- Grid lines -->
+    <line x1="250.0" y1="40" x2="250.0" y2="576" stroke="#2a2a3a" stroke-width="1"/>
+    <text x="250.0" y="30" fill="#686878" font-size="11" text-anchor="middle">50</text>
+    <line x1="342.4" y1="40" x2="342.4" y2="576" stroke="#2a2a3a" stroke-width="1"/>
+    <text x="342.4" y="30" fill="#686878" font-size="11" text-anchor="middle">60</text>
+    <line x1="434.8" y1="40" x2="434.8" y2="576" stroke="#2a2a3a" stroke-width="1"/>
+    <text x="434.8" y="30" fill="#686878" font-size="11" text-anchor="middle">70</text>
+    <line x1="527.2" y1="40" x2="527.2" y2="576" stroke="#2a2a3a" stroke-width="1"/>
+    <text x="527.2" y="30" fill="#686878" font-size="11" text-anchor="middle">80</text>
+    <line x1="619.6" y1="40" x2="619.6" y2="576" stroke="#2a2a3a" stroke-width="1"/>
+    <text x="619.6" y="30" fill="#686878" font-size="11" text-anchor="middle">90</text>
+    <line x1="712.0" y1="40" x2="712.0" y2="576" stroke="#2a2a3a" stroke-width="1"/>
+    <text x="712.0" y="30" fill="#686878" font-size="11" text-anchor="middle">100</text>
+    <text x="240" y="30" fill="#686878" font-size="11" text-anchor="end">score &#8594;</text>
+
+    <!-- IFEval -->
+    <text x="12" y="56" fill="#e8e8f0" font-size="13" font-weight="600">IFEval  (instruction-following)</text>
+    <line x1="519.8" y1="84.0" x2="630.7" y2="84.0" stroke="#f5b73d" stroke-width="2" opacity="0.55"/>
+    <line x1="519.8" y1="80.0" x2="519.8" y2="88.0" stroke="#f5b73d" stroke-width="2" opacity="0.55"/>
+    <line x1="630.7" y1="80.0" x2="630.7" y2="88.0" stroke="#f5b73d" stroke-width="2" opacity="0.55"/>
+    <circle cx="575.2" cy="84.0" r="5" fill="#f5b73d"/>
+    <text x="236" y="88.0" fill="#f5b73d" font-size="12" text-anchor="end">Q4</text>
+    <text x="638.7" y="88.0" fill="#686878" font-size="11">85.2</text>
+    <line x1="502.3" y1="104.0" x2="613.1" y2="104.0" stroke="#5cd6e0" stroke-width="2" opacity="0.55"/>
+    <line x1="502.3" y1="100.0" x2="502.3" y2="108.0" stroke="#5cd6e0" stroke-width="2" opacity="0.55"/>
+    <line x1="613.1" y1="100.0" x2="613.1" y2="108.0" stroke="#5cd6e0" stroke-width="2" opacity="0.55"/>
+    <circle cx="557.7" cy="104.0" r="5" fill="#5cd6e0"/>
+    <text x="236" y="108.0" fill="#5cd6e0" font-size="12" text-anchor="end">Q6</text>
+    <text x="621.1" y="108.0" fill="#686878" font-size="11">83.3</text>
+    <line x1="502.3" y1="124.0" x2="613.1" y2="124.0" stroke="#a99bf0" stroke-width="2" opacity="0.55"/>
+    <line x1="502.3" y1="120.0" x2="502.3" y2="128.0" stroke="#a99bf0" stroke-width="2" opacity="0.55"/>
+    <line x1="613.1" y1="120.0" x2="613.1" y2="128.0" stroke="#a99bf0" stroke-width="2" opacity="0.55"/>
+    <circle cx="557.7" cy="124.0" r="5" fill="#a99bf0"/>
+    <text x="236" y="128.0" fill="#a99bf0" font-size="12" text-anchor="end">FP8</text>
+    <text x="621.1" y="128.0" fill="#686878" font-size="11">83.3</text>
+    <line x1="478.2" y1="144.0" x2="589.1" y2="144.0" stroke="#ff8a5c" stroke-width="2" opacity="0.55"/>
+    <line x1="478.2" y1="140.0" x2="478.2" y2="148.0" stroke="#ff8a5c" stroke-width="2" opacity="0.55"/>
+    <line x1="589.1" y1="140.0" x2="589.1" y2="148.0" stroke="#ff8a5c" stroke-width="2" opacity="0.55"/>
+    <circle cx="533.7" cy="144.0" r="5" fill="#ff8a5c"/>
+    <text x="236" y="148.0" fill="#ff8a5c" font-size="12" text-anchor="end">INT4</text>
+    <text x="597.1" y="148.0" fill="#686878" font-size="11">80.7</text>
+
+    <!-- MMLU-Pro -->
+    <text x="12" y="186" fill="#e8e8f0" font-size="13" font-weight="600">MMLU-Pro  (knowledge + reasoning)</text>
+    <line x1="389.5" y1="214.0" x2="518.9" y2="214.0" stroke="#f5b73d" stroke-width="2" opacity="0.55"/>
+    <line x1="389.5" y1="210.0" x2="389.5" y2="218.0" stroke="#f5b73d" stroke-width="2" opacity="0.55"/>
+    <line x1="518.9" y1="210.0" x2="518.9" y2="218.0" stroke="#f5b73d" stroke-width="2" opacity="0.55"/>
+    <circle cx="454.2" cy="214.0" r="5" fill="#f5b73d"/>
+    <text x="236" y="218.0" fill="#f5b73d" font-size="12" text-anchor="end">Q4</text>
+    <text x="526.9" y="218.0" fill="#686878" font-size="11">72.1</text>
+    <line x1="389.5" y1="234.0" x2="518.9" y2="234.0" stroke="#5cd6e0" stroke-width="2" opacity="0.55"/>
+    <line x1="389.5" y1="230.0" x2="389.5" y2="238.0" stroke="#5cd6e0" stroke-width="2" opacity="0.55"/>
+    <line x1="518.9" y1="230.0" x2="518.9" y2="238.0" stroke="#5cd6e0" stroke-width="2" opacity="0.55"/>
+    <circle cx="454.2" cy="234.0" r="5" fill="#5cd6e0"/>
+    <text x="236" y="238.0" fill="#5cd6e0" font-size="12" text-anchor="end">Q6</text>
+    <text x="526.9" y="238.0" fill="#686878" font-size="11">72.1</text>
+    <line x1="341.5" y1="254.0" x2="489.3" y2="254.0" stroke="#a99bf0" stroke-width="2" opacity="0.55"/>
+    <line x1="341.5" y1="250.0" x2="341.5" y2="258.0" stroke="#a99bf0" stroke-width="2" opacity="0.55"/>
+    <line x1="489.3" y1="250.0" x2="489.3" y2="258.0" stroke="#a99bf0" stroke-width="2" opacity="0.55"/>
+    <circle cx="415.4" cy="254.0" r="5" fill="#a99bf0"/>
+    <text x="236" y="258.0" fill="#a99bf0" font-size="12" text-anchor="end">FP8</text>
+    <text x="497.3" y="258.0" fill="#686878" font-size="11">67.9</text>
+    <line x1="360.9" y1="274.0" x2="508.7" y2="274.0" stroke="#ff8a5c" stroke-width="2" opacity="0.55"/>
+    <line x1="360.9" y1="270.0" x2="360.9" y2="278.0" stroke="#ff8a5c" stroke-width="2" opacity="0.55"/>
+    <line x1="508.7" y1="270.0" x2="508.7" y2="278.0" stroke="#ff8a5c" stroke-width="2" opacity="0.55"/>
+    <circle cx="434.8" cy="274.0" r="5" fill="#ff8a5c"/>
+    <text x="236" y="278.0" fill="#ff8a5c" font-size="12" text-anchor="end">INT4</text>
+    <text x="516.7" y="278.0" fill="#686878" font-size="11">70.0</text>
+
+    <!-- BFCL -->
+    <text x="12" y="316" fill="#e8e8f0" font-size="13" font-weight="600">BFCL  (tool-calling)*</text>
+    <line x1="533.7" y1="344.0" x2="607.6" y2="344.0" stroke="#f5b73d" stroke-width="2" opacity="0.55"/>
+    <line x1="533.7" y1="340.0" x2="533.7" y2="348.0" stroke="#f5b73d" stroke-width="2" opacity="0.55"/>
+    <line x1="607.6" y1="340.0" x2="607.6" y2="348.0" stroke="#f5b73d" stroke-width="2" opacity="0.55"/>
+    <circle cx="570.6" cy="344.0" r="5" fill="#f5b73d"/>
+    <text x="236" y="348.0" fill="#f5b73d" font-size="12" text-anchor="end">Q4</text>
+    <text x="615.6" y="348.0" fill="#686878" font-size="11">84.7</text>
+    <line x1="527.2" y1="364.0" x2="601.1" y2="364.0" stroke="#5cd6e0" stroke-width="2" opacity="0.55"/>
+    <line x1="527.2" y1="360.0" x2="527.2" y2="368.0" stroke="#5cd6e0" stroke-width="2" opacity="0.55"/>
+    <line x1="601.1" y1="360.0" x2="601.1" y2="368.0" stroke="#5cd6e0" stroke-width="2" opacity="0.55"/>
+    <circle cx="564.2" cy="364.0" r="5" fill="#5cd6e0"/>
+    <text x="236" y="368.0" fill="#5cd6e0" font-size="12" text-anchor="end">Q6</text>
+    <text x="609.1" y="368.0" fill="#686878" font-size="11">84.0</text>
+    <line x1="493.0" y1="384.0" x2="566.9" y2="384.0" stroke="#ff8a5c" stroke-width="2" opacity="0.55"/>
+    <line x1="493.0" y1="380.0" x2="493.0" y2="388.0" stroke="#ff8a5c" stroke-width="2" opacity="0.55"/>
+    <line x1="566.9" y1="380.0" x2="566.9" y2="388.0" stroke="#ff8a5c" stroke-width="2" opacity="0.55"/>
+    <circle cx="530.0" cy="384.0" r="5" fill="#ff8a5c"/>
+    <text x="236" y="388.0" fill="#ff8a5c" font-size="12" text-anchor="end">INT4</text>
+    <text x="574.9" y="388.0" fill="#686878" font-size="11">80.3</text>
+
+    <!-- Arena-Hard -->
+    <text x="12" y="426" fill="#e8e8f0" font-size="13" font-weight="600">Arena-Hard  (open-ended, judged)</text>
+    <line x1="491.2" y1="454.0" x2="676.0" y2="454.0" stroke="#f5b73d" stroke-width="2" opacity="0.55"/>
+    <line x1="491.2" y1="450.0" x2="491.2" y2="458.0" stroke="#f5b73d" stroke-width="2" opacity="0.55"/>
+    <line x1="676.0" y1="450.0" x2="676.0" y2="458.0" stroke="#f5b73d" stroke-width="2" opacity="0.55"/>
+    <circle cx="583.6" cy="454.0" r="5" fill="#f5b73d"/>
+    <text x="236" y="458.0" fill="#f5b73d" font-size="12" text-anchor="end">Q4</text>
+    <text x="684.0" y="458.0" fill="#686878" font-size="11">86.1</text>
+    <line x1="375.7" y1="474.0" x2="597.4" y2="474.0" stroke="#5cd6e0" stroke-width="2" opacity="0.55"/>
+    <line x1="375.7" y1="470.0" x2="375.7" y2="478.0" stroke="#5cd6e0" stroke-width="2" opacity="0.55"/>
+    <line x1="597.4" y1="470.0" x2="597.4" y2="478.0" stroke="#5cd6e0" stroke-width="2" opacity="0.55"/>
+    <circle cx="486.5" cy="474.0" r="5" fill="#5cd6e0"/>
+    <text x="236" y="478.0" fill="#5cd6e0" font-size="12" text-anchor="end">Q6</text>
+    <text x="605.4" y="478.0" fill="#686878" font-size="11">75.6</text>
+    <line x1="376.6" y1="494.0" x2="598.3" y2="494.0" stroke="#a99bf0" stroke-width="2" opacity="0.55"/>
+    <line x1="376.6" y1="490.0" x2="376.6" y2="498.0" stroke="#a99bf0" stroke-width="2" opacity="0.55"/>
+    <line x1="598.3" y1="490.0" x2="598.3" y2="498.0" stroke="#a99bf0" stroke-width="2" opacity="0.55"/>
+    <circle cx="487.5" cy="494.0" r="5" fill="#a99bf0"/>
+    <text x="236" y="498.0" fill="#a99bf0" font-size="12" text-anchor="end">FP8</text>
+    <text x="606.3" y="498.0" fill="#686878" font-size="11">75.7</text>
+    <line x1="284.2" y1="514.0" x2="524.4" y2="514.0" stroke="#ff8a5c" stroke-width="2" opacity="0.55"/>
+    <line x1="284.2" y1="510.0" x2="284.2" y2="518.0" stroke="#ff8a5c" stroke-width="2" opacity="0.55"/>
+    <line x1="524.4" y1="510.0" x2="524.4" y2="518.0" stroke="#ff8a5c" stroke-width="2" opacity="0.55"/>
+    <circle cx="404.3" cy="514.0" r="5" fill="#ff8a5c"/>
+    <text x="236" y="518.0" fill="#ff8a5c" font-size="12" text-anchor="end">INT4</text>
+    <text x="532.4" y="518.0" fill="#686878" font-size="11">66.7</text>
+  </svg>
+  <div class="chart-legend">
+    <span><i class="dot" style="background:#f5b73d"></i>Q4_K_XL (llama.cpp)</span>
+    <span><i class="dot" style="background:#5cd6e0"></i>Q6_K_XL (llama.cpp)</span>
+    <span><i class="dot" style="background:#a99bf0"></i>FP8 (vLLM)</span>
+    <span><i class="dot" style="background:#ff8a5c"></i>INT4-AutoRound (vLLM)</span>
+    <span style="color:var(--text-muted)">whisker = 95% CI</span>
+  </div>
+</div>

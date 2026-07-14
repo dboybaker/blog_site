@@ -1,0 +1,48 @@
+{{ define "main" }}
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Blog <span>Posts</span></h2>
+    <div class="tag-filter-bar" id="tag-filter-bar" style="display: none;">
+      <span class="filter-bar-text">Filtering by: </span>
+      <span class="filter-bar-tag" id="filter-bar-tag"></span>
+      <button class="filter-bar-clear" id="filter-bar-clear">&times; Clear</button>
+    </div>
+    <div class="blog-grid">
+      {{ range .Pages }}
+        {{ $tagsJson := delimit (apply .Params.tags "printf" "\"%s\"" ".") "," }}
+        <article class="blog-card" data-tags="[{{ $tagsJson }}]">
+          <div class="blog-card-date">{{ .Date.Format "Jan 2, 2006" }}</div>
+          <h3 class="blog-card-title">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </h3>
+          <p class="blog-card-summary">
+            {{ .Summary }}
+          </p>
+          {{ if .Params.cardImage }}
+          <div class="blog-card-image">
+            <img src="{{ .RelPermalink }}{{ .Params.cardImage }}" alt="{{ .Title }}">
+          </div>
+          {{ end }}
+          {{ if .Params.tags }}
+            <div class="blog-card-tags">
+              {{ range .Params.tags }}
+                <span class="tag" data-tag="{{ . }}">{{ . }}</span>
+              {{ end }}
+            </div>
+          {{ end }}
+        </article>
+      {{ end }}
+    </div>
+    {{ if gt .Paginator.TotalPages 1 }}
+      <div class="pagination">
+        {{ if .Paginator.HasPrev }}
+          <a href="{{ .Paginator.Prev.URL }}">&larr; Newer</a>
+        {{ end }}
+        {{ if .Paginator.HasNext }}
+          <a href="{{ .Paginator.Next.URL }}">Older &rarr;</a>
+        {{ end }}
+      </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,11 @@
+{{/*
+    Verdict/callout shortcode for benchmark reports.
+
+    Usage:
+    {{< verdict >}}
+    **Quality is a wash.** Across all five axes...
+    {{< /verdict >}}
+*/}}
+<div class="benchmark-verdict">
+  {{ .Inner | markdownify }}
+</div>
