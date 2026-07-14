@@ -615,23 +615,330 @@ img {
   }
 }
 
-/* === About Page === */
-.about-content {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 80px 24px;
+/* === About Page (Bento Grid) === */
+.about-page {
+  padding: 4rem 0 6rem 0;
+  width: 100%;
 }
 
-.about-content h2 {
-  font-size: 1.6rem;
+/* Header Section - matches reference */
+.header-section {
+  margin-bottom: 3rem;
+  text-align: center;
+  width: 100%;
+}
+
+.header-section h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+
+.header-section h1 span {
+  background: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Bento Grid Layout - 3 column grid */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Card span sizes */
+.bento-large {
+  grid-column: span 2;
+}
+
+.bento-small {
+  grid-column: span 1;
+}
+
+.bento-full {
+  grid-column: span 3;
+}
+
+/* Base Card Styling - matches reference */
+.bento-card {
+  background: rgba(18, 20, 29, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.bento-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(157, 78, 221, 0) 0%, rgba(157, 78, 221, 0.15) 50%, rgba(255, 117, 143, 0) 100%);
+}
+
+.bento-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(157, 78, 221, 0.3);
+  box-shadow: 0 12px 30px -10px rgba(157, 78, 221, 0.12);
+}
+
+.bento-card h2 {
+  font-size: 1.4rem;
   font-weight: 700;
-  margin: 40px 0 16px;
-  letter-spacing: -0.5px;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
 }
 
-.about-content p {
-  margin-bottom: 20px;
-  color: var(--text-secondary);
+/* Gradient title span inside card headings */
+.bento-card h2 .hero-gradient {
+  background: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bento-card p {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin-bottom: 1.25rem;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.bento-card p:last-child {
+  margin-bottom: 0;
+}
+
+/* Profile Photo Card - matches reference */
+.bento-photo {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 320px;
+}
+
+.photo-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  display: block;
+}
+
+.bento-photo:hover .profile-img {
+  transform: scale(1.04);
+}
+
+.photo-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(to top, rgba(11, 12, 16, 0.95) 0%, rgba(11, 12, 16, 0.4) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  z-index: 2;
+}
+
+.photo-overlay h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.2rem;
+  background: none;
+  -webkit-text-fill-color: #ffffff;
+  color: #ffffff;
+}
+
+.photo-overlay p {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-family: var(--font-mono);
+  margin: 0;
+}
+
+/* Tech Badges - matches reference */
+.sub-tech-stack {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.badge-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  transition: all 0.2s ease;
+}
+
+.badge:hover {
+  border-color: var(--accent);
+  color: var(--accent-hover);
+}
+
+/* Decorative Terminal - matches reference */
+.decor-terminal {
+  font-family: var(--font-mono);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: #a78bfa;
+  margin-top: 1.25rem;
+  line-height: 1.8;
+}
+
+.terminal-pink {
+  color: #f472b6;
+}
+
+.terminal-purple {
+  color: #c084fc;
+}
+
+/* Elsewhere Grid Section - matches reference */
+.elsewhere-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.elsewhere-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.elsewhere-link svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* LinkedIn hover - matches reference */
+.elsewhere-link.li-link svg {
+  color: #0a66c2;
+}
+
+.elsewhere-link.li-link:hover {
+  background: rgba(10, 102, 194, 0.1);
+  border-color: rgba(10, 102, 194, 0.4);
+  transform: translateY(-2px);
+}
+
+/* GitHub hover - matches reference */
+.elsewhere-link.gh-link svg {
+  color: #ffffff;
+}
+
+.elsewhere-link.gh-link:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* OpenPowerlifting hover - matches reference */
+.elsewhere-link.op-link svg {
+  color: #ef4444;
+}
+
+.elsewhere-link.op-link:hover {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Hugging Face hover */
+.elsewhere-link.hf-link svg {
+  color: #ff6b9c;
+}
+
+.elsewhere-link.hf-link:hover {
+  background: rgba(255, 107, 156, 0.08);
+  border-color: rgba(255, 107, 156, 0.4);
+  transform: translateY(-2px);
+}
+
+.link-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.link-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.link-desc {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  margin-top: 0.1rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bento-large,
+  .bento-small,
+  .bento-full {
+    grid-column: span 1;
+  }
+
+  .elsewhere-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* === Footer === */

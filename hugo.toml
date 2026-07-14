@@ -6,9 +6,10 @@ theme = "demitheme"
 [params]
   description = "Engineer. Tinkerer. Local LLM Enthusiast."
   author = "Demietrich"
-   github = "https://github.com/dboybaker"
-   linkedin = "https://www.linkedin.com/in/demietrich/"
-   huggingface = "https://huggingface.co/dboybaker"
+    github = "https://github.com/dboybaker"
+    linkedin = "https://www.linkedin.com/in/demietrich/"
+    huggingface = "https://huggingface.co/dboybaker"
+    openpowerlifting = "https://www.openpowerlifting.org/u/demietrichbaker"
 
 [[menu.main]]
   name = "Home"

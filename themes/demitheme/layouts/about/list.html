@@ -1,5 +1,157 @@
 {{ define "main" }}
-<div class="about-content">
-  {{ .Content }}
-</div>
+<section class="about-page">
+  <div class="container">
+    <div class="header-section">
+      <h1><span class="hero-gradient">About Me</span></h1>
+    </div>
+
+    <!-- Bento Box Grid System -->
+    <div class="bento-grid">
+
+      <!-- CARD 1: Profile Photo (1-column width) -->
+      <div class="bento-card bento-small bento-photo">
+        <div class="photo-wrapper">
+          {{ if .Resources.ByType "image" }}
+            {{ $photo := index (.Resources.ByType "image") 0 }}
+            <img src="{{ $photo.RelPermalink }}" alt="{{ .Params.alt | default site.Title }}" class="profile-img">
+          {{ else }}
+            <img src="/about/me.jpg" alt="{{ site.Title }}" class="profile-img">
+          {{ end }}
+          <div class="photo-overlay">
+            <h2>{{ .Params.name | default site.Title }}</h2>
+            <p>{{ .Params.tagline | default "Cloud Infra Engineer" }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: Core Engineering Bio (2-columns width) -->
+      <div class="bento-card bento-large">
+        <h2>
+          <span class="hero-gradient">{{ .Params.engineering_title | default "Engineering & Systems" }}</span>
+        </h2>
+        {{ with .Params.engineering_bio }}
+          {{ . | markdownify }}
+        {{ else }}
+          <p>I'm a cloud infrastructure engineer with experience building automation for data center operations. I work on the full stack — from provisioning new rack architectures to developing platform integrations with vendor APIs.</p>
+        {{ end }}
+        {{ if .Params.engineering_badges }}
+          <div class="sub-tech-stack">
+            <div class="badge-container">
+              {{ range .Params.engineering_badges }}
+                <span class="badge">{{ . }}</span>
+              {{ end }}
+            </div>
+          </div>
+        {{ end }}
+      </div>
+
+      <!-- CARD 3: Research & Open Source (2-columns width) -->
+      <div class="bento-card bento-large">
+        <h2>
+          <span class="hero-gradient">{{ .Params.research_title | default "Research & Open Source" }}</span>
+        </h2>
+        {{ with .Params.research_bio }}
+          {{ . | markdownify }}
+        {{ else }}
+          <p>This blog documents my work in the local LLM space. I'm focused on inference efficiency, quantization techniques, and transformer architectures.</p>
+        {{ end }}
+        {{ if .Params.research_badges }}
+          <div class="sub-tech-stack">
+            <div class="badge-container">
+              {{ range .Params.research_badges }}
+                <span class="badge">{{ . }}</span>
+              {{ end }}
+            </div>
+          </div>
+        {{ end }}
+      </div>
+
+      <!-- CARD 4: Academic Background (1-column width) -->
+      <div class="bento-card bento-small">
+        <h2>{{ .Params.background_title | default "Background" }}</h2>
+        {{ with .Params.background_text }}
+          {{ . | markdownify }}
+        {{ end }}
+        {{ if .Params.terminal_lines }}
+          <div class="decor-terminal">
+            {{ range .Params.terminal_lines }}
+              <span class="{{ .class }}">{{ .text }}</span><br>
+            {{ end }}
+          </div>
+        {{ end }}
+      </div>
+
+      <!-- CARD 5: Elsewhere Links (Full width) -->
+      <div class="bento-card bento-full">
+        <h2>{{ .Params.elsewhere_title | default "Elsewhere" }}</h2>
+        <div class="elsewhere-grid">
+
+          {{ if site.Params.linkedin }}
+          <a href="{{ site.Params.linkedin }}" target="_blank" rel="noopener noreferrer" class="elsewhere-link li-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+            <div class="link-details">
+              <span class="link-title">LinkedIn</span>
+              <span class="link-desc">Professional network</span>
+            </div>
+          </a>
+          {{ end }}
+
+          {{ if site.Params.github }}
+          <a href="{{ site.Params.github }}" target="_blank" rel="noopener noreferrer" class="elsewhere-link gh-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            <div class="link-details">
+              <span class="link-title">GitHub</span>
+              <span class="link-desc">Code & Open Source</span>
+            </div>
+          </a>
+          {{ end }}
+
+          {{ if site.Params.huggingface }}
+          <a href="{{ site.Params.huggingface }}" target="_blank" rel="noopener noreferrer" class="elsewhere-link hf-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15V9a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6"></path>
+              <path d="M15 3v6"></path>
+              <path d="M9 3v6"></path>
+              <path d="M3 15v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2"></path>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+            <div class="link-details">
+              <span class="link-title">Hugging Face</span>
+              <span class="link-desc">Models & Datasets</span>
+            </div>
+          </a>
+          {{ end }}
+
+          {{ if site.Params.openpowerlifting }}
+          <a href="{{ site.Params.openpowerlifting }}" target="_blank" rel="noopener noreferrer" class="elsewhere-link op-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="6" y1="12" x2="18" y2="12" stroke="currentColor" stroke-width="1.8"></line>
+              <line x1="5.5" y1="10" x2="5.5" y2="14" stroke="currentColor" stroke-width="1.5"></line>
+              <line x1="18.5" y1="10" x2="18.5" y2="14" stroke="currentColor" stroke-width="1.5"></line>
+              <rect x="7" y="7.5" width="1.5" height="9" rx="0.3" fill="currentColor" stroke="currentColor" stroke-width="0.5"></rect>
+              <rect x="9.5" y="8" width="1" height="8" rx="0.3" fill="currentColor" stroke="currentColor" stroke-width="0.5"></rect>
+              <rect x="15.5" y="7.5" width="1.5" height="9" rx="0.3" fill="currentColor" stroke="currentColor" stroke-width="0.5"></rect>
+              <rect x="13.5" y="8" width="1" height="8" rx="0.3" fill="currentColor" stroke="currentColor" stroke-width="0.5"></rect>
+              <path d="M 3.2 6.5 A 8.5 8.5 0 0 0 3.2 17.5" stroke="#ef4444" stroke-width="1.8" fill="none"></path>
+              <path d="M 20.8 6.5 A 8.5 8.5 0 0 1 20.8 17.5" stroke="#ef4444" stroke-width="1.8" fill="none"></path>
+            </svg>
+            <div class="link-details">
+              <span class="link-title">OpenPowerlifting</span>
+              <span class="link-desc">Competition history</span>
+            </div>
+          </a>
+          {{ end }}
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 {{ end }}

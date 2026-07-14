@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me | Demietrich</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-color: #0b0c10;
+      --card-bg: rgba(18, 20, 29, 0.6);
+      --card-border: rgba(255, 255, 255, 0.05);
+      --card-border-hover: rgba(157, 78, 221, 0.3);
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      
+      --accent-purple: #9d4edd;
+      --accent-pink: #ff758f;
+      --gradient-primary: linear-gradient(135deg, #9d4edd 0%, #ff758f 100%);
+      --gradient-text: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+      
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Radial Glow Effects Behind Layout */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(157, 78, 221, 0.08) 0%, rgba(255, 117, 143, 0.02) 50%, rgba(0,0,0,0) 100%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: "";
+      position: absolute;
+      bottom: 10%;
+      right: 10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255, 117, 143, 0.04) 0%, rgba(0,0,0,0) 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Navbar styling matches homepage screenshots */
+    header {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      background: rgba(11, 12, 16, 0.8);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 1.35rem;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .logo span {
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    nav a:hover {
+      color: var(--text-primary);
+    }
+
+    nav a.active {
+      color: var(--text-primary);
+    }
+
+    nav a.active::after {
+      content: "";
+      position: absolute;
+      bottom: -1.65rem;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-primary);
+    }
+
+    /* Main Grid Layout */
+    main {
+      padding: 4rem 0 6rem 0;
+    }
+
+    .header-section {
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .header-section h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .header-section h1 span {
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* Card Styling */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 2rem;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(157, 78, 221, 0) 0%, rgba(157, 78, 221, 0.15) 50%, rgba(255, 117, 143, 0) 100%);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--card-border-hover);
+      box-shadow: 0 12px 30px -10px rgba(157, 78, 221, 0.12);
+    }
+
+    /* Bento Spans */
+    .card-large {
+      grid-column: span 2;
+    }
+
+    .card-small {
+      grid-column: span 1;
+    }
+
+    .card-full {
+      grid-column: span 3;
+    }
+
+    /* Profile Photo Card Specifics */
+    .card-photo {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100%;
+      min-height: 320px;
+    }
+
+    .photo-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .card-photo:hover .profile-img {
+      transform: scale(1.04);
+    }
+
+    /* Photo Gradient Mask */
+    .photo-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60%;
+      background: linear-gradient(to top, rgba(11, 12, 16, 0.95) 0%, rgba(11, 12, 16, 0.4) 60%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      z-index: 2;
+    }
+
+    .photo-overlay h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .photo-overlay p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* Typography inside cards */
+    .card h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    .card h2 span.gradient-title {
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+      font-weight: 400;
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .sub-tech-stack {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Tech Badges */
+    .badge-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      background: rgba(157, 78, 221, 0.07);
+      border: 1px solid rgba(157, 78, 221, 0.15);
+      color: #c084fc;
+      transition: all 0.2s ease;
+    }
+
+    .badge:hover {
+      background: rgba(157, 78, 221, 0.15);
+      color: #e9d5ff;
+    }
+
+    /* Decorated Terminal Visual element */
+    .decor-terminal {
+      font-family: var(--font-mono);
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 0.8rem;
+      color: #a78bfa;
+      margin-top: 1.25rem;
+    }
+
+    .decor-terminal span {
+      color: var(--text-muted);
+    }
+
+    /* Elsewhere Grid Section */
+    .elsewhere-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .elsewhere-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.2rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Individual Link Hover colors */
+    .elsewhere-link.li-link:hover {
+      background: rgba(10, 102, 194, 0.1);
+      border-color: rgba(10, 102, 194, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .elsewhere-link.gh-link:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .elsewhere-link.op-link:hover {
+      background: rgba(239, 68, 68, 0.08);
+      border-color: rgba(239, 68, 68, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* SVG Styling inside Elsewhere cards */
+    .elsewhere-link svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .elsewhere-link.li-link svg {
+      color: #0a66c2;
+    }
+
+    .elsewhere-link.gh-link svg {
+      color: #ffffff;
+    }
+
+    .elsewhere-link.op-link svg {
+      color: #ef4444;
+    }
+
+    .link-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .link-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .link-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-weight: 400;
+      margin-top: 0.1rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .bento-grid {
+        grid-template-columns: 1fr;
+      }
+      .card-large, .card-small, .card-full {
+        grid-column: span 1;
+      }
+      .elsewhere-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <div class="container nav-container">
+      <a href="#" class="logo"><span>&lt;de/&gt;</span></a>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#" class="active">About</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="header-section">
+      <h1><span>About Me</span></h1>
+    </div>
+
+    <!-- Bento Box Grid System -->
+    <div class="bento-grid">
+      
+      <!-- CARD 1: Profile Photo (1-column width) -->
+      <div class="card card-small card-photo">
+        <div class="photo-wrapper">
+          <!-- REPLACE THIS URL WITH YOUR ACTUAL PHOTO URL -->
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800" alt="Demietrich" class="profile-img">
+          
+          <div class="photo-overlay">
+            <h2>Demietrich</h2>
+            <p>Cloud Infra Engineer</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: Core Engineering Bio (2-columns width) -->
+      <div class="card card-large">
+        <h2>
+          <span class="gradient-title">Engineering & Systems</span>
+        </h2>
+        <p>
+          I'm a cloud infrastructure engineer at ServiceNow with over eight years of experience building automation for data center operations. I work on the full stack. Anything from provisioning new rack architectures to developing platform integrations with vendor APIs.
+        </p>
+        <p>
+          My primary focus has been on storage infrastructure, particularly S3 backup systems on Pure and Dell PowerScale platforms. I've also worked across networking, certificate management, storage lifecycle, and more.
+        </p>
+        
+        <div class="sub-tech-stack">
+          <div class="badge-container">
+            <span class="badge">cloud-infra</span>
+            <span class="badge">datacenter-automation</span>
+            <span class="badge">full-stack</span>
+            <span class="badge">s3-backups</span>
+            <span class="badge">storage-lifecycle</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3: Research & Open Source (2-columns width) -->
+      <div class="card card-large">
+        <h2>
+          <span class="gradient-title">Research & Open Source</span>
+        </h2>
+        <p>
+          This blog documents my work in the local LLM space. I'm focused on inference efficiency—specifically attention optimization, quantization techniques (QAT, speculative decoding, multi-token prediction), and transformer architectures.
+        </p>
+        <p>
+          I maintain a homelab dedicated to local model experimentation. I've published datasets on HuggingFace, contributed to open source LLM tooling, and built tooling for local agent workflows.
+        </p>
+
+        <div class="badge-container" style="margin-top: 1.5rem;">
+          <span class="badge">llm-inference</span>
+          <span class="badge">quantization</span>
+          <span class="badge">huggingface</span>
+          <span class="badge">homelab</span>
+          <span class="badge">agentic-workflows</span>
+        </div>
+      </div>
+
+      <!-- CARD 4: Academic Background (1-column width) -->
+      <div class="card card-small">
+        <h2>Background</h2>
+        <p>
+          I graduated from Washington State University with a degree in Computer Engineering and a minor in Mathematics. 
+        </p>
+        <p>
+          A dual interest in hardware and software ultimately led me to the latter.
+        </p>
+        
+        <div class="decor-terminal">
+          <span>$ fetch academic_info</span><br>
+          <span style="color:#f472b6;">&gt; WSU Alumni</span><br>
+          <span style="color:#c084fc;">&gt; BS. CompE & Math</span>
+        </div>
+      </div>
+
+      <!-- CARD 5: Elsewhere Links Section (Full width, splits into 3 columns on desktop) -->
+      <div class="card card-full">
+        <h2>Elsewhere</h2>
+        <div class="elsewhere-grid">
+          
+          <!-- LinkedIn Link -->
+          <a href="https://linkedin.com" target="_blank" class="elsewhere-link li-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+            <div class="link-details">
+              <span class="link-title">LinkedIn</span>
+              <span class="link-desc">Professional network</span>
+            </div>
+          </a>
+
+          <!-- GitHub Link -->
+          <a href="https://github.com" target="_blank" class="elsewhere-link gh-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            <div class="link-details">
+              <span class="link-title">GitHub</span>
+              <span class="link-desc">Code & Open Source</span>
+            </div>
+          </a>
+
+          <!-- OpenPowerlifting Link (Custom Barbell + Red Brackets SVG) -->
+          <a href="https://openpowerlifting.org" target="_blank" class="elsewhere-link op-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Central Barbell shaft -->
+              <line x1="6" y1="12" x2="18" y2="12" stroke="currentColor" stroke-width="1.8"></line>
+              <!-- Barbell Collars -->
+              <line x1="5.5" y1="10" x2="5.5" y2="14" stroke="currentColor" stroke-width="1.5"></line>
+              <line x1="18.5" y1="10" x2="18.5" y2="14" stroke="currentColor" stroke-width="1.5"></line>
+              <!-- Inner and Outer Plates -->
+              <rect x="7" y="7.5" width="1.5" height="9" rx="0.3" fill="currentColor" stroke="currentColor" stroke-width="0.5"></rect>
+              <rect x="9.5" y="8" width="1" height="8" rx="0.3" fill="currentColor" stroke="currentColor" stroke-width="0.5"></rect>
+              <rect x="15.5" y="7.5" width="1.5" height="9" rx="0.3" fill="currentColor" stroke="currentColor" stroke-width="0.5"></rect>
+              <rect x="13.5" y="8" width="1" height="8" rx="0.3" fill="currentColor" stroke="currentColor" stroke-width="0.5"></rect>
+              
+              <!-- Left and Right curved force parentheses from the OP Logo (Rendered in Red) -->
+              <path d="M 3.2 6.5 A 8.5 8.5 0 0 0 3.2 17.5" stroke="#ef4444" stroke-width="1.8" fill="none"></path>
+              <path d="M 20.8 6.5 A 8.5 8.5 0 0 1 20.8 17.5" stroke="#ef4444" stroke-width="1.8" fill="none"></path>
+            </svg>
+            <div class="link-details">
+              <span class="link-title">OpenPowerlifting</span>
+              <span class="link-desc">Competition history</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+</body>
+</html>
