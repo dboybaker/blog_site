@@ -10,4 +10,4 @@ jobs:
         with:
           submodules: recursive
       - name: Build to Caddy dir
-        run: hugo --minify --destination /home/dboy/docker/caddy/site/blog_site/public
+        run: hugo --minify --destination "$DEPLOY_PATH"
