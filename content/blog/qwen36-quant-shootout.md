@@ -52,7 +52,7 @@ Four quantizations of Qwen3.6-27B, five capability axes, one dual-3090 rig; the 
 
 {{< speed-chart >}}
 
-<p class="benchmark-note">INT4-vLLM is ~30–45% faster to decode and reaches first token in half the time. FP8 not shown. Its emulated on Ampere (no native FP8 on the 3090), so its speed isn't representative.</p>
+<p class="benchmark-note">INT4-vLLM is ~30–45% faster to decode and reaches first token in half the time. FP8 not shown. It's emulated on Ampere (no native FP8 on the 3090), so its speed isn't representative.</p>
 
 <h2 class="benchmark-h2">3 · Deployment, The Actual Trade-offs</h2>
 <p class="benchmark-sub">Since quality is tied, these are the things you're really choosing between.</p>

@@ -1,0 +1,31 @@
+{{/*
+    File embed shortcode for displaying file contents dynamically in a collapsible block.
+
+    Usage:
+    {{< file-embed path="relative/path/to/file.py" lang="python" label="filename.py" >}}
+
+    Parameters:
+    - path: Path to the file relative to the site root (required)
+    - lang: Language for syntax highlighting (default: "text")
+    - label: Display label for the toggle (default: filename from path)
+*/}}
+
+{{ $path := .Get "path" }}
+{{ $lang := .Get "lang" | default "text" }}
+{{ $label := .Get "label" | default (path.Base $path) }}
+
+{{ if not $path }}
+  {{ errorf "file-embed shortcode: 'path' parameter is required" }}
+{{ end }}
+
+{{ $fileContent := readFile $path }}
+{{ if not $fileContent }}
+  {{ errorf "file-embed shortcode: could not read file '%s'" $path }}
+{{ end }}
+
+<details>
+<summary><strong>Full training script</strong> — click to expand <code>{{ $label }}</code></summary>
+
+{{ highlight $fileContent $lang "" }}
+
+</details>

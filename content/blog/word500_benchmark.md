@@ -3,7 +3,7 @@ title: "The Word500 Benchmark"
 date: 2026-07-12T12:00:00Z
 publishDate: 2026-07-12T12:00:00Z
 draft: false
-tags: ["llm", "llama.cpp", "vllm", "benchark", "qwen", "gemma"]
+tags: ["llm", "llama.cpp", "vllm", "benchmark", "qwen", "gemma"]
 summary: "An unassuming puzzle game that benchmarks reasoning efficiency well."
 cardImage: "word500_blank.png"
 ---
@@ -26,7 +26,7 @@ A friend of mine introduced me to this Wordle-style puzzle: Word500. The goal of
 
 Sometimes you'll guess a word that 3 letters in the right spot, but have no idea which those are. Other words will highlight all red, not a single letter correct. Those are my favorite, eliminating 5 letters from the pool in one go?? After playing a few rounds I realized if approached without much strategy, the final guess comes down to a massive process of elimination. You end up in situations like:
 
-> I know three of the letters from "SPIDER" are in the word but don't know the order, I know it doesn't start with T, I know theres either a 'G' or an 'L' in the word. Could it be "DRIPS"? No, there are 4 letters matching with "SPIDER". "GLIDED" would work! Wait it couldn't fit since I'm on easy mode with no repeats. "GRIPES"? That checks out. That will be my next guess.
+> I know three of the letters from "SPIDER" are in the word but don't know the order, I know it doesn't start with T, I know there's either a 'G' or an 'L' in the word. Could it be "DRIPS"? No, there are 4 letters matching with "SPIDER". "GLIDED" would work! Wait it couldn't fit since I'm on easy mode with no repeats. "GRIPES"? That checks out. That will be my next guess.
 
 For anyone who has watched an LLM ``` <think> ``` stream, this might look pretty familiar. That realization led me to utilizing this puzzle as a nice tool to see how effectively a model thinks. Does it consider a word, rule it out, only to consider and rule it out again? Does it loop indefinitely, repeating the word "GHOST" for 30K tokens? Or does it effectively make and respect a thought, quickly working its way toward a good guess? Thus I present, the Word500 Benchmark.
 
@@ -94,7 +94,7 @@ I also pulled and ran two large models outside of this benchmark effort and happ
     -Passed the test, but used ~32k tokens and thus took around 30 minutes at the measly 17tps decode my system can muster
 
 **MiMo-V2.5 (310b, 15b active) at UD-IQ3_XXS**
-    -Was the only model to correctly guess the answer, then immediately for no resaon at all decide that wasn't right and changed its final answer to an incorrect word. It did do so in the fewest tokens of any model, coming in at 2.6k. My gut tells me if I had the hardware this model would be incredible.
+    -Was the only model to correctly guess the answer, then immediately for no reason at all decide that wasn't right and changed its final answer to an incorrect word. It did do so in the fewest tokens of any model, coming in at 2.6k. My gut tells me if I had the hardware this model would be incredible.
 
 Running this against some frontier models was interesting for context as well:
 - Gemini Flash Lite failed to get the right answer

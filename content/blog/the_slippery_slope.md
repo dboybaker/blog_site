@@ -53,7 +53,7 @@ Soon I found myself with two RTX 3090s, 96gb ddr4, and the ability to run Qwen3.
 
 ## Welcome to the Blog
 
-In the time since I've experimented with various models and quantizations, playing with speed, tool calling capabilities, and benchmarking results. I spend dramatically more time tinkering than actually using models. I'm constantly reminded of the the power tools I bought to build a space in my home to store power tools. At least I've reached a point of stability and can finally dig in to unlock the capabilities of a reasonable self hosted LLM rig (at least until I convince myself to spend $40k+ on hardware to cross the chasm to the next tier of models)
+In the time since I've experimented with various models and quantizations, playing with speed, tool calling capabilities, and benchmarking results. I spend dramatically more time tinkering than actually using models. I'm constantly reminded of the power tools I bought to build a space in my home to store power tools. At least I've reached a point of stability and can finally dig in to unlock the capabilities of a reasonable self hosted LLM rig (at least until I convince myself to spend $40k+ on hardware to cross the chasm to the next tier of models)
 
 This blog will serve as a dumping ground for write ups related to my findings and experiments. Maybe it will help someone else, or maybe it will just prove to be long memory for me to nostalgia over my naivety. Either way, thanks for reading. I hope you find something useful or interesting.
 

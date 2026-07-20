@@ -128,7 +128,7 @@ I published the dataset to Hugging Face at [`dboybaker/osrs-wiki-it-93k`](https:
 
 ### Dataset Structure
 
-Each record contains four fields: `instruction`, `context`, `response`, and `category`. The `context` field carries supporting wiki text for grounded categories and is empty for categories that rely on general game knowledge. Following the behavioral categories outlined in the the InstructGPT-style task taxonomy popularized by Dolly, I structured the dataset around several instruction-following task types:
+Each record contains four fields: `instruction`, `context`, `response`, and `category`. The `context` field carries supporting wiki text for grounded categories and is empty for categories that rely on general game knowledge. Following the behavioral categories outlined in the InstructGPT-style task taxonomy popularized by Dolly, I structured the dataset around several instruction-following task types:
 
 | Category | Description | Count |
 |---|---|---|
@@ -235,7 +235,7 @@ The fix all along was RAG. Embedding the raw wiki scrape into a vector knowledge
 
 {{< verdict >}}
 <p class="verdict-lead">Conclusion</p>
-It is certainly possible to fine tune a small model on consumer hardware, but expect it to take a lot of time even with the smallest models. It's also critical to understand what fine-tuning can actually accomplish. You aren't going to teach a model new information, thats for the domain of pre-training, but you can certainly teach it how to better respond with information it is provided.
+It is certainly possible to fine tune a small model on consumer hardware, but expect it to take a lot of time even with the smallest models. It's also critical to understand what fine-tuning can actually accomplish. You aren't going to teach a model new information, that's for the domain of pre-training, but you can certainly teach it how to better respond with information it is provided.
 {{< /verdict >}}
 
 ---
