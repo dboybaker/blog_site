@@ -10,4 +10,6 @@ jobs:
         with:
           submodules: recursive
       - name: Build to Caddy dir
-        run: hugo --minify --destination "$DEPLOY_PATH"
+        run: |
+          hugo --minify --destination "$DEPLOY_PATH"
+          pagefind --site "$DEPLOY_PATH"
