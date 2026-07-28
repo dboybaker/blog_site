@@ -8,5 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link type="text/css" href="/pagefind/pagefind-ui.css" />
 {{ "<script src=\"/js/main.js\"></script>" | safeHTML }}
 {{ "<script src=\"https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js\"></script>" | safeHTML }}
+{{ "<script type=\"module\">" | safeHTML }}
+import { createInstance } from "/pagefind/pagefind.js";
+window.Pagefind = createInstance;
+{{ "</script>" | safeHTML }}

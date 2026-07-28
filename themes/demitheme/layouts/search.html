@@ -1,0 +1,56 @@
+{{ define "main" }}
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Search <span>Results</span></h2>
+    <div id="search-results" class="search-results blog-grid"></div>
+  </div>
+</section>
+
+<script type="module">
+  window.addEventListener('DOMContentLoaded', async () => {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get('q');
+
+    if (!query) return;
+
+    document.querySelector('.section-title span').textContent = `for "${query}"`;
+
+    try {
+      const pagefind = window.Pagefind({ baseUrl: '/' });
+      await pagefind.init();
+
+      const res = await pagefind.search(query);
+
+      const resultsDiv = document.getElementById('search-results');
+
+      if (res.results.length === 0) {
+        resultsDiv.innerHTML = '<p class="no-results-message">No results found for your search.</p>';
+        return;
+      }
+
+      const seen = new Set();
+      let html = '';
+      for (const page of res.results) {
+        const data = await page.data();
+        if (seen.has(data.url)) continue;
+        seen.add(data.url);
+        html += `
+          <article class="blog-card">
+            <h3 class="blog-card-title">
+              <a href="${data.url}">${data.meta.title}</a>
+            </h3>
+            <p class="blog-card-summary">
+              ${data.excerpt}
+            </p>
+          </article>
+        `;
+      }
+
+      resultsDiv.innerHTML = html;
+    } catch (e) {
+      console.error('Pagefind search error:', e);
+      document.getElementById('search-results').innerHTML = `<p class="no-results-message">Search error: ${e.message || e}</p>`;
+    }
+  });
+</script>
+{{ end }}

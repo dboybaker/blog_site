@@ -3,7 +3,7 @@
 <head>
   {{- partial "head.html" . -}}
 </head>
-<body>
+<body{{ if not (and (eq .Section "blog") .IsPage) }} data-pagefind-ignore{{ end }}>
   {{- partial "header.html" . -}}
   <main>
     {{- block "main" . }}{{- end }}

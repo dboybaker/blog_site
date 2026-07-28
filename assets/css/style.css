@@ -75,7 +75,16 @@ img {
 .header .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+}
+
+.header-left {
+  flex: 1;
+}
+
+.header-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .logo {
@@ -1488,4 +1497,61 @@ td.win {
   .toc-mobile {
     display: block;
   }
+}
+
+/* === Search === */
+.search-form {
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  transition: border-color 0.2s ease;
+}
+
+.search-form:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  width: 180px;
+  padding: 4px 0;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  transition: color 0.2s ease;
+}
+
+.search-btn:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .search-form {
+    display: none;
+  }
+}
+
+/* Pagefind overrides to match dark theme */
+#search-results .pagefind-ui__result {
+  list-style: none;
 }
