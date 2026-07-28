@@ -1,5 +1,5 @@
 {{ define "main" }}
-<article>
+<article class="blog-article-page">
   <header class="post-header">
     <div class="container">
       <h1>{{ .Title }}</h1>
@@ -18,8 +18,154 @@
       {{ end }}
     </div>
   </header>
-  <div class="post-content">
-    {{ .Content }}
+
+  <!-- Mobile TOC (collapsed details, shown <1024px) -->
+  <div class="toc-mobile container">
+    <details id="toc-mobile-details">
+      <summary>Table of Contents</summary>
+      <nav class="toc-nav" id="toc-mobile-nav"></nav>
+    </details>
+  </div>
+
+  <!-- Desktop TOC sidebar (fixed to right edge) -->
+  <aside class="toc-sidebar" id="toc-sidebar">
+    <nav class="toc-nav" id="toc-desktop-nav"></nav>
+  </aside>
+
+  <div class="toc-layout">
+    <!-- Main article content -->
+    <div class="post-content" id="blog-content">
+      {{ .Content }}
+    </div>
   </div>
 </article>
+
+<script>
+(function() {
+  function buildAndActivateTOC() {
+    const content = document.getElementById('blog-content');
+    if (!content) return;
+
+    // Collect h2 and h3 headings
+    const headings = Array.from(content.querySelectorAll('h2, h3'));
+
+    // Only show TOC if there are 3+ h2 headings
+    const h2Count = headings.filter(h => h.tagName === 'H2').length;
+    if (h2Count < 3) {
+      // Hide all TOC elements
+      const sidebar = document.getElementById('toc-sidebar');
+      const mobileDetails = document.getElementById('toc-mobile-details');
+      if (sidebar) sidebar.style.display = 'none';
+      if (mobileDetails) mobileDetails.parentElement.style.display = 'none';
+      return;
+    }
+
+    // Ensure headings have IDs for anchoring
+    headings.forEach(function(h) {
+      if (!h.id) {
+        h.id = h.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      }
+    });
+
+    // Build nested list structure
+    let html = '<ul>';
+    let inH3 = false;
+    headings.forEach(function(h) {
+      if (h.tagName === 'H2') {
+        if (inH3) {
+          html += '</ul>';
+          inH3 = false;
+        }
+        html += '<li class="toc-entry-h2"><a href="#' + h.id + '" data-toc-target="' + h.id + '">' + h.textContent + '</a></li>';
+      } else if (h.tagName === 'H3') {
+        if (!inH3) {
+          html += '<ul class="toc-h3-list">';
+          inH3 = true;
+        }
+        html += '<li class="toc-entry-h3"><a href="#' + h.id + '" data-toc-target="' + h.id + '">' + h.textContent + '</a></li>';
+      }
+    });
+    if (inH3) {
+      html += '</ul>';
+    }
+    html += '</ul>';
+
+    // Populate both desktop and mobile TOC navs
+    const desktopNav = document.getElementById('toc-desktop-nav');
+    const mobileNav = document.getElementById('toc-mobile-nav');
+    if (desktopNav) desktopNav.innerHTML = html;
+    if (mobileNav) mobileNav.innerHTML = html;
+
+    // IntersectionObserver for active section tracking
+    let activeId = null;
+
+    function updateActive(entryId) {
+      if (!entryId) return;
+      if (activeId === entryId) return;
+      activeId = entryId;
+      // Update all TOC instances
+      document.querySelectorAll('[data-toc-target]').forEach(function(link) {
+        if (link.getAttribute('data-toc-target') === entryId) {
+          link.classList.add('toc-active');
+        } else {
+          link.classList.remove('toc-active');
+        }
+      });
+    }
+
+    // Create observer with rootMargin that brings viewport in slightly
+    // so we detect the heading that's just entered from the top
+    const observer = new IntersectionObserver(function(entries) {
+      // Collect all intersecting entries
+      const intersecting = entries.filter(function(e) {
+        return e.isIntersecting;
+      });
+
+      if (intersecting.length > 0) {
+        // Sort by top position (smallest y = topmost)
+        intersecting.sort(function(a, b) {
+          return a.boundingClientRect.top - b.boundingClientRect.top;
+        });
+        // Topmost heading wins
+        const topEl = intersecting[0].target;
+        if (topEl && topEl.id) {
+          updateActive(topEl.id);
+        }
+      }
+      // If nothing intersecting, keep last active entry (do nothing)
+    }, {
+      rootMargin: '-80px 0px -80% 0px',
+      threshold: [0, 1]
+    });
+
+    headings.forEach(function(h) {
+      observer.observe(h);
+    });
+
+    // Also handle click on TOC links to set active immediately
+    document.querySelectorAll('[data-toc-target]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('data-toc-target');
+        const target = document.getElementById(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          updateActive(targetId);
+          // Update URL hash without jumping
+          if (history.pushState) {
+            history.pushState(null, null, '#' + targetId);
+          }
+        }
+      });
+    });
+  }
+
+  // Run after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', buildAndActivateTOC);
+  } else {
+    buildAndActivateTOC();
+  }
+})();
+</script>
 {{ end }}

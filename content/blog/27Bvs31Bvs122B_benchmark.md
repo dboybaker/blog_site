@@ -75,6 +75,8 @@ cardImage: "cardimage.png"
 ```
 
 </details>
+
+## Intro
 <br>
 I often see claims that Gemma4-31b is so much better than Qwen3.6-27b. Such claims range from 27b looping to failing tool calls. Just as often, folks assert that Qwen3.5-122b is still the best model for tool calling consistency and coding. Neither of these sentiments match my personal experience, so I figured it was time to document some concrete comparisons. No vibes, only objective results. (Okay maybe a couple vibes but only at the end I promise.)
 
@@ -340,6 +342,7 @@ Each was judged on the following criteria:
 \* *I guess my mile run prompt wasn't as snippet-resistant as I thought; somehow 122B got the answers without a fetch.*
 
 These search query tests did not prove as useful or conclusive as I thought they would. In the past, when I've tried Gemma4-31B in this role, it was entirely reluctant to chain multiple tool calls of different kinds. It would `search_web` over and over and never follow up with a fetch. It would often simply tell me the information wasn't provided in the snippets, and try to force a conclusion from its own knowledge. Some of the quirks still remain, like how it refuses to supply an `N` for the search calls, or close open tasks it created, but overall it is plenty successful at the loop. I assume some of the changes must be attributed to Google's template improvements, though I had kept up with those in the past. The 122B Qwen3.5 was very efficient and controlled with the tool calls it made, even though it refused to interact with tasks just like Qwen3.6-27B did. I really like how 122B feels here, speed excluded. The lack of adherence to the `search_web` - `N` parameter and the sporadic spikes of a dozen-plus search calls do make Gemma4-31B a tough option for this, because it ends up sprinting toward a rate limit.
+
 ### Pelican on a Bicycle
 
 Let's end on the classic silly "pelican on a bicycle" prompt to compare, why not.

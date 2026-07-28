@@ -35,7 +35,7 @@ Lastly my eval method would check how many correct over the total and output a c
 
 {{< file-embed path="content/blog/mnist_nn_project/mnist_train.py" lang="python" label="mnist_train.py" >}}
 
-### I set up my training loop with the core 5 step forward pass to back propagation cycle:
+#### I set up my training loop with the core 5 step forward pass to back propagation cycle:
 
 ```python
 optimizer.zero_grad()               # 1. clear old gradients
@@ -45,7 +45,7 @@ loss.backward()                     # 4. backprop: compute gradients
 optimizer.step()                    # 5. nudge weights downhill
 ```
 
-### First training run, 5 epochs
+#### First training run, 5 epochs
 
 ```text
 My first training run, 5 epochs
@@ -81,7 +81,7 @@ More epochs means more passes iterating over the data and updating weights. My t
 
 Turns out the most important detail was the model structure itself, who knew. The Convolutional Neural Net is substantially better suited to the task of image classification and it shows. The loss converged much quicker and the final accuracy over the test data was better than any result I was able to squeeze out of the MLP. This sent me on a tangent diving into convolution. Also of note, dropout. Zeroing out a percentage of activations per run in order to prevent the network from favoring specific activations too heavily. Reduce overfitting. Spicy stuff.
 
-### CNN 5 epochs
+#### CNN 5 epochs
 
 ```text
 CNN 5 epochs
@@ -115,6 +115,8 @@ My last point of interest for tweaking was to modify both the number of hidden l
 - **More neurons** - `784->256->128->10` did result in a better accuracy and lower loss at epoch 5 than the reference MLP. Is bigger better? `784->512->256->10` said no, loss was lower but accuracy fell.
 - **Combine them** - More and More! `784->512->256->128->64->10` - Nothing thrilling, behaved similarly to `256->128->10` and increasing epochs didn't improve things past 5.
 
+## Improved, validation-added
+
 After all my experiments I realized it would be useful to bake in a random split of some amount of the training data to validate against each epoch. This would allow me to get a glimpse into how accuracy is increasing (or decreasing) each pass. PyTorch has a built in support for this of course with random_split. Manual seed prevents every pass from getting a new random set. I also added a quick check prior to training to actually visualize the default state of the network. Seeing it genuinely go from a random 1/10 guess to 95%+ accuracy in one pass is incredible.
 
 ```python
@@ -124,7 +126,7 @@ train_subset, val_subset = random_split(
 )
 ```
 
-### Improved, validation-added output
+#### Output
 
 ```text
 val add split

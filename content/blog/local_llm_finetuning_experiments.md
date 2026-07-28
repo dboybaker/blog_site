@@ -8,7 +8,7 @@ summary: "Fine-tuning small LLMs on consumer hardware: from unsloth CLI to LLaMA
 cardImage: ""
 ---
 {{< ctx-bar >}}
-Tested in this article: Qwen2.5-3B, Gemma4-e2b, Qwen3.5-4b
+<span><strong>Tested in this article:</strong> Qwen2.5-3B, Gemma4-e2b, Qwen3.5-4b</span>
 ---
 <span><strong>Hardware</strong> RTX 3090 · 24 GB</span>
 <span><strong>OS</strong> Debian 13</span>

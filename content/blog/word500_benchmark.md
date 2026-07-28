@@ -65,7 +65,7 @@ For anyone who has watched an LLM ``` <think> ``` stream, this might look pretty
 - There appears to be some minimum parameter count that makes this task doable. The MoE models really struggled with looping and wrong answers.
 - This analysis was purely focused on total tokens required, but with speed considered the results don't change. Gemma4:31b looks incredible.
 
-### Speed Comparison
+#### Speed Comparison
 
 | Model                      | Avg Tokens | Decode Speed (Tps) | Time (s) |
 |----------------------------|------------|--------------------|----------|
