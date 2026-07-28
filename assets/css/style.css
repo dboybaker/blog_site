@@ -1545,9 +1545,33 @@ td.win {
   color: var(--accent);
 }
 
+.search-form-desktop {
+  display: inline-flex;
+}
+
+.search-form-mobile {
+  display: none;
+}
+
 @media (max-width: 768px) {
-  .search-form {
+  .search-form-desktop {
     display: none;
+  }
+
+  .search-form-mobile {
+    display: flex;
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .search-form-mobile .search-input {
+    flex: 1;
+    width: auto;
+  }
+
+  .search-form-mobile .search-btn {
+    margin-left: auto;
+    padding-left: 12px;
   }
 }
 
