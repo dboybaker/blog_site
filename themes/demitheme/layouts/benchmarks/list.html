@@ -1,0 +1,70 @@
+{{ define "main" }}
+<section class="benchmarks-page">
+  <div class="container">
+    <div class="bench-header">
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}<p class="bench-subtitle">{{ . }}</p>{{ end }}
+    </div>
+
+    <!-- Toolbar -->
+    <div class="bench-toolbar">
+      <div class="bench-filters" id="benchFiltersBar">
+        <input type="text" id="benchModelFilter" class="bench-search-input" placeholder="Filter by model name...">
+        <div id="benchBenchmarkFilter" class="bench-checkbox-group">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+      <div class="bench-actions">
+        <button id="benchCompareBtn" class="btn btn-secondary bench-compare-btn" disabled>Compare Selected (0)</button>
+        <button id="benchBackBtn" class="btn btn-secondary bench-back-btn hidden">&larr; Back</button>
+      </div>
+    </div>
+
+    <!-- Main Pivot Table View -->
+    <div id="benchTableView" class="bench-table-view">
+      <div class="table-wrapper">
+        <table class="bench-pivot-table" id="benchTable">
+          <thead id="benchTableHead">
+            <!-- Populated by JS -->
+          </thead>
+          <tbody id="benchTableBody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+      <div id="benchNoResults" class="no-results-message hidden">No matching results found.</div>
+    </div>
+
+    <!-- Compare View -->
+    <div id="benchCompareView" class="bench-compare-view hidden">
+      <h2>Model Comparison</h2>
+      <div id="benchCompareModels" class="bench-compare-models"></div>
+      <div class="table-wrapper">
+        <table class="bench-compare-table" id="benchCompareTable">
+          <thead id="benchCompareHead"></thead>
+          <tbody id="benchCompareBody"></tbody>
+        </table>
+      </div>
+      <div id="benchChartContainer" class="chart-container">
+        <canvas id="benchChart"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Model Detail Modal -->
+<div id="benchModelModal" class="bench-modal-overlay hidden">
+  <div class="bench-modal">
+    <div class="bench-modal-header">
+      <h2 id="benchModalTitle">Model Details</h2>
+      <button id="benchModalClose" class="bench-modal-close">&times;</button>
+    </div>
+    <div class="bench-modal-body" id="benchModalBody">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</div>
+
+{{ $benchJS := resources.Get "js/benchmarks.js" | minify | fingerprint }}
+<script src="{{ $benchJS.RelPermalink }}" data-bench-url="{{ "benchmarks/benchmarks.json" | relURL }}"></script>
+{{ end }}

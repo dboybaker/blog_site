@@ -26,5 +26,10 @@ theme = "demitheme"
   url = "/blog/"
   weight = 3
 
+[[menu.main]]
+  name = "Benchmarks"
+  url = "/benchmarks/"
+  weight = 4
+
 [markup.goldmark.renderer]
   unsafe = true
