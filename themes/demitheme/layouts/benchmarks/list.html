@@ -65,6 +65,7 @@
   </div>
 </div>
 
+{{ $benchData := resources.Get "data/benchmarks.json" | fingerprint }}
 {{ $benchJS := resources.Get "js/benchmarks.js" | minify | fingerprint }}
-<script src="{{ $benchJS.RelPermalink }}" data-bench-url="{{ "benchmarks/benchmarks.json" | relURL }}"></script>
+<script src="{{ $benchJS.RelPermalink }}" data-bench-url="{{ $benchData.RelPermalink }}"></script>
 {{ end }}
