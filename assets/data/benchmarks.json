@@ -2214,5 +2214,207 @@
         "samples": 378
       }
     ]
+  },
+  {
+    "model": "Ling-3.0-tiny-Q4_K_M",
+    "benchmark": "BFCL-v4",
+    "score": 0.8033,
+    "samples": 300,
+    "date": "2026-08-25T10:35:06",
+    "run": "ling3.0-tiny",
+    "notes": "",
+    "model_notes": "hit the output cap on 7.4% of MMLU-Pro and 12.4% of IFEval prompts (repetition loops at temperature 0) and returned no answer at all on 17% of Arena-Hard prompts after exhausting 64k tokens in thinking mode (those count as failures in my house).",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.7,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.76,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.58,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.94,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.88,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.96,
+        "samples": 50
+      }
+    ]
+  },
+  {
+    "model": "Ling-3.0-tiny-Q4_K_M",
+    "benchmark": "IFEval",
+    "score": 0.744,
+    "samples": 250,
+    "date": "2026-08-25T10:47:00",
+    "run": "ling3.0-tiny",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.744,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.8347,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.764,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.8467,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "Ling-3.0-tiny-Q4_K_M",
+    "benchmark": "MMLU-Pro",
+    "score": 0.5691,
+    "samples": 420,
+    "date": "2026-08-25T11:00:32",
+    "run": "ling3.0-tiny",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.6333,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.6667,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.4333,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.2667,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.5667,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.6,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.4667,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.5333,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.4,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.6333,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.3667,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "Ling-3.0-tiny-Q4_K_M",
+    "benchmark": "HumanEval+",
+    "score": 0.7927,
+    "samples": 164,
+    "date": "2026-08-25T12:20:33",
+    "run": "ling3.0-tiny",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.7927,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "Ling-3.0-tiny-Q4_K_M",
+    "benchmark": "MBPP+",
+    "score": 0.8386,
+    "samples": 378,
+    "date": "2026-08-25T12:25:20",
+    "run": "ling3.0-tiny",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.8386,
+        "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "Ling-3.0-tiny-Q4_K_M",
+    "benchmark": "Arena-Hard",
+    "score": 0.5149,
+    "samples": 75,
+    "date": "2026-08-25T12:14:46",
+    "run": "ling3.0-tiny",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.5149,
+        "samples": 75
+      }
+    ]
   }
 ]
