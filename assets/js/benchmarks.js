@@ -4,6 +4,43 @@
 (async function () {
   "use strict";
 
+  // ─── Tabs ────────────────────────────────────────────────────────────
+  const tabButtons = Array.from(document.querySelectorAll("[data-bench-tab]"));
+  const tabPanels = new Map(
+    tabButtons.map(
+      (b) => [b.dataset.benchTab, document.getElementById(`benchPanel-${b.dataset.benchTab}`)]
+    )
+  );
+  const DEFAULT_TAB = "traditional";
+
+  function activateTab(id, syncHash) {
+    if (!tabPanels.has(id) || !tabPanels.get(id)) id = DEFAULT_TAB;
+    tabButtons.forEach((btn) => {
+      const isActive = btn.dataset.benchTab === id;
+      btn.classList.toggle("active", isActive);
+      btn.setAttribute("aria-selected", isActive ? "true" : "false");
+    });
+    tabPanels.forEach((panel, tabId) => {
+      if (panel) panel.classList.toggle("hidden", tabId !== id);
+    });
+    if (syncHash && location.hash !== `#${id}`) {
+      history.replaceState(null, "", `#${id}`);
+    }
+  }
+
+  tabButtons.forEach((btn) => {
+    btn.addEventListener("click", () => activateTab(btn.dataset.benchTab, true));
+  });
+
+  window.addEventListener("hashchange", () => {
+    const hash = location.hash.replace("#", "");
+    if (hash) activateTab(hash, false);
+  });
+
+  // Activate tab from the URL hash (e.g. /benchmarks/#word500); default is traditional
+  const initialTab = location.hash.replace("#", "");
+  activateTab(tabPanels.has(initialTab) ? initialTab : DEFAULT_TAB, false);
+
   // ─── Data ────────────────────────────────────────────────────────────
   const scriptTag = document.currentScript;
   const benchUrl = scriptTag.dataset.benchUrl || "/benchmarks/benchmarks.json";
@@ -15,6 +52,19 @@
   let sortDir = "asc";
   let selectedModels = new Set();
   let activeBenchmarks = new Set();
+  // localStorage key for the saved test selection (see bench-state.js)
+  const BENCH_STATE_KEY = "traditional.active-benchmarks";
+  // Benchmarks selected by default on first visit (before the user makes
+  // their own picks, which are then remembered). Keep this at 6 - update
+  // the list when new benchmarks arrive.
+  const DEFAULT_ACTIVE_BENCHMARKS = [
+    "Arena-Hard",
+    "BFCL-v4",
+    "HumanEval+",
+    "IFEval",
+    "MBPP+",
+    "MMLU-Pro",
+  ];
   let modelFilter = "";
   let compareMode = false;
   let chartInstance = null;
@@ -84,16 +134,28 @@
     return [...s].sort();
   }
 
+  // Default selection: the DEFAULT list limited to what's currently
+  // available. If every default name is gone (renames/removals), fall back
+  // to all available.
+  function defaultBenchmarks(available) {
+    const set = new Set(available);
+    const kept = DEFAULT_ACTIVE_BENCHMARKS.filter((b) => set.has(b));
+    return kept.length > 0 ? kept : [...available];
+  }
+
   // ─── Benchmark Filter Checkboxes ─────────────────────────────────────
   function renderBenchFilters() {
     const benches = getAllBenchmarks();
+    // Restore the user's saved selection (survives reloads). Falls back to
+    // the default selection when nothing usable is saved.
+    const restored = window.BenchState.restoreSelection(BENCH_STATE_KEY, benches);
     activeBenchmarks.clear();
-    benches.forEach((b) => activeBenchmarks.add(b));
+    (restored || defaultBenchmarks(benches)).forEach((b) => activeBenchmarks.add(b));
 
     benchFilter.innerHTML = benches
       .map(
         (b) =>
-          `<label class="bench-bench-label"><input type="checkbox" value="${esc(b)}" checked> ${esc(b)}</label>`
+          `<label class="bench-bench-label"><input type="checkbox" value="${esc(b)}" ${activeBenchmarks.has(b) ? "checked" : ""}> ${esc(b)}</label>`
       )
       .join("");
 
@@ -102,6 +164,7 @@
         const val = e.target.value;
         if (e.target.checked) activeBenchmarks.add(val);
         else activeBenchmarks.delete(val);
+        window.BenchState.saveSelection(BENCH_STATE_KEY, activeBenchmarks);
         renderTable();
         if (compareMode) {
           renderCompare();

@@ -6,6 +6,14 @@
       {{ with .Description }}<p class="bench-subtitle">{{ . }}</p>{{ end }}
     </div>
 
+    <!-- Tabs -->
+    <nav class="bench-tabs" role="tablist" aria-label="Benchmark pages">
+      <button type="button" class="bench-tab active" id="benchTabBtn-traditional" data-bench-tab="traditional" role="tab" aria-selected="true" aria-controls="benchPanel-traditional">Traditional</button>
+      <button type="button" class="bench-tab" id="benchTabBtn-word500" data-bench-tab="word500" role="tab" aria-selected="false" aria-controls="benchPanel-word500">Word500</button>
+    </nav>
+
+    <!-- Traditional tab: full benchmark pivot table -->
+    <div id="benchPanel-traditional" class="bench-tab-panel" role="tabpanel" aria-labelledby="benchTabBtn-traditional">
     <!-- Toolbar -->
     <div class="bench-toolbar">
       <div class="bench-filters" id="benchFiltersBar">
@@ -49,6 +57,82 @@
         <canvas id="benchChart"></canvas>
       </div>
     </div>
+    </div><!-- /benchPanel-traditional -->
+
+    <!-- Word500 tab -->
+    <div id="benchPanel-word500" class="bench-tab-panel hidden" role="tabpanel" aria-labelledby="benchTabBtn-word500">
+      <!-- Run metadata -->
+      <div class="w500-run-bar">
+        <span id="w500RunMeta" class="w500-run-meta"></span>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="bench-toolbar">
+        <div class="bench-filters">
+          <input type="text" id="w500ModelFilter" class="bench-search-input" placeholder="Filter by model name...">
+          <div id="w500TestFilter" class="bench-checkbox-group">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+        <div class="bench-actions">
+          <label class="w500-sort-metric">Priority
+            <select id="w500SortMetric" class="bench-search-input w500-metric-select">
+              <option value="accuracy" selected>Accuracy</option>
+              <option value="tokens">Avg tokens</option>
+              <option value="loop_aborts">Loop aborts</option>
+              <option value="truncated">Truncated</option>
+            </select>
+          </label>
+          <button id="w500CompareBtn" class="btn btn-secondary bench-compare-btn" disabled>Compare Selected (0)</button>
+          <button id="w500BackBtn" class="btn btn-secondary bench-back-btn hidden">&larr; Back</button>
+        </div>
+      </div>
+
+      <!-- Main table view -->
+      <div id="w500TableView" class="bench-table-view">
+        <div class="table-wrapper">
+          <table class="bench-pivot-table w500-table" id="w500Table">
+            <thead id="w500TableHead">
+              <!-- Populated by JS -->
+            </thead>
+            <tbody id="w500TableBody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+        <div id="w500NoResults" class="no-results-message hidden">No matching results found.</div>
+        <div class="w500-legend">
+          <span><span class="w500-flag w500-flag-trunc">⚠</span> truncated at the token limit — runaway reasoning with no detectable loop</span>
+          <span><span class="w500-flag w500-flag-loop">⛔</span> doom-loop detected in reasoning — request aborted</span>
+          <span><span class="w500-flag">≈</span> token counts estimated from the stream (aborted requests)</span>
+          <span><span class="w500-flag">NV</span> = No Vision</span>
+        </div>
+      </div>
+
+      <!-- Compare view -->
+      <div id="w500CompareView" class="bench-compare-view hidden">
+        <h2>Model Comparison</h2>
+        <div id="w500CompareModels" class="bench-compare-models"></div>
+        <div class="table-wrapper">
+          <table class="bench-compare-table w500-compare-table" id="w500CompareTable">
+            <thead id="w500CompareHead"></thead>
+            <tbody id="w500CompareBody"></tbody>
+          </table>
+        </div>
+        <div class="chart-container">
+          <h3 class="w500-chart-title">Accuracy by test</h3>
+          <div class="w500-chart-wrap">
+            <canvas id="w500ChartAccuracy"></canvas>
+          </div>
+        </div>
+        <div class="chart-container">
+          <h3 class="w500-chart-title">Average completion tokens by test</h3>
+          <div class="w500-chart-wrap">
+            <canvas id="w500ChartTokens"></canvas>
+          </div>
+        </div>
+      </div>
+    </div><!-- /benchPanel-word500 -->
   </div>
 </section>
 
@@ -65,7 +149,14 @@
   </div>
 </div>
 
+{{ $benchState := resources.Get "js/bench-state.js" | minify | fingerprint }}
+<script src="{{ $benchState.RelPermalink }}"></script>
 {{ $benchData := resources.Get "data/benchmarks.json" | fingerprint }}
 {{ $benchJS := resources.Get "js/benchmarks.js" | minify | fingerprint }}
 <script src="{{ $benchJS.RelPermalink }}" data-bench-url="{{ $benchData.RelPermalink }}"></script>
+{{ with resources.Get "data/word500.json" }}
+  {{ $w500Data := . | fingerprint }}
+  {{ $w500JS := resources.Get "js/word500.js" | minify | fingerprint }}
+  <script src="{{ $w500JS.RelPermalink }}" data-word500-url="{{ $w500Data.RelPermalink }}"></script>
+{{ end }}
 {{ end }}
