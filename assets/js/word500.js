@@ -58,14 +58,17 @@
     results: Object.fromEntries(
       Object.keys(modelRun).map((m) => [m, modelRun[m].results[m]])
     ),
-    overall: {
-      n: Object.keys(modelRun).reduce((s, m) => {
-        const agg = (modelRun[m].results[m] || {}).overall;
-        return s + (agg && agg.n ? agg.n : 0);
-      }, 0),
-    },
   };
   const run = () => mergedRun;
+
+  // Per-model sample count (suite size: tests × reps per model, e.g.
+  // 6 tests × 10 reps = 60). The grand total across all models grows
+  // every time a new model is added and says nothing about the benchmark
+  // itself, so the run bar reports the per-model count instead.
+  const perModelSamples = Object.keys(modelRun)
+    .map((m) => (modelRun[m].results[m] || {}).overall)
+    .filter((agg) => agg && agg.n)
+    .map((agg) => agg.n);
 
   // ─── DOM refs ────────────────────────────────────────────────────────
   const $ = (s) => document.querySelector(s);
@@ -197,8 +200,10 @@
     const cfgs = runs.map((r) => r.config || {});
     const distinct = (fn) => [...new Set(cfgs.map(fn).filter((v) => v != null))];
     const parts = [];
-    const r = run();
-    if (r.overall && r.overall.n) parts.push(r.overall.n + " samples");
+    const perModel = [...new Set(perModelSamples)];
+    if (perModel.length === 1) parts.push(perModel[0] + " samples per model");
+    else if (perModel.length > 1)
+      parts.push(perModel.join("–") + " samples per model");
     const maxTok = distinct((c) => c.max_tokens);
     if (maxTok.length === 1) parts.push("max " + fmtTok(maxTok[0]) + " tokens");
     else if (maxTok.length > 1) parts.push("max tokens " + maxTok.map(fmtTok).join("–"));
