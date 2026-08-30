@@ -2416,5 +2416,206 @@
         "samples": 75
       }
     ]
+  },
+  {
+    "model": "Qwen3.8-Flash-Next-UD-Q4_K_XL",
+    "benchmark": "BFCL-v4",
+    "score": 0.8167,
+    "samples": 300,
+    "date": "2026-08-29T11:55:26",
+    "run": "Qwen3.8-Flash-Next-UD-Q4_K_XL-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "simple_python",
+        "score": 0.98,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.92,
+        "samples": 50
+      },
+      {
+        "name": "irrelevance",
+        "score": 0.84,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.9,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.66,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.6,
+        "samples": 50
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-Flash-Next-UD-Q4_K_XL",
+    "benchmark": "IFEval",
+    "score": 0.848,
+    "samples": 250,
+    "date": "2026-08-29T12:07:02",
+    "run": "Qwen3.8-Flash-Next-UD-Q4_K_XL-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.848,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.8967,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.884,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.9253,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-Flash-Next-UD-Q4_K_XL",
+    "benchmark": "MMLU-Pro",
+    "score": 0.8643,
+    "samples": 420,
+    "date": "2026-08-29T12:44:21",
+    "run": "Qwen3.8-Flash-Next-UD-Q4_K_XL-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.9333,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.9667,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.9667,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.7333,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.9333,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.9667,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.9333,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.9,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.7,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.7,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-Flash-Next-UD-Q4_K_XL",
+    "benchmark": "HumanEval+",
+    "score": 0.9512,
+    "samples": 164,
+    "date": "2026-08-29T21:59:25",
+    "run": "Qwen3.8-Flash-Next-Mbpp_Humaneval-rerun",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.9512,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-Flash-Next-UD-Q4_K_XL",
+    "benchmark": "MBPP+",
+    "score": 0.963,
+    "samples": 378,
+    "date": "2026-08-29T22:09:02",
+    "run": "Qwen3.8-Flash-Next-Mbpp_Humaneval-rerun",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.963,
+        "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-Flash-Next-UD-Q4_K_XL",
+    "benchmark": "Arena-Hard",
+    "score": 0.9964,
+    "samples": 75,
+    "date": "2026-08-30T10:27:20",
+    "run": "Qwen3.8-Flash-Next-UD-Q4_K_XL-arena_hard-rerun",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.9964,
+        "samples": 75
+      }
+    ]
   }
 ]
