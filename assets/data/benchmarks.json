@@ -2617,5 +2617,419 @@
         "samples": 75
       }
     ]
+  },
+  {
+    "model": "Spark-X2.5-4B",
+    "benchmark": "BFCL-v4",
+    "score": 0.8233,
+    "samples": 300,
+    "date": "2026-09-01T12:50:19",
+    "run": "Spark-X2.5-4B-benchmarks",
+    "model_notes": "",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.86,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.74,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.58,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.9,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.9,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.96,
+        "samples": 50
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.5-4B",
+    "benchmark": "IFEval",
+    "score": 0.752,
+    "samples": 250,
+    "date": "2026-09-01T13:02:45",
+    "run": "Spark-X2.5-4B-benchmarks",
+    "model_notes": "",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.752,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.8387,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.788,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.8633,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.5-4B",
+    "benchmark": "MMLU-Pro",
+    "score": 0.6476,
+    "samples": 420,
+    "date": "2026-09-01T13:22:38",
+    "run": "Spark-X2.5-4B-benchmarks",
+    "model_notes": "",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.9,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.7,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.3333,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.5,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.7,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.5,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.7333,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.4667,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.4667,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.3333,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.5-4B",
+    "benchmark": "HumanEval+",
+    "score": 0.7439,
+    "samples": 164,
+    "date": "2026-09-01T15:15:57",
+    "run": "Spark-X2.5-4B-benchmarks",
+    "model_notes": "",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.7439,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.5-4B",
+    "benchmark": "MBPP+",
+    "score": 0.8307,
+    "samples": 378,
+    "date": "2026-09-01T15:30:07",
+    "run": "Spark-X2.5-4B-benchmarks",
+    "model_notes": "",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.8307,
+        "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.5-4B",
+    "benchmark": "Arena-Hard",
+    "score": 0.5824,
+    "samples": 75,
+    "date": "2026-09-01T21:29:46",
+    "run": "Spark-X2.5-4B-arena_hard-rejudge",
+    "model_notes": "",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.5824,
+        "samples": 75
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.5-1.7B",
+    "benchmark": "BFCL-v4",
+    "score": 0.61,
+    "samples": 300,
+    "date": "2026-09-02T14:44:19",
+    "run": "Spark-X2.5-1.7B-benchmarks",
+    "model_notes": "",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.86,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.5,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.24,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.84,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.64,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.58,
+        "samples": 50
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.5-1.7B",
+    "benchmark": "IFEval",
+    "score": 0.716,
+    "samples": 250,
+    "date": "2026-09-02T14:47:43",
+    "run": "Spark-X2.5-1.7B-benchmarks",
+    "model_notes": "",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.716,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.8213,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.752,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.8447,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.5-1.7B",
+    "benchmark": "MMLU-Pro",
+    "score": 0.4738,
+    "samples": 420,
+    "date": "2026-09-02T14:58:36",
+    "run": "Spark-X2.5-1.7B-benchmarks",
+    "model_notes": "",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.7,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.7,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.7333,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.4,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.3667,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.6,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.3333,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.5,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.5667,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.3,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.4333,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.3333,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.4333,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.2333,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.5-1.7B",
+    "benchmark": "HumanEval+",
+    "score": 0.4207,
+    "samples": 164,
+    "date": "2026-09-02T15:51:17",
+    "run": "Spark-X2.5-1.7B-benchmarks",
+    "model_notes": "",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.4207,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.5-1.7B",
+    "benchmark": "MBPP+",
+    "score": 0.6455,
+    "samples": 378,
+    "date": "2026-09-02T15:55:00",
+    "run": "Spark-X2.5-1.7B-benchmarks",
+    "model_notes": "",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.6455,
+        "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.5-1.7B",
+    "benchmark": "Arena-Hard",
+    "score": 0.2407,
+    "samples": 75,
+    "date": "2026-09-02T15:45:32",
+    "run": "Spark-X2.5-1.7B-benchmarks",
+    "model_notes": "",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.2407,
+        "samples": 75
+      }
+    ]
   }
 ]
