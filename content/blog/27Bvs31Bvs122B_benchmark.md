@@ -77,7 +77,7 @@ cardImage: "cardimage.png"
 </details>
 
 ## Intro
-<br>
+
 I often see claims that Gemma4-31b is so much better than Qwen3.6-27b. Such claims range from 27b looping to failing tool calls. Just as often, folks assert that Qwen3.5-122b is still the best model for tool calling consistency and coding. Neither of these sentiments match my personal experience, so I figured it was time to document some concrete comparisons. No vibes, only objective results. (Okay maybe a couple vibes but only at the end I promise.)
 
 Caveat before we begin: I'm well aware running 122b at a 4bit quant with Q8 kv isn't giving it the best chance, but considering Q8_0 comes in at a cool ~130gb I genuinely don't think its worth considering in this discussion. My biggest focus is what I can run at home, and while I technically have 144gb ram combined I'm not interested in waiting many hours as a response crawls in the single digit decode (not even to mention the prefill freeze). I'd also imagine anyone with the requisite VRAM would be running Deepseek V4 Flash instead at this point. I also will not be doing the full count for each benchmark, so these results won't be comparable with the leaderboards. I simply don't want to run tests for a week. I'll mention how many tests were run for each benchmark.

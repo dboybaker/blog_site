@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" font-family="Arial, sans-serif">
+  <defs>
+    <linearGradient id="pelicanBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5b8def"/>
+      <stop offset="100%" stop-color="#3a7bc9"/>
+    </linearGradient>
+    <linearGradient id="pelicanWing" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8aaff"/>
+      <stop offset="100%" stop-color="#d98fff"/>
+    </linearGradient>
+    <linearGradient id="bikeFrame" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f5b7b1"/>
+      <stop offset="100%" stop-color="#e07a7a"/>
+    </linearGradient>
+    <linearGradient id="bikeWheels" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#9d4edd"/>
+      <stop offset="100%" stop-color="#5b2b8c"/>
+    </linearGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e8f0fe"/>
+      <stop offset="100%" stop-color="#cfe6f5"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky background -->
+  <rect width="400" height="500" fill="url(#sky)"/>
+
+  <!-- Distant mountains -->
+  <polygon points="0,470 60,470 60,340 100,340 180,300 280,340 400,300 400,470 0,470" fill="#9ec5e8"/>
+  <polygon points="0,470 50,470 50,360 100,360 160,310 260,360 400,310 400,470 0,470" fill="#7fa8d6"/>
+
+  <!-- Sun -->
+  <circle cx="380" cy="60" r="28" fill="#ffd24a"/>
+
+  <!-- Bike frame -->
+  <path d="M 150,300 L 250,300 L 250,340 L 150,340 Z" fill="url(#bikeFrame)"/>
+  <path d="M 150,300 L 250,300" stroke="#7a5ea8" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Bike wheels -->
+  <circle cx="150" cy="300" r="26" fill="url(#bikeWheels)"/>
+  <circle cx="250" cy="300" r="26" fill="url(#bikeWheels)"/>
+  <circle cx="150" cy="300" r="26" fill="none" stroke="#fff" stroke-width="2"/>
+  <circle cx="250" cy="300" r="26" fill="none" stroke="#fff" stroke-width="2"/>
+
+  <!-- Spokes -->
+  <line x1="150" y1="300" x2="150" y2="300" stroke="#fff" stroke-width="2"/>
+  <line x1="250" y1="300" x2="250" y2="300" stroke="#fff" stroke-width="2"/>
+  <line x1="150" y1="300" x2="150" y2="300" stroke="#fff" stroke-width="2"/>
+  <line x1="250" y1="300" x2="250" y2="300" stroke="#fff" stroke-width="2"/>
+
+  <!-- Pedals -->
+  <ellipse cx="150" cy="250" rx="14" ry="8" fill="#4a3b6b"/>
+  <ellipse cx="250" cy="250" rx="14" ry="8" fill="#4a3b6b"/>
+
+  <!-- Handlebars -->
+  <line x1="150" y1="330" x2="150" y2="370" stroke="#5a3a7a" stroke-width="4" stroke-linecap="round"/>
+  <line x1="250" y1="330" x2="250" y2="370" stroke="#5a3a7a" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Bike seat -->
+  <rect x="180" y="330" width="40" height="40" rx="4" fill="#6b4f9a"/>
+
+  <!-- Bike tire (simplified) -->
+  <circle cx="150" cy="290" r="22" fill="#a884ff" opacity="0.9"/>
+  <circle cx="250" cy="290" r="22" fill="#a884ff" opacity="0.9"/>
+
+  <!-- Bike handlebar ends -->
+  <circle cx="150" cy="360" r="6" fill="#5a3a7a"/>
+  <circle cx="250" cy="360" r="6" fill="#5a3a7a"/>
+
+  <!-- Pelican body -->
+  <path d="M 210,150 Q 220,110 240,95 L 330,95 Q 340,110 350,150 L 400,140 Q 380,165 360,200 L 320,200 Q 300,175 280,190 L 240,190 Q 220,170 210,150 Z" fill="url(#pelicanBody)"/>
+
+  <!-- Pelican wings -->
+  <path d="M 240,150 Q 220,120 200,100 L 180,100 Q 170,120 200,150 Z" fill="url(#pelicanWing)"/>
+  <path d="M 270,150 Q 290,120 320,100 L 360,100 Q 350,120 330,150 Z" fill="url(#pelicanWing)"/>
+
+  <!-- Pelican bill (underwing) -->
+  <path d="M 240,150 Q 200,140 180,130 L 170,130 Q 160,140 200,150 Z" fill="#ffd24a"/>
+
+  <!-- Pelican eye -->
+  <circle cx="240" cy="148" r="3" fill="#5a3a7a"/>
+
+  <!-- Pelican webbed feet -->
+  <circle cx="230" cy="170" r="5" fill="#3a7bc9"/>
+  <circle cx="270" cy="170" r="5" fill="#3a7bc9"/>
+
+  <!-- Feather tails -->
+  <path d="M 250,190 Q 270,210 290,210 L 280,200 Z" fill="#ffd24a"/>
+  <path d="M 250,190 Q 230,210 210,210 L 220,200 Z" fill="#ffd24a"/>
+
+  <!-- Stars -->
+  <polygon points="300,40 330,50 350,40" fill="#ffd24a"/>
+  <polygon points="380,30 410,40 400,30" fill="#ffd24a"/>
+  <polygon points="350,80 380,90 360,80" fill="#ffd24a"/>
+  <polygon points="340,120 370,130 350,120" fill="#ffd24a"/>
+
+  <!-- Title -->
+  <text x="200" y="470" text-anchor="middle" font-size="18" font-weight="bold" fill="#5a3a7a">A Pelican on a Bicycle</text>
+</svg>

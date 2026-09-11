@@ -1,0 +1,60 @@
+{
+  "models": [
+    {
+      "name": "Spark-X2.5-1.7B",
+      "size": "1.7B",
+      "hf": "https://huggingface.co/XHToken/Spark-X2.5-1.7B",
+      "report": null,
+      "summary": "Searched and fetched well, returned relevant and well formatted information... all in Chinese. Spun its wheels burning tokens on the available tools, ultimately unable to generate report"
+    },
+    {
+      "name": "MiniCPM5-2B",
+      "size": "2B",
+      "hf": "https://huggingface.co/openbmb/MiniCPM5-2B",
+      "report": "reports/MiniCPM5-2B-unified_memory_comparison.pdf",
+      "summary": "Perfect search, fetch calls. Only included new Mac studios and DGX/RTX Spark, could have had more info and diversity in systems covered. Pros and cons look good. Report generated simply and quickly, layout has some text overlap but works."
+    },
+    {
+      "name": "LFM2.5-2.6B",
+      "size": "2.6B",
+      "hf": "https://huggingface.co/LiquidAI/LFM2.5-2.6B",
+      "report": null,
+      "summary": "Search/fetch calls made correctly, results look accurate. Also only covered new Mac Studio and RTX Spark. Report generated quickly, but for some reason the file is invalid. I can't open it to view it in any program, but the model can somehow."
+    },
+    {
+      "name": "Nanbeige4.2-3B",
+      "size": "3B",
+      "hf": "https://huggingface.co/Nanbeige/Nanbeige4.2-3B",
+      "report": "reports/nanbeige4.2-3b-unified_memory_systems_comparison.pdf",
+      "summary": "Perfect search + fetch, also ONLY focused on the new Mac studios + Sparks, but extremely well formatted details. Report generated effortlessly, looks pretty good besides some table formatting issues."
+    },
+    {
+      "name": "Spark-X2.5-4B",
+      "size": "4B",
+      "hf": "https://huggingface.co/XHToken/Spark-X2.5-4B",
+      "report": "reports/Sparkx2.5-4B-unified_memory_systems_report.pdf",
+      "summary": "Did a great job searching, fetching, summarizing. Gave succinct and relevant information and even included upcoming Mac Studios. Generated a really nice report successfully after some effort, but didn't adhere to \"single page\""
+    },
+    {
+      "name": "Ling-3.0-tiny",
+      "size": "7.9B MoE, 1.3B active",
+      "hf": "https://huggingface.co/inclusionAI/Ling-3.0-tiny",
+      "report": "reports/Ling-3.0-Tiny-unified_memory_comparison.pdf",
+      "summary": "Went BONKERS with way too many web searches for the task at hand. Good way to get rate limited at home. Great variety of information though. Easily the best looking PDF generated. It did struggle somewhat with the tool calls."
+    },
+    {
+      "name": "LFM2.5-8B-A1B",
+      "size": "8B MoE, 1B active",
+      "hf": "https://huggingface.co/LiquidAI/LFM2.5-8B-A1B",
+      "report": null,
+      "summary": "Only hit one search web and did not fetch_url on a single result. Very vague info from snippets. Quickly told me it doesn't have a PDF creation toolset. Worst model here here by far."
+    },
+    {
+      "name": "Qwen3.8-9B-Distill",
+      "size": "9B",
+      "hf": "https://huggingface.co/empero-ai/Qwen3.8-9B-Distill",
+      "report": "reports/Qwen3.8-9B-Distill-unified-memory-comparison.pdf",
+      "summary": "Didn't specify search count, got Spark, Asus GX10, and new Mac studios. Great details. No trouble creating pdf, but did ignore single-page requirement."
+    }
+  ]
+}

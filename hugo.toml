@@ -3,6 +3,14 @@ locale = "en-us"
 title = "Demietrich"
 theme = "demitheme"
 
+# Raw benchmark result data kept next to the article; not site content.
+# (The runner's cache dir contains .html reports that fail Hugo's content security policy.)
+ignoreFiles = [
+  "[_-]benchmarks",
+  "nanbeige_rerun",
+  "Qwen3.8-9B-Distill-arena_hard_rerurn",
+]
+
 [params]
   description = "Engineer. Tinkerer. Local LLM Enthusiast."
   author = "Demietrich"

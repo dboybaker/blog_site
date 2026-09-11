@@ -1,0 +1,60 @@
+{
+  "models": [
+    {
+      "name": "Spark-X2.5-1.7B",
+      "size": "1.7B",
+      "hf": "https://huggingface.co/XHToken/Spark-X2.5-1.7B",
+      "report": "pelicans/Spark-X2.5-1.7B-pelican-bicycle.svg",
+      "summary": "Successful file generation."
+    },
+    {
+      "name": "MiniCPM5-2B",
+      "size": "2B",
+      "hf": "https://huggingface.co/openbmb/MiniCPM5-2B",
+      "report": "pelicans/MiniCPM5-2B-pelican-bicycle.svg",
+      "summary": "Quickly generated the file, struggled displaying it."
+    },
+    {
+      "name": "LFM2.5-2.6B",
+      "size": "2.6B",
+      "hf": "https://huggingface.co/LiquidAI/LFM2.5-2.6B",
+      "report": "pelicans/LFM2.5-2.6B-pelican_bicycle.svg",
+      "summary": "Very quickly generated."
+    },
+    {
+      "name": "Nanbeige4.2-3B",
+      "size": "3B",
+      "hf": "https://huggingface.co/Nanbeige/Nanbeige4.2-3B",
+      "report": "pelicans/Nanbeige4.2-3B_pelican-bike.svg",
+      "summary": "Generated the contents of the file, but didnt actually `write_file`. I had to save it myself."
+    },
+    {
+      "name": "Spark-X2.5-4B",
+      "size": "4B",
+      "hf": "https://huggingface.co/XHToken/Spark-X2.5-4B",
+      "report": "pelicans/Spark-X2.5-4B-pelican-bicycle.svg",
+      "summary": "Took a LONG time, burned ~40k tokens but eventually generated the file."
+    },
+    {
+      "name": "Ling-3.0-tiny",
+      "size": "7.9B MoE, 1.3B active",
+      "hf": "https://huggingface.co/inclusionAI/Ling-3.0-tiny",
+      "report": "pelicans/Ling-3.0-tiny-pelican_bike.svg",
+      "summary": "Quickly hit the right tool, generated a file."
+    },
+    {
+      "name": "LFM2.5-8B-A1B",
+      "size": "8B MoE, 1B active",
+      "hf": "https://huggingface.co/LiquidAI/LFM2.5-8B-A1B",
+      "report": null,
+      "summary": "Quickly claimed to generate the file, but provided no output."
+    },
+    {
+      "name": "Qwen3.8-9B-Distill",
+      "size": "9B",
+      "hf": "https://huggingface.co/empero-ai/Qwen3.8-9B-Distill",
+      "report": "pelicans/qwen3.8-9b-distill-pelican-bicycle.svg",
+      "summary": "Generated quickly, also didn't `write_file`."
+    }
+  ]
+}
