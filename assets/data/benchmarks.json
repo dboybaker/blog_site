@@ -3031,5 +3031,1212 @@
         "samples": 75
       }
     ]
+  },
+  {
+    "model": "LFM2.5-8B-A1B",
+    "benchmark": "BFCL-v4",
+    "score": 0.8367,
+    "samples": 300,
+    "date": "2026-09-08T18:15:07",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.9,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.86,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.5,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.94,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.86,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.96,
+        "samples": 50
+      }
+    ]
+  },
+  {
+    "model": "LFM2.5-8B-A1B",
+    "benchmark": "IFEval",
+    "score": 0.908,
+    "samples": 250,
+    "date": "2026-09-08T18:30:03",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.908,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.9407,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.916,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.9467,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "LFM2.5-8B-A1B",
+    "benchmark": "MMLU-Pro",
+    "score": 0.6024,
+    "samples": 420,
+    "date": "2026-09-08T19:07:53",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.7,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.5,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.2,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.6,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.6,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.4,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.6,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.4,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.6667,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.5,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "LFM2.5-8B-A1B",
+    "benchmark": "HumanEval+",
+    "score": 0.7622,
+    "samples": 164,
+    "date": "2026-09-08T22:02:11",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.7622,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "LFM2.5-8B-A1B",
+    "benchmark": "MBPP+",
+    "score": 0.8545,
+    "samples": 378,
+    "date": "2026-09-08T22:33:34",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.8545,
+        "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "LFM2.5-8B-A1B",
+    "benchmark": "Arena-Hard",
+    "score": 0.4051,
+    "samples": 75,
+    "date": "2026-09-08T21:49:22",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.4051,
+        "samples": 75
+      }
+    ]
+  },
+  {
+    "model": "LFM2.5-2.6B",
+    "benchmark": "BFCL-v4",
+    "score": 0.8033,
+    "samples": 300,
+    "date": "2026-09-08T22:48:17",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.78,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.82,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.5,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.94,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.82,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.96,
+        "samples": 50
+      }
+    ]
+  },
+  {
+    "model": "LFM2.5-2.6B",
+    "benchmark": "IFEval",
+    "score": 0.932,
+    "samples": 250,
+    "date": "2026-09-08T23:08:58",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.932,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.9553,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.94,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.9607,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "LFM2.5-2.6B",
+    "benchmark": "MMLU-Pro",
+    "score": 0.6119,
+    "samples": 420,
+    "date": "2026-09-08T23:58:22",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.9,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.6,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.2333,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.5667,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.5,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.5,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.3333,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.5,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.4667,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "LFM2.5-2.6B",
+    "benchmark": "HumanEval+",
+    "score": 0.8841,
+    "samples": 164,
+    "date": "2026-09-09T03:07:47",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.8841,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "LFM2.5-2.6B",
+    "benchmark": "MBPP+",
+    "score": 0.8148,
+    "samples": 378,
+    "date": "2026-09-09T03:54:26",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.8148,
+        "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "LFM2.5-2.6B",
+    "benchmark": "Arena-Hard",
+    "score": 0.4185,
+    "samples": 75,
+    "date": "2026-09-09T02:50:11",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.4185,
+        "samples": 75
+      }
+    ]
+  },
+  {
+    "model": "MiniCPM5-2B",
+    "benchmark": "BFCL-v4",
+    "score": 0.81,
+    "samples": 300,
+    "date": "2026-09-09T04:30:33",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.8,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.76,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.48,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.98,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.88,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.96,
+        "samples": 50
+      }
+    ]
+  },
+  {
+    "model": "MiniCPM5-2B",
+    "benchmark": "IFEval",
+    "score": 0.86,
+    "samples": 250,
+    "date": "2026-09-09T04:46:15",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.86,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.9033,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.88,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.922,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "MiniCPM5-2B",
+    "benchmark": "MMLU-Pro",
+    "score": 0.5881,
+    "samples": 420,
+    "date": "2026-09-09T05:04:44",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.6667,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.2667,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.5,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.7333,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.6333,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.5333,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.4667,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.3,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.5333,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.4667,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "MiniCPM5-2B",
+    "benchmark": "HumanEval+",
+    "score": 0.811,
+    "samples": 164,
+    "date": "2026-09-09T08:48:50",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.811,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "MiniCPM5-2B",
+    "benchmark": "MBPP+",
+    "score": 0.8386,
+    "samples": 378,
+    "date": "2026-09-09T08:56:10",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.8386,
+        "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "MiniCPM5-2B",
+    "benchmark": "Arena-Hard",
+    "score": 0.3389,
+    "samples": 75,
+    "date": "2026-09-09T08:44:50",
+    "run": "LFM2.5-2.6B_LFM2.5-8B-A1B_MiniCPM5-2B_benchmarks",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.3389,
+        "samples": 75
+      }
+    ]
+  },
+  {
+    "model": "Ling-3.0-tiny-BF16",
+    "benchmark": "BFCL-v4",
+    "score": 0.7767,
+    "samples": 300,
+    "date": "2026-09-08T12:42:29",
+    "run": "Ling3.0tiny_Nanbeige4.2-3b_benchmarks",
+    "notes": "",
+    "model_notes": "BF16 GGUF run from the small-model shootout. The Ling-3.0-tiny-Q4_K_M rows are the same base model at 4-bit.",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.74,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.74,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.44,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.92,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.88,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.94,
+        "samples": 50
+      }
+    ]
+  },
+  {
+    "model": "Ling-3.0-tiny-BF16",
+    "benchmark": "IFEval",
+    "score": 0.756,
+    "samples": 250,
+    "date": "2026-09-08T12:54:57",
+    "run": "Ling3.0tiny_Nanbeige4.2-3b_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.756,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.848,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.764,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.8533,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "Ling-3.0-tiny-BF16",
+    "benchmark": "MMLU-Pro",
+    "score": 0.5571,
+    "samples": 420,
+    "date": "2026-09-08T13:14:59",
+    "run": "Ling3.0tiny_Nanbeige4.2-3b_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.5667,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.7,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.4667,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.2667,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.6,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.7,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.6667,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.3333,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.5667,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.4333,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.6,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.3333,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "Ling-3.0-tiny-BF16",
+    "benchmark": "HumanEval+",
+    "score": 0.7927,
+    "samples": 164,
+    "date": "2026-09-08T14:29:02",
+    "run": "Ling3.0tiny_Nanbeige4.2-3b_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.7927,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "Ling-3.0-tiny-BF16",
+    "benchmark": "MBPP+",
+    "score": 0.8413,
+    "samples": 378,
+    "date": "2026-09-08T14:33:30",
+    "run": "Ling3.0tiny_Nanbeige4.2-3b_benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.8413,
+        "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "Ling-3.0-tiny-BF16",
+    "benchmark": "Arena-Hard",
+    "score": 0.487,
+    "samples": 75,
+    "date": "2026-09-08T14:27:05",
+    "run": "Ling3.0tiny_Nanbeige4.2-3b_benchmarks",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.487,
+        "samples": 75
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-9B-Distill",
+    "benchmark": "BFCL-v4",
+    "score": 0.83,
+    "samples": 300,
+    "date": "2026-09-10T14:00:59",
+    "run": "Qwen3.8-9B-Distill-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.78,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.86,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.56,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.96,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.86,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.96,
+        "samples": 50
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-9B-Distill",
+    "benchmark": "IFEval",
+    "score": 0.844,
+    "samples": 250,
+    "date": "2026-09-10T14:18:10",
+    "run": "Qwen3.8-9B-Distill-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.844,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.8913,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.864,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.904,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-9B-Distill",
+    "benchmark": "MMLU-Pro",
+    "score": 0.7143,
+    "samples": 420,
+    "date": "2026-09-10T14:54:16",
+    "run": "Qwen3.8-9B-Distill-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.9667,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.9,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.4333,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.9,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.7333,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.5,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.4667,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.6667,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.4,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-9B-Distill",
+    "benchmark": "HumanEval+",
+    "score": 0.811,
+    "samples": 164,
+    "date": "2026-09-10T14:59:03",
+    "run": "Qwen3.8-9B-Distill-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.811,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-9B-Distill",
+    "benchmark": "MBPP+",
+    "score": 0.8519,
+    "samples": 378,
+    "date": "2026-09-10T15:13:25",
+    "run": "Qwen3.8-9B-Distill-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.8519,
+        "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-9B-Distill",
+    "benchmark": "Arena-Hard",
+    "score": 0.685,
+    "samples": 75,
+    "date": "2026-09-10T21:22:27",
+    "run": "Qwen3.8-9B-Distill-arena_hard-rerun",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.685,
+        "samples": 75
+      }
+    ]
+  },
+  {
+    "model": "Nanbeige4.2-3B",
+    "benchmark": "BFCL-v4",
+    "score": 0.83,
+    "samples": 300,
+    "date": "2026-09-09T09:52:00",
+    "run": "nanbeige_rerun",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.76,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.78,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.7,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.88,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.9,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.96,
+        "samples": 50
+      }
+    ]
+  },
+  {
+    "model": "Nanbeige4.2-3B",
+    "benchmark": "IFEval",
+    "score": 0.78,
+    "samples": 250,
+    "date": "2026-09-09T10:04:47",
+    "run": "nanbeige_rerun",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.78,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.836,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.824,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.8707,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "Nanbeige4.2-3B",
+    "benchmark": "MMLU-Pro",
+    "score": 0.6976,
+    "samples": 420,
+    "date": "2026-09-09T10:22:43",
+    "run": "nanbeige_rerun",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.7,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.4333,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.6,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.9,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.6667,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.6,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.7333,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.5667,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.5,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "Nanbeige4.2-3B",
+    "benchmark": "HumanEval+",
+    "score": 0.75,
+    "samples": 164,
+    "date": "2026-09-09T12:16:24",
+    "run": "nanbeige_rerun",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.75,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "Nanbeige4.2-3B",
+    "benchmark": "MBPP+",
+    "score": 0.8545,
+    "samples": 378,
+    "date": "2026-09-09T12:35:14",
+    "run": "nanbeige_rerun",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.8545,
+        "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "Nanbeige4.2-3B",
+    "benchmark": "Arena-Hard",
+    "score": 0.8116,
+    "samples": 75,
+    "date": "2026-09-09T12:09:49",
+    "run": "nanbeige_rerun",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.8116,
+        "samples": 75
+      }
+    ]
   }
 ]
