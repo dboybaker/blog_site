@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" font-family="Arial, sans-serif">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3c7bc8"/>
+      <stop offset="50%" stop-color="#6ba3d8"/>
+      <stop offset="100%" stop-color="#b8e0ec"/>
+    </linearGradient>
+    <linearGradient id="bikeFrame" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c08a56"/>
+      <stop offset="100%" stop-color="#8f5f3a"/>
+    </linearGradient>
+    <linearGradient id="bikeWheel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d8d8d8"/>
+      <stop offset="100%" stop-color="#7e7e7e"/>
+    </linearGradient>
+    <linearGradient id="pelBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fdfdfd"/>
+      <stop offset="100%" stop-color="#e3e3e3"/>
+    </linearGradient>
+    <linearGradient id="pelBeak" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffd56b"/>
+      <stop offset="100%" stop-color="#f5851f"/>
+    </linearGradient>
+    <linearGradient id="pelWing" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff6e0"/>
+      <stop offset="100%" stop-color="#f2e0b8"/>
+    </linearGradient>
+    <linearGradient id="pelLeg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6a5a4a"/>
+      <stop offset="100%" stop-color="#4a3a2a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#sky)"/>
+
+  <!-- Clouds -->
+  <g fill="#ffffff" opacity="0.88">
+    <ellipse cx="115" cy="95" rx="72" ry="28"/>
+    <ellipse cx="168" cy="72" rx="50" ry="22"/>
+    <ellipse cx="715" cy="108" rx="70" ry="26"/>
+    <ellipse cx="755" cy="82" rx="48" ry="20"/>
+    <ellipse cx="300" cy="138" rx="60" ry="24"/>
+  </g>
+
+  <!-- Sun -->
+  <circle cx="660" cy="62" r="50" fill="#fff3c4"/>
+  <circle cx="660" cy="62" r="38" fill="#ffe08a"/>
+  <circle cx="660" cy="62" r="26" fill="#fff6d6"/>
+
+  <!-- Bicycle (foreground) -->
+  <path d="M 215 360 L 585 360 L 578 500 L 212 500 Z" fill="url(#bikeFrame)"/>
+  <rect x="288" y="496" width="224" height="14" fill="#5e3f25"/>
+  <rect x="213" y="360" width="30" height="22" fill="#5e3f25"/>
+  <rect x="558" y="360" width="30" height="22" fill="#5e3f25"/>
+  <rect x="218" y="360" width="344" height="9" fill="#5e3f25" opacity="0.6"/>
+
+  <!-- Wheels -->
+  <circle cx="308" cy="438" r="52" fill="url(#bikeWheel)"/>
+  <circle cx="500" cy="438" r="52" fill="url(#bikeWheel)"/>
+  <!-- Spokes -->
+  <line x1="308" y1="438" x2="308" y2="392"/>
+  <line x1="308" y1="438" x2="308" y2="476"/>
+  <line x1="500" y1="438" x2="500" y2="392"/>
+  <line x1="500" y1="438" x2="500" y2="476"/>
+
+  <!-- Chain -->
+  <path d="M 248 438 L 248 358 Q 308 343 368 358 L 522 358 Q 498 343 544 358" fill="none" stroke="#f0f0f0" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Tubes -->
+  <path d="M 208 368 L 224 392 L 224 420 L 208 438 Z" fill="#9a6a3a"/>
+  <path d="M 592 368 L 576 392 L 576 420 L 592 438 Z" fill="#9a6a3a"/>
+  <!-- Pedals -->
+  <ellipse cx="272" cy="568" rx="13" ry="7" fill="#8a6a4a"/>
+  <ellipse cx="272" cy="568" rx="6" ry="3" fill="#a88a6a"/>
+  <ellipse cx="528" cy="568" rx="13" ry="7" fill="#8a6a4a"/>
+  <ellipse cx="528" cy="568" rx="6" ry="3" fill="#a88a6a"/>
+
+  <!-- Pelican (riding) -->
+  <!-- Tail -->
+  <path d="M 308 512 L 270 532 L 294 512 Z" fill="#d8d8d8"/>
+  <!-- Body -->
+  <path d="M 340 320 Q 360 415 355 505 Q 330 535 300 518 L 300 508 Q 330 478 355 452 L 340 458 Z" fill="url(#pelBody)"/>
+  <!-- Wings -->
+  <path d="M 300 490 Q 238 432 202 398 Q 198 412 232 458 Q 300 472 322 458 Q 382 412 392 402 Q 406 412 372 458 Q 400 472 382 458 Q 412 412 416 402 Q 406 412 372 458 Q 382 472 322 458 Q 300 472 300 490 Z" fill="url(#pelWing)"/>
+  <!-- Head -->
+  <ellipse cx="352" cy="308" rx="58" ry="44" fill="#f8f8f8"/>
+  <!-- Beak -->
+  <path d="M 338 283 Q 352 262 362 290" fill="url(#pelBeak)" stroke="#cc7800" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Eyes -->
+  <circle cx="326" cy="302" r="7" fill="#2a2a2a"/>
+  <circle cx="354" cy="302" r="7" fill="#2a2a2a"/>
+  <circle cx="326" cy="302" r="3.5" fill="#fff"/>
+  <circle cx="354" cy="302" r="3.5" fill="#fff"/>
+  <!-- Nose -->
+  <path d="M 340 311 Q 352 318 362 311" fill="none" stroke="#3a3a3a" stroke-width="2"/>
+  <!-- Legs -->
+  <line x1="374" y1="462" x2="374" y2="562" stroke="url(#pelLeg)" stroke-width="11" stroke-linecap="round"/>
+  <circle cx="374" cy="562" r="13" fill="#6a4a3a"/>
+  <circle cx="374" cy="562" r="6" fill="#8a6a4a"/>
+  <line x1="346" y1="462" x2="346" y2="562" stroke="url(#pelLeg)" stroke-width="11" stroke-linecap="round"/>
+  <circle cx="346" cy="562" r="13" fill="#6a4a3a"/>
+  <circle cx="346" cy="562" r="6" fill="#8a6a4a"/>
+  <!-- Feet -->
+  <circle cx="374" cy="574" r="9" fill="#2a1a10"/>
+  <circle cx="346" cy="574" r="9" fill="#2a1a10"/>
+  <!-- Pedals -->
+  <ellipse cx="316" cy="592" rx="12" ry="6" fill="#5a4030"/>
+  <ellipse cx="316" cy="592" rx="6" ry="3" fill="#7a5a40"/>
+  <ellipse cx="384" cy="592" rx="12" ry="6" fill="#5a4030"/>
+  <ellipse cx="384" cy="592" rx="6" ry="3" fill="#7a5a40"/>
+
+  <!-- Motion hint -->
+  <text x="400" y="605" fill="#3a5a6a" font-size="13" text-anchor="middle" opacity="0.45">Riding</text>
+</svg>

@@ -20,7 +20,7 @@ cardImage: "card-image.png"
 <details>
 <summary><strong>📊 Expand Model llama-server Config</strong></summary>
 
-```sh
+```yaml
   Spark-X2.5-1.7B:
     ttl: 3000
     healthCheckTimeout: 600
@@ -42,7 +42,7 @@ cardImage: "card-image.png"
       --reasoning-parser qwen3
 ```
 
-``` sh
+``` yaml
   LFM2.5-2.6B:
     ttl: 300
     cmd: >
@@ -62,7 +62,7 @@ cardImage: "card-image.png"
       --ubatch-size 2048
 ```
 
-```sh
+```yaml
   Spark-X2.5-4B:
     ttl: 3000
     healthCheckTimeout: 600
@@ -84,7 +84,7 @@ cardImage: "card-image.png"
       --reasoning-parser qwen3
 ```
 
-```sh
+```yaml
   MiniCPM5-2B:
     ttl: 300
     cmd: >
@@ -104,7 +104,7 @@ cardImage: "card-image.png"
       --ubatch-size 2048
 ```
 
-```sh
+```yaml
   Ling-3.0-tiny:
     ttl: 300
     cmd: >
@@ -124,7 +124,7 @@ cardImage: "card-image.png"
       --ubatch-size 2048
 ```
 
-```sh
+```yaml
   Nanbeige4.2-3B:
     ttl: 3000
     healthCheckTimeout: 600
@@ -149,7 +149,7 @@ cardImage: "card-image.png"
       --ubatch-size 2048
 ```
 
-```sh
+```yaml
   LFM2.5-8B-A1B:
     ttl: 300
     cmd: >
@@ -169,7 +169,7 @@ cardImage: "card-image.png"
       --ubatch-size 2048
 ```
 
-```sh
+```yaml
   Qwen3.8-9B-Distill:
     ttl: 300
     cmd: >
@@ -446,8 +446,10 @@ Let's yet again end on the classic silly "pelican on a bicycle" prompt.
 
 Obviously none of these are 'good' but at least LFM2.5-2.6B, Nanbeige4.2-3B, Ling-3.0-tiny, and Qwen3.8-9B-Distill generated a form that can extremely abstractly be determined to contain a bird and some form of 2 wheeled vehicle. I would personally make the claim the Qwen3.8-9B-Distill's was the best. The bird is most identifiably a pelican with the thick bill and the bicycle is pretty interpretable. Runner up would be Nanbeige4.2-3B. The spokes were impressive, but the bird is jumbled and the single triangle bike frame is hilarious. I'll let you draw your own conclusions though.
 
+## Conclusion
+
 {{< verdict >}}
-<p class="verdict-lead">Conclusion</p>
+<p class="verdict-lead">tl;dr</p>
 
 - I'm honestly most impressed with Nanbeige4.2-3B. It didn't score near the top on IFEval and was gapped by LFM2.5-2.6B in Humaneval+, but in every other benchmark (even pelican) it landed near the top or far above others. The most important benchmark win was the notable dominance in Arena Hard, and with the shortest outputs. And when it came to my real world use case it did a great job. It obeyed all instructions, found solid information (even though it could have been more diverse), and generated the report (even though theres a formatting/color issue in the 2nd table). 
 - LFM2.5-8B-A1B shocked me with the BFCL dominance, but it fell apart in my harness

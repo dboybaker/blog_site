@@ -1,0 +1,32 @@
+{
+  "models": [
+    {
+      "name": "Spark-X2.5-1.7B-Q8",
+      "size": "1.7B",
+      "hf": "https://huggingface.co/XHToken/Spark-X2.5-1.7B",
+      "report": "pelicans/Spark-X2.5-1.7B-Q8-pelican-bicycle.svg",
+      "summary": "Generated the SVG successfully."
+    },
+    {
+      "name": "Nanbeige4.2-3B-Q8",
+      "size": "3B",
+      "hf": "https://huggingface.co/Nanbeige/Nanbeige4.2-3B",
+      "report": "pelicans/Nanbeige4.2-3B-Q8-pelican-bicycle.svg",
+      "summary": "Wrote the SVG but didn't save it, had to do so manually."
+    },
+    {
+      "name": "Spark-X2.5-4B-Q8",
+      "size": "4B",
+      "hf": "https://huggingface.co/XHToken/Spark-X2.5-4B",
+      "report": "pelicans/Spark-X2.5-4B-Q8-pelican-bicycle.svg",
+      "summary": "Generated the SVG successfully."
+    },
+    {
+      "name": "Ling-3.0-tiny-Q8",
+      "size": "7.9B MoE, 1.3B active",
+      "hf": "https://huggingface.co/inclusionAI/Ling-3.0-tiny",
+      "report": "pelicans/Ling-3.0-tiny-Q8-pelican_bike.svg",
+      "summary": "Generated the SVG successfully. and FAST."
+    }
+  ]
+}

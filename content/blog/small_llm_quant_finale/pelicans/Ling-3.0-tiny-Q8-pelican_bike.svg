@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <!-- Sky gradient -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4A90D9"/>
+      <stop offset="100%" stop-color="#87CEEB"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#FFA500"/>
+    </radialGradient>
+    <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5D8A3C"/>
+      <stop offset="100%" stop-color="#3A6B1E"/>
+    </linearGradient>
+    <linearGradient id="bike" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#333"/>
+      <stop offset="100%" stop-color="#111"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect x="0" y="0" width="600" height="320" fill="url(#sky)"/>
+
+  <!-- Sun -->
+  <circle cx="500" cy="40" r="60" fill="url(#sun)" opacity="0.9"/>
+
+  <!-- Clouds -->
+  <g opacity="0.8">
+    <ellipse cx="120" cy="50" rx="50" ry="20" fill="white"/>
+    <ellipse cx="160" cy="45" rx="40" ry="18" fill="white"/>
+    <ellipse cx="90" cy="55" rx="35" ry="15" fill="white"/>
+  </g>
+  <g opacity="0.6">
+    <ellipse cx="420" cy="70" rx="45" ry="15" fill="white"/>
+    <ellipse cx="460" cy="65" rx="35" ry="12" fill="white"/>
+  </g>
+
+  <!-- Ground -->
+  <rect x="0" y="300" width="600" height="100" fill="url(#grass)"/>
+
+  <!-- Grass tufts -->
+  <g fill="#3A6B1E">
+    <polygon points="100,300 95,280 105,280"/>
+    <polygon points="110,300 107,275 113,275"/>
+    <polygon points="480,300 475,280 485,280"/>
+    <polygon points="490,300 488,275 492,275"/>
+    <polygon points="570,300 565,280 575,280"/>
+  </g>
+
+  <!-- Bicycle -->
+  <g transform="translate(250, 280)">
+    <!-- Handlebars -->
+    <line x1="0" y1="0" x2="0" y2="-8" stroke="#333" stroke-width="3"/>
+    <!-- Seat post -->
+    <line x1="0" y1="0" x2="-5" y2="-18" stroke="#333" stroke-width="3"/>
+    <!-- Seat -->
+    <ellipse cx="-5" cy="-18" rx="6" ry="4" fill="#8B4513" stroke="#333" stroke-width="1.5"/>
+
+    <!-- Frame -->
+    <line x1="0" y1="0" x2="10" y2="-20" stroke="#333" stroke-width="2.5"/>
+    <line x1="0" y1="0" x2="10" y2="-15" stroke="#333" stroke-width="2.5"/>
+    <line x1="0" y1="0" x2="25" y2="-10" stroke="#333" stroke-width="2.5"/>
+    <line x1="25" y1="-10" x2="10" y2="-15" stroke="#333" stroke-width="2.5"/>
+    <line x1="25" y1="-10" x2="10" y2="-5" stroke="#333" stroke-width="2.5"/>
+    <line x1="10" y1="-5" x2="10" y2="-15" stroke="#333" stroke-width="2.5"/>
+
+    <!-- Wheel 1 (rear) -->
+    <circle cx="10" cy="-30" r="15" fill="none" stroke="#333" stroke-width="3"/>
+    <circle cx="10" cy="-30" r="2" fill="#333"/>
+    <!-- Wheel 2 (front) -->
+    <circle cx="25" cy="-10" r="13" fill="none" stroke="#333" stroke-width="2.5"/>
+    <circle cx="25" cy="-10" r="2" fill="#333"/>
+
+    <!-- Rear wheel axle -->
+    <line x1="10" y1="-30" x2="10" y2="-20" stroke="#555" stroke-width="2"/>
+    <!-- Front wheel axle -->
+    <line x1="25" y1="-10" x2="25" y2="0" stroke="#555" stroke-width="2"/>
+
+    <!-- Chainring and pedals -->
+    <circle cx="10" cy="-30" r="3" fill="#666"/>
+
+    <!-- Seat -->
+    <ellipse cx="-5" cy="-18" rx="6" ry="3" fill="#A0522D" stroke="#333" stroke-width="1"/>
+
+    <!-- Pedals -->
+    <line x1="12" y1="-28" x2="12" y2="-22" stroke="#555" stroke-width="2"/>
+    <line x1="12" y1="-22" x2="16" y2="-22" stroke="#555" stroke-width="2"/>
+  </g>
+
+  <!-- Pelican -->
+  <g transform="translate(320, 260)">
+    <!-- Body -->
+    <ellipse cx="0" cy="0" rx="25" ry="20" fill="#F5F5F5" stroke="#333" stroke-width="1.5"/>
+
+    <!-- Head -->
+    <circle cx="0" cy="-25" r="12" fill="#F5F5F5" stroke="#333" stroke-width="1.5"/>
+
+    <!-- Beak -->
+    <polygon points="-12,-25 12,-25 5,-35" fill="#E8712C" stroke="#333" stroke-width="1.5"/>
+
+    <!-- Eye -->
+    <circle cx="-5" cy="-28" r="3" fill="#333"/>
+    <circle cx="-4" cy="-29" r="1" fill="white"/>
+
+    <!-- Wing -->
+    <path d="M-18,-5 Q-35,10 -18,15" fill="#F5F5F5" stroke="#333" stroke-width="1.5"/>
+
+    <!-- Tail -->
+    <path d="M15,-5 L25,-15 L18,-10 Z" fill="#F5F5F5" stroke="#333" stroke-width="1.5"/>
+
+    <!-- Legs (stretching forward on bike) -->
+    <line x1="-5" y1="-10" x2="0" y2="-30" stroke="#333" stroke-width="2"/>
+    <line x1="5" y1="-10" x2="10" y2="-30" stroke="#333" stroke-width="2"/>
+
+    <!-- Feet -->
+    <ellipse cx="0" cy="-30" rx="4" ry="2" fill="#2E8B57"/>
+    <ellipse cx="10" cy="-30" rx="4" ry="2" fill="#2E8B57"/>
+
+    <!-- Beak details -->
+    <circle cx="-5" cy="-25" r="1.5" fill="#D4521A"/>
+    <circle cx="5" cy="-25" r="1.5" fill="#D4521A"/>
+  </g>
+
+  <!-- Pedals (on bike) -->
+  <line x1="12" y1="-28" x2="12" y2="-22" stroke="#8B4513" stroke-width="3"/>
+  <line x1="12" y1="-22" x2="16" y2="-22" stroke="#8B4513" stroke-width="3"/>
+
+  <!-- Sun reflection -->
+  <circle cx="510" cy="50" r="12" fill="#FFD700" opacity="0.5"/>
+</svg>

@@ -1,0 +1,32 @@
+{
+  "models": [
+    {
+      "name": "Spark-X2.5-1.7B-Q8",
+      "size": "1.7B",
+      "hf": "https://huggingface.co/XHToken/Spark-X2.5-1.7B",
+      "report": "reports/Spark-X2.5-1.7B-Q8-UnifiedMemorySystemsComparison.pdf",
+      "summary": "Searched as well as the rest, great details and decent system selection. Found the upcoming Studios. Actually was able to generate a PDF, and was surprisingly the closest to adhering to the single page request."
+    },
+    {
+      "name": "Nanbeige4.2-3B-Q8",
+      "size": "3B",
+      "hf": "https://huggingface.co/Nanbeige/Nanbeige4.2-3B",
+      "report": "reports/Nanbeige4.2-3B-Q8-unified_memory_comparison.pdf",
+      "summary": "Once again respected the search_web N in the sys prompt and handled the chain flawlessly. It didn't have the same variety of options, and didn't mention the upcoming mac studios, but the results were good. It generated the PDF with some mild visual issues, but unlike the first time also didn't match the one page request."
+    },
+    {
+      "name": "Spark-X2.5-4B-Q8",
+      "size": "4B",
+      "hf": "https://huggingface.co/XHToken/Spark-X2.5-4B",
+      "report": "reports/Spark-X2.5-4B-Q8-Unified_Memory_Systems_128GB_Comparison.pdf",
+      "summary": "Also ignored search result limits, but was successful besides that. It included the upcoming Studios. The PDF was not single page, just like the others and did have some formatting issues, but overall pretty solid."
+    },
+    {
+      "name": "Ling-3.0-tiny-Q8",
+      "size": "7.9B MoE, 1.3B active",
+      "hf": "https://huggingface.co/inclusionAI/Ling-3.0-tiny",
+      "report": "reports/Ling-3.0-tiny-Q8-unified_memory.pdf",
+      "summary": "Ignored search result count limits as it did before, but did the search-&gt;fetch chain correctly. Had a great variety of options listed, oddly didn't include the upcoming mac studios. Created a simple clean PDF, but failed to adhere to 'single page'."
+    }
+  ]
+}
