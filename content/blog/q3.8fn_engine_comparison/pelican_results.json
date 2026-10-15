@@ -1,0 +1,22 @@
+{
+  "models": [
+    {
+      "name": "Ninfer6000",
+      "size": "Swift1.5 NVFP4",
+      "report": "unstructured_tests/pelican/ninfer6000_pelican_bicycle.svg",
+      "summary": "Took 29 seconds to fail another tool call. 1:05 total to create the pelican after prompting it to fix the call. Overall well put together pelican."
+    },
+    {
+      "name": "vLLM",
+      "size": "NVFP4",
+      "report": "unstructured_tests/pelican/nvfp4_vllm_pelican_bicycle.svg",
+      "summary": "Took 19 seconds to put together a fantastic pelican. Very impressed with the output."
+    },
+    {
+      "name": "llama.cpp",
+      "size": "UD-Q4_K_XL",
+      "report": "unstructured_tests/pelican/ud_q4_k_xl_pelican_bicycle.svg",
+      "summary": "Took 1min 57sec to generate the pelican. Definitely the worst of the 3 but not bad."
+    }
+  ]
+}

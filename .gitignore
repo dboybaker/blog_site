@@ -4,3 +4,6 @@
 .DS_Store
 /tools/
 /assets/data/[0-9]*/
+# Raw benchmark run caches next to the articles (large; Hugo ignores them for
+# publishing, but this keeps them out of git too).
+/content/blog/*/results/

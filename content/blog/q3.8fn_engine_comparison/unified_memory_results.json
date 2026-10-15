@@ -1,0 +1,22 @@
+{
+  "models": [
+    {
+      "name": "Ninfer6000",
+      "size": "Swift1.5 NVFP4",
+      "report": "unstructured_tests/unified_memory_report/ninfer6000_report.pdf",
+      "summary": "Did a great job setting the search count, bigger count (5) at first, down to 3 as it became more specific. Great variety of info, misc Strix Halo boxes, GB10, new 192gb framework, M5 Ultra and Max. Created all the tasks, but cluster-closed them all right before generating output. Gave a malformed tool call when asked to create the one-pager. Used the wrong tool name format."
+    },
+    {
+      "name": "vLLM",
+      "size": "NVFP4",
+      "report": "unstructured_tests/unified_memory_report/nvfp4_vllm_report.pdf",
+      "summary": "Search pattern deviated a bit from Ninfer6000. Did bigger searches up front, then fetched from those rather than search->think->search repeated. Got information regarding the same expected set. Handled the tasks well but failed to close the final one after generating output."
+    },
+    {
+      "name": "llama.cpp",
+      "size": "UD-Q4_K_XL",
+      "report": "unstructured_tests/unified_memory_report/ud_q4_k_xl_report.pdf",
+      "summary": "Search pattern was more similar to ninfer6000. Did modulate `n` as it felt necessary. Found most expected items, didn't mention the M5 Max as an option though. Cluster closed created tasks."
+    }
+  ]
+}

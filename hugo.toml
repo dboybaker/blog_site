@@ -3,12 +3,21 @@ locale = "en-us"
 title = "Demietrich"
 theme = "demitheme"
 
-# Raw benchmark result data kept next to the article; not site content.
+# Raw benchmark result data, the scripts that build the charts, and the chart
+# inputs kept next to the article; not site content. Patterns are regular
+# expressions matched against the absolute file path, and they apply to the
+# content/data/i18n dirs only (not static/). Single-quoted strings are used for
+# patterns with backslashes - a TOML basic string would reject the escape.
 # (The runner's cache dir contains .html reports that fail Hugo's content security policy.)
 ignoreFiles = [
   "[_-]benchmarks",
   "nanbeige_rerun",
   "Qwen3.8-9B-Distill-arena_hard_rerurn",
+  "q3.8fn_engine_comparison/results",
+  'q3.8fn_engine_comparison/scripts',
+  'mnist_nn_project/mnist_train\.py$',
+  'local_llm_finetuning_experiments/.*\.csv$',
+  '\.DS_Store$',
 ]
 
 [params]
