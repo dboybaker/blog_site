@@ -1,0 +1,18 @@
+{
+  "models": [
+    {
+      "name": "NVIDIA NVFP4",
+      "size": "Qwen3.8-Flash-Next",
+      "hf": "https://huggingface.co/nvidia/Qwen3.8-Flash-Next-NVFP4",
+      "report": "unified_mem_report/nvidia-unified-memory-128gb-guide-oct2026.pdf",
+      "summary": "Completed both turns and produced a one-page PDF guide. Total cost of the job: <strong>1.44M</strong> generated tokens."
+    },
+    {
+      "name": "Swift1.5 NVFP4",
+      "size": "Swift 1.5 Qwen3.8-Flash-Next (FP8 PLE)",
+      "hf": "https://huggingface.co/ukisai/Swift-1.5-Qwen3.8-Flash-Next-NVFP4",
+      "report": "unified_mem_report/swift1.5-unified-memory-128gb-guide-oct2026.pdf",
+      "summary": "Completed both turns and produced a one-page PDF guide. Total cost of the job: <strong>436K</strong> generated tokens &#8212; 3.3x cheaper than the NVIDIA build on the same task."
+    }
+  ]
+}

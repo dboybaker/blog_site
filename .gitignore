@@ -7,3 +7,8 @@
 # Raw benchmark run caches next to the articles (large; Hugo ignores them for
 # publishing, but this keeps them out of git too).
 /content/blog/*/results/
+
+# Working material that backs an article but is never published: raw run output,
+# generated app trees, scratch notes. Kept on disk for reference only - it lives
+# outside content/ so Hugo never assembles it, and out of git so it never ships.
+/_offline/

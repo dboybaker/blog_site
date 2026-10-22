@@ -2,7 +2,7 @@
 PAGEFIND_BIN ?= pagefind
 
 .DEFAULT_GOAL := build
-.PHONY: build preview serve clean
+.PHONY: build preview serve serve-drafts clean
 
 build:
 	@command -v $(PAGEFIND_BIN) >/dev/null 2>&1 || \
@@ -14,7 +14,11 @@ preview: build
 	$(PAGEFIND_BIN) --site public --serve
 
 serve:
-	hugo server
+	hugo server --disableFastRender
+
+# Posts are written as drafts until the commentary goes in; `serve` hides them.
+serve-drafts:
+	hugo server --buildDrafts --disableFastRender
 
 clean:
 	rm -rf public/

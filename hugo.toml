@@ -15,6 +15,9 @@ ignoreFiles = [
   "Qwen3.8-9B-Distill-arena_hard_rerurn",
   "q3.8fn_engine_comparison/results",
   'q3.8fn_engine_comparison/scripts',
+  # Drop a fresh run into an article bundle and it lands here; nothing in
+  # content/ should ever look like a raw evalscope run.
+  'swift1.5_nvidia_nvfp4_comparison/(results|benchmarks)',
   'mnist_nn_project/mnist_train\.py$',
   'local_llm_finetuning_experiments/.*\.csv$',
   '\.DS_Store$',

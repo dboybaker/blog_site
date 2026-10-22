@@ -27,12 +27,23 @@
     {{< model-report-tabs >}}
     {{< model-report-tabs file="other/article/results.json" >}}
     {{< model-report-tabs file="small_llm_shootout/pelican_results.json" kind="svg" uid="pelicans" >}}
+
+    A "root:" prefix reads the data from the project root instead of from a
+    page bundle. Prefer it for new articles: a .json file sitting at a page
+    bundle root can be picked up as a leaf resource during a fast render.
+
+    {{< model-report-tabs file="root:data/blog/my_article/results.json" >}}
 */}}
 
 {{ $file := .Get "file" | default "small_llm_shootout/chat_results.json" }}
 {{ $kind := .Get "kind" | default "pdf" }}
-{{ $raw := readFile (printf "content/blog/%s" $file) }}
-{{ if not $raw }}{{ errorf "model-report-tabs: could not read data file 'content/blog/%s'" $file }}{{ end }}
+
+{{/* "root:" means the path is already relative to the project root. */}}
+{{ $dataPath := printf "content/blog/%s" $file }}
+{{ if hasPrefix $file "root:" }}{{ $dataPath = replaceRE "^root:" "" $file }}{{ end }}
+
+{{ $raw := readFile $dataPath }}
+{{ if not $raw }}{{ errorf "model-report-tabs: could not read data file '%s'" $dataPath }}{{ end }}
 {{ $data := $raw | transform.Unmarshal }}
 
 {{ $models := $data.models }}
@@ -68,7 +79,7 @@
     {{ if $res }}
       {{ $pdfURL = $res.RelPermalink }}
     {{ else }}
-      {{ $pdfURL = printf "%s%s" ($.Page.RelPermalink | replaceRE "/$") . }}
+      {{ $pdfURL = printf "%s/%s" ($.Page.RelPermalink | replaceRE "/$" "") . }}
     {{ end }}
   {{ end }}
   {{ $isSvg := and $pdfURL (hasSuffix (path.Ext $pdfURL | lower) "svg") }}

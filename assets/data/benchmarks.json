@@ -202,7 +202,7 @@
     ]
   },
   {
-    "model": "gemma4-E2B-Q4",
+    "model": "Gemma4-E2B-Q4",
     "benchmark": "BFCL-v4",
     "score": 0.7733,
     "samples": 300,
@@ -244,7 +244,7 @@
     ]
   },
   {
-    "model": "gemma4-E2B-Q4",
+    "model": "Gemma4-E2B-Q4",
     "benchmark": "IFEval",
     "score": 0.768,
     "samples": 250,
@@ -275,7 +275,7 @@
     ]
   },
   {
-    "model": "gemma4-E2B-Q4",
+    "model": "Gemma4-E2B-Q4",
     "benchmark": "MMLU-Pro",
     "score": 0.5405,
     "samples": 420,
@@ -356,7 +356,7 @@
     ]
   },
   {
-    "model": "gemma4-E2B-Q4",
+    "model": "Gemma4-E2B-Q4",
     "benchmark": "Arena-Hard",
     "score": 0.678,
     "samples": 75,
@@ -372,7 +372,7 @@
     ]
   },
   {
-    "model": "gemma4-E2B-Q4",
+    "model": "Gemma4-E2B-Q4",
     "benchmark": "HumanEval+",
     "score": 0.7805,
     "samples": 164,
@@ -388,7 +388,7 @@
     ]
   },
   {
-    "model": "gemma4-E2B-Q4",
+    "model": "Gemma4-E2B-Q4",
     "benchmark": "MBPP+",
     "score": 0.8439,
     "samples": 378,
@@ -404,7 +404,7 @@
     ]
   },
   {
-    "model": "gemma4-E4B-Q4",
+    "model": "Gemma4-E4B-Q4",
     "benchmark": "BFCL-v4",
     "score": 0.78,
     "samples": 300,
@@ -446,7 +446,7 @@
     ]
   },
   {
-    "model": "gemma4-E4B-Q4",
+    "model": "Gemma4-E4B-Q4",
     "benchmark": "IFEval",
     "score": 0.824,
     "samples": 250,
@@ -477,7 +477,7 @@
     ]
   },
   {
-    "model": "gemma4-E4B-Q4",
+    "model": "Gemma4-E4B-Q4",
     "benchmark": "MMLU-Pro",
     "score": 0.6595,
     "samples": 420,
@@ -558,7 +558,7 @@
     ]
   },
   {
-    "model": "gemma4-E4B-Q4",
+    "model": "Gemma4-E4B-Q4",
     "benchmark": "HumanEval+",
     "score": 0.872,
     "samples": 164,
@@ -574,7 +574,7 @@
     ]
   },
   {
-    "model": "gemma4-E4B-Q4",
+    "model": "Gemma4-E4B-Q4",
     "benchmark": "MBPP+",
     "score": 0.8889,
     "samples": 378,
@@ -590,7 +590,7 @@
     ]
   },
   {
-    "model": "gemma4-E4B-Q4",
+    "model": "Gemma4-E4B-Q4",
     "benchmark": "Arena-Hard",
     "score": 0.7958,
     "samples": 75,
@@ -606,7 +606,7 @@
     ]
   },
   {
-    "model": "gemma4-12b-Q4",
+    "model": "Gemma4-12b-Q4",
     "benchmark": "BFCL-v4",
     "score": 0.8067,
     "samples": 300,
@@ -648,7 +648,7 @@
     ]
   },
   {
-    "model": "gemma4-12b-Q4",
+    "model": "Gemma4-12b-Q4",
     "benchmark": "IFEval",
     "score": 0.876,
     "samples": 250,
@@ -679,7 +679,7 @@
     ]
   },
   {
-    "model": "gemma4-12b-Q4",
+    "model": "Gemma4-12b-Q4",
     "benchmark": "MMLU-Pro",
     "score": 0.7619,
     "samples": 420,
@@ -760,7 +760,7 @@
     ]
   },
   {
-    "model": "gemma4-12b-Q4",
+    "model": "Gemma4-12b-Q4",
     "benchmark": "HumanEval+",
     "score": 0.9451,
     "samples": 164,
@@ -776,7 +776,7 @@
     ]
   },
   {
-    "model": "gemma4-12b-Q4",
+    "model": "Gemma4-12b-Q4",
     "benchmark": "MBPP+",
     "score": 0.9365,
     "samples": 378,
@@ -792,7 +792,7 @@
     ]
   },
   {
-    "model": "gemma4-12b-Q4",
+    "model": "Gemma4-12b-Q4",
     "benchmark": "Arena-Hard",
     "score": 0.9351,
     "samples": 75,
@@ -1612,7 +1612,7 @@
     ]
   },
   {
-    "model": "gemma4-31b-Q8",
+    "model": "Gemma4-31b-Q8",
     "benchmark": "BFCL-v4",
     "score": 0.8667,
     "samples": 300,
@@ -1653,7 +1653,7 @@
     ]
   },
   {
-    "model": "gemma4-31b-Q8",
+    "model": "Gemma4-31b-Q8",
     "benchmark": "IFEval",
     "score": 0.908,
     "samples": 250,
@@ -1684,7 +1684,7 @@
     ]
   },
   {
-    "model": "gemma4-31b-Q8",
+    "model": "Gemma4-31b-Q8",
     "benchmark": "MMLU-Pro",
     "score": 0.8595,
     "samples": 420,
@@ -1765,7 +1765,7 @@
     ]
   },
   {
-    "model": "gemma4-31b-Q8",
+    "model": "Gemma4-31b-Q8",
     "benchmark": "Arena-Hard",
     "score": 0.9662,
     "samples": 75,
@@ -1781,7 +1781,7 @@
     ]
   },
   {
-    "model": "gemma4-31b-Q8",
+    "model": "Gemma4-31b-Q8",
     "benchmark": "HumanEval+",
     "score": 0.9451,
     "samples": 164,
@@ -1797,7 +1797,7 @@
     ]
   },
   {
-    "model": "gemma4-31b-Q8",
+    "model": "Gemma4-31b-Q8",
     "benchmark": "MBPP+",
     "score": 0.9497,
     "samples": 378,
@@ -1813,7 +1813,7 @@
     ]
   },
   {
-    "model": "gemma3-1b-Q4",
+    "model": "Gemma3-1b-Q4",
     "benchmark": "BFCL-v4",
     "score": 0.0000,
     "samples": 300,
@@ -1855,7 +1855,7 @@
     ]
   },
   {
-    "model": "gemma3-1b-Q4",
+    "model": "Gemma3-1b-Q4",
     "benchmark": "IFEval",
     "score": 0.528,
     "samples": 250,
@@ -1886,7 +1886,7 @@
     ]
   },
   {
-    "model": "gemma3-1b-Q4",
+    "model": "Gemma3-1b-Q4",
     "benchmark": "MMLU-Pro",
     "score": 0.1762,
     "samples": 420,
@@ -1967,7 +1967,7 @@
     ]
   },
   {
-    "model": "gemma3-1b-Q4",
+    "model": "Gemma3-1b-Q4",
     "benchmark": "Arena-Hard",
     "score": 0.2288,
     "samples": 75,
@@ -1983,7 +1983,7 @@
     ]
   },
   {
-    "model": "gemma3-1b-Q4",
+    "model": "Gemma3-1b-Q4",
     "benchmark": "HumanEval+",
     "score": 0.3659,
     "samples": 164,
@@ -1999,7 +1999,7 @@
     ]
   },
   {
-    "model": "gemma3-1b-Q4",
+    "model": "Gemma3-1b-Q4",
     "benchmark": "MBPP+",
     "score": 0.5979,
     "samples": 378,
@@ -4236,6 +4236,410 @@
         "name": "winrate",
         "score": 0.8116,
         "samples": 75
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-Flash-Next-NVFP4",
+    "benchmark": "BFCL-v4",
+    "score": 0.78,
+    "samples": 300,
+    "date": "2026-10-18T14:09:59",
+    "run": "swift1.5-vs-nvidia-arena-bfcl",
+    "model_notes": "NVIDIA's official post-quantization of the stock Qwen3.8-Flash-Next. vLLM on RTX 6000 Blackwell (96 GB), --quantization modelopt, MTP speculative decoding x2, PLE CPU offload.",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.78,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.72,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.58,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.82,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.82,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.96,
+        "samples": 50
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-Flash-Next-NVFP4",
+    "benchmark": "Arena-Hard",
+    "score": 0.9936,
+    "samples": 75,
+    "date": "2026-10-18T14:00:07",
+    "run": "swift1.5-vs-nvidia-arena-bfcl",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.9936,
+        "samples": 75
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-Flash-Next-NVFP4",
+    "benchmark": "IFEval",
+    "score": 0.812,
+    "samples": 250,
+    "date": "2026-10-18T19:12:12",
+    "run": "swift1.5-vs-nvidia-general",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.812,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.8767,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.856,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.9087,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-Flash-Next-NVFP4",
+    "benchmark": "MMLU-Pro",
+    "score": 0.831,
+    "samples": 420,
+    "date": "2026-10-18T19:29:00",
+    "run": "swift1.5-vs-nvidia-general",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.9333,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.9667,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.9,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.7333,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.9333,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.7333,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.9667,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.6,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.6667,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-Flash-Next-NVFP4",
+    "benchmark": "HumanEval+",
+    "score": 0.9512,
+    "samples": 164,
+    "date": "2026-10-18T19:35:46",
+    "run": "swift1.5-vs-nvidia-general",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.9512,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-Flash-Next-NVFP4",
+    "benchmark": "MBPP+",
+    "score": 0.9577,
+    "samples": 378,
+    "date": "2026-10-18T19:39:11",
+    "run": "swift1.5-vs-nvidia-general",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.9577,
+        "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "Swift-1.5-Qwen3.8-Flash-Next-NVFP4",
+    "benchmark": "BFCL-v4",
+    "score": 0.7867,
+    "samples": 300,
+    "date": "2026-10-18T14:50:30",
+    "run": "swift1.5-vs-nvidia-arena-bfcl",
+    "model_notes": "UkisAI's token-efficiency finetune of the same base on the same NVFP4 recipe; PLE embedding quantized to FP8 to match. vLLM on RTX 6000 Blackwell (96 GB), MTP speculative decoding x2, PLE CPU offload.",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.78,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.74,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.48,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.9,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.86,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.96,
+        "samples": 50
+      }
+    ]
+  },
+  {
+    "model": "Swift-1.5-Qwen3.8-Flash-Next-NVFP4",
+    "benchmark": "Arena-Hard",
+    "score": 0.9937,
+    "samples": 75,
+    "date": "2026-10-18T14:42:27",
+    "run": "swift1.5-vs-nvidia-arena-bfcl",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.9937,
+        "samples": 75
+      }
+    ]
+  },
+  {
+    "model": "Swift-1.5-Qwen3.8-Flash-Next-NVFP4",
+    "benchmark": "IFEval",
+    "score": 0.848,
+    "samples": 250,
+    "date": "2026-10-18T19:47:25",
+    "run": "swift1.5-vs-nvidia-general",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.848,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.898,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.896,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.934,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "Swift-1.5-Qwen3.8-Flash-Next-NVFP4",
+    "benchmark": "MMLU-Pro",
+    "score": 0.8476,
+    "samples": 420,
+    "date": "2026-10-18T20:02:02",
+    "run": "swift1.5-vs-nvidia-general",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.9333,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.9667,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.9333,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.7,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 1.0,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.9667,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.9333,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.6333,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.7,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "Swift-1.5-Qwen3.8-Flash-Next-NVFP4",
+    "benchmark": "HumanEval+",
+    "score": 0.939,
+    "samples": 164,
+    "date": "2026-10-18T20:03:40",
+    "run": "swift1.5-vs-nvidia-general",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.939,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "Swift-1.5-Qwen3.8-Flash-Next-NVFP4",
+    "benchmark": "MBPP+",
+    "score": 0.9577,
+    "samples": 378,
+    "date": "2026-10-18T20:06:53",
+    "run": "swift1.5-vs-nvidia-general",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.9577,
+        "samples": 378
       }
     ]
   }

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>STRIDE-2 - interactive 3D chassis</title>
+<style>
+  :root{
+    --fg: var(--foreground, #e6e8ee);
+    --mut: var(--muted-foreground, #98a1b3);
+    --acc: var(--accent, #58a6ff);
+    --bd: var(--border, #30363d);
+    --card: var(--card, #12161d);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:transparent}
+  #app{display:flex;gap:12px;height:920px;width:100%;
+       font-family:var(--font-family-sans, -apple-system,"Segoe UI",DejaVu Sans,sans-serif);
+       color:var(--fg)}
+  #stage{position:relative;flex:1 1 auto;min-width:0;background:var(--card);
+         border:1px solid var(--bd);border-radius:10px;overflow:hidden}
+  #stage canvas{display:block}
+  #side{flex:0 0 320px;overflow:auto;background:var(--card);border:1px solid var(--bd);
+        border-radius:10px;padding:12px 14px;font-size:12px;line-height:1.45}
+  #side h1{font-size:15px;margin:0 0 2px}
+  #side h2{font-size:11px;letter-spacing:.09em;color:#f0a03c;margin:14px 0 4px;
+           text-transform:uppercase;font-weight:700}
+  #side .sub{color:var(--mut);font-size:11.5px;margin-bottom:2px}
+  .row{display:flex;gap:8px;justify-content:space-between;padding:1.5px 0}
+  .row b{font-weight:500;color:var(--mut);flex:0 0 46%}
+  .row span{text-align:right}
+  .lg{display:flex;align-items:center;gap:7px;padding:2.5px 0;cursor:pointer;user-select:none}
+  .lg i{width:13px;height:13px;border-radius:3px;flex:0 0 auto;border:1px solid #0008}
+  .lg.off{opacity:.35;text-decoration:line-through}
+  #hud{position:absolute;left:10px;top:10px;display:flex;flex-wrap:wrap;gap:6px;max-width:96%}
+  button{font:inherit;font-size:11.5px;padding:4px 9px;border-radius:6px;cursor:pointer;
+         background:#1b2230;color:var(--fg);border:1px solid var(--bd)}
+  button:hover{border-color:var(--acc)}
+  button.on{background:var(--acc);color:#06111f;border-color:var(--acc);font-weight:600}
+  #tip{position:absolute;pointer-events:none;display:none;background:#0b0f16ee;
+       border:1px solid var(--acc);border-radius:6px;padding:5px 8px;font-size:11.5px;
+       max-width:330px;z-index:5}
+  #tag{position:absolute;right:12px;bottom:10px;color:var(--mut);font-size:11px;text-align:right}
+  .note{font-size:11.5px;color:var(--mut);border-top:1px solid var(--bd);padding-top:8px;margin-top:10px}
+  .note b{color:var(--fg);font-weight:600}
+  kbd{background:#1b2230;border:1px solid var(--bd);border-radius:4px;padding:0 4px;font-size:10.5px}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="stage">
+    <div id="hud">
+      <button id="bCut" class="on">Cutaway</button>
+      <button id="bFlow" class="on">Airflow</button>
+      <button id="bSpin" class="on">Auto-rotate</button>
+      <button id="bShell" class="on">Shell</button>
+      <button id="bLbl">Labels</button>
+      <span style="width:8px"></span>
+      <button data-v="iso">Iso</button>
+      <button data-v="front">Front</button>
+      <button data-v="side">Side</button>
+      <button data-v="rear">Rear</button>
+      <button data-v="top">Top</button>
+    </div>
+    <div id="tip"></div>
+    <div id="tag">drag&nbsp;=&nbsp;orbit &nbsp;·&nbsp; scroll&nbsp;=&nbsp;zoom<br>
+      176 x 757 x 382 mm · 50.9 L · 1.2 kW</div>
+  </div>
+  <div id="side">
+    <h1>STRIDE-2</h1>
+    <div class="sub">Compact dual-GPU ATX server chassis &mdash;
+      RTX&nbsp;PRO&nbsp;6000 Blackwell&nbsp;WS + RTX&nbsp;3090&nbsp;FTW3</div>
+    <h2>Envelope</h2><div id="sp1"></div>
+    <h2>Thermals</h2><div id="sp2"></div>
+    <h2>Clearances (validated)</h2><div id="sp3"></div>
+    <h2>Fit</h2><div id="sp4"></div>
+    <h2>Parts (click to hide)</h2><div id="lg"></div>
+    <div class="note">
+      <b>Air path:</b> front 3&times;140 + floor 120 &rarr; straight through three
+      parallel slots (30.5&nbsp;mm inter-card channel) &rarr; rear 3&times;140 + top
+      280&nbsp;rad. Zero bends. PSU in a sealed bottom-rear tunnel on its own duct.
+      <div style="margin-top:6px"><kbd>C</kbd> cutaway &nbsp;<kbd>F</kbd> flow &nbsp;<kbd>S</kbd> spin &nbsp;<kbd>R</kbd> reset</div>
+    </div>
+  </div>
+</div>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+
+const DATA = {"W":176,"H":757,"D":382,"parts":[{"name":"tray_wall","group":"shell","label":"Motherboard tray (2 mm, ATX + mATX standoff grid)","color":"#8d99ae","alpha":0.55,"x":[0,2],"y":[12,755],"z":[0,382]},{"name":"side_panel","group":"shell","label":"Right side panel (solid, 2 mm)","color":"#9ca3af","alpha":0.14,"x":[174,176],"y":[12,755],"z":[0,382]},{"name":"top_panel","group":"shell","label":"Top panel: 280 mm radiator / 2x140 exhaust","color":"#9ca3af","alpha":0.14,"x":[0,176],"y":[755,757],"z":[0,382]},{"name":"floor_plate","group":"shell","label":"Floor plate + dust filter","color":"#9ca3af","alpha":0.3,"x":[0,176],"y":[12,15],"z":[0,382]},{"name":"rear_panel","group":"shell","label":"Rear panel: 8 slot grille + 2x140 + PSU outlet","color":"#9ca3af","alpha":0.16,"x":[0,176],"y":[12,755],"z":[0,2]},{"name":"front_panel","group":"shell","label":"Front panel: full-open mesh, no filter","color":"#9ca3af","alpha":0.1,"x":[0,176],"y":[12,755],"z":[380,382]},{"name":"foot_fl","group":"chassis","label":"Isolation feet","color":"#111827","alpha":1.0,"x":[8,34],"y":[0,12],"z":[12,38]},{"name":"foot_fr","group":"chassis","label":"","color":"#111827","alpha":1.0,"x":[142,168],"y":[0,12],"z":[12,38]},{"name":"foot_rl","group":"chassis","label":"","color":"#111827","alpha":1.0,"x":[8,34],"y":[0,12],"z":[344,370]},{"name":"foot_rr","group":"chassis","label":"","color":"#111827","alpha":1.0,"x":[142,168],"y":[0,12],"z":[344,370]},{"name":"psu","group":"psu","label":"ATX PSU 150x86x200 (1600 W)","color":"#4b5563","alpha":1.0,"x":[6,156],"y":[20,106],"z":[6,206]},{"name":"psu_shroud_top","group":"psu","label":"PSU tunnel ceiling = intake plenum floor","color":"#6b7280","alpha":0.75,"x":[2,174],"y":[106,110],"z":[6,210]},{"name":"psu_shroud_side","group":"psu","label":"PSU tunnel side wall (sealed)","color":"#6b7280","alpha":0.75,"x":[156,160],"y":[15,110],"z":[6,210]},{"name":"psu_duct","group":"psu","label":"Rear baffle: PSU exhaust sealed to rear outlet","color":"#f59e0b","alpha":0.3,"x":[20,140],"y":[22,104],"z":[206,214]},{"name":"mobo","group":"board","label":"ATX 305 x 244 motherboard","color":"#14532d","alpha":1.0,"x":[2,4.6],"y":[115,420],"z":[2,246]},{"name":"io_shield","group":"board","label":"Rear I/O (44 x 158 mm)","color":"#334155","alpha":1.0,"x":[2,40],"y":[375,420],"z":[2,8]},{"name":"cpu_pump","group":"cooling","label":"CPU waterblock (250 W)","color":"#b91c1c","alpha":1.0,"x":[6,66],"y":[300,380],"z":[120,200]},{"name":"ram","group":"board","label":"DIMMs","color":"#7c3aed","alpha":1.0,"x":[6,18],"y":[290,400],"z":[210,238]},{"name":"pwr_conn","group":"board","label":"24-pin + EPS (top-rear, short reach)","color":"#0891b2","alpha":0.9,"x":[2,30],"y":[395,415],"z":[220,244]},{"name":"gpu1_body","group":"gpu1","label":"RTX PRO 6000 Blackwell WS Ed. - 305x137x40, 2-slot flow-through, 600 W","color":"#15803d","alpha":1.0,"x":[6,143.3],"y":[249.7,290.3],"z":[8,313]},{"name":"gpu1_bracket","group":"gpu1","label":"Bracket (2 slots)","color":"#cbd5e1","alpha":1.0,"x":[2,6],"y":[236,304],"z":[0,8]},{"name":"gpu1_fan_a","group":"gpu1","label":"Top-side axial fan (exhausts up)","color":"#22c55e","alpha":0.55,"x":[6,143.3],"y":[290.3,296.3],"z":[40,120]},{"name":"gpu1_fan_b","group":"gpu1","label":"","color":"#22c55e","alpha":0.55,"x":[6,143.3],"y":[290.3,296.3],"z":[170,250]},{"name":"gpu2_body","group":"gpu2","label":"EVGA RTX 3090 FTW3 Ultra - 312x146.3x61, 3-slot open-air, 350 W","color":"#b8860b","alpha":1.0,"x":[6,152.3],"y":[158.2,219.2],"z":[8,308]},{"name":"gpu2_bracket","group":"gpu2","label":"Bracket (3 slots)","color":"#cbd5e1","alpha":1.0,"x":[2,6],"y":[145,233],"z":[0,8]},{"name":"gpu2_fan_a","group":"gpu2","label":"Underside intake fans","color":"#fbbf24","alpha":0.55,"x":[6,152.3],"y":[152.2,158.2],"z":[30,110]},{"name":"gpu2_fan_b","group":"gpu2","label":"","color":"#fbbf24","alpha":0.55,"x":[6,152.3],"y":[152.2,158.2],"z":[115,195]},{"name":"gpu2_fan_c","group":"gpu2","label":"","color":"#fbbf24","alpha":0.55,"x":[6,152.3],"y":[152.2,158.2],"z":[200,280]},{"name":"tip_baffle","group":"airflow","label":"Slot-region baffle: blocks front->rear bypass over the slot stack","color":"#f59e0b","alpha":0.3,"x":[2,174],"y":[128,300],"z":[316,322]},{"name":"flow_vane","group":"airflow","label":"Flow-guide vane: seals top plenum, guides card exhaust into rad","color":"#f59e0b","alpha":0.3,"x":[143,148],"y":[300,648],"z":[12,350]},{"name":"fan_front_1","group":"fan","label":"140 mm intake","color":"#0891b2","alpha":0.55,"x":[12,162],"y":[300,440],"z":[355,380]},{"name":"fan_front_2","group":"fan","label":"","color":"#0891b2","alpha":0.55,"x":[12,162],"y":[450,590],"z":[355,380]},{"name":"fan_front_3","group":"fan","label":"","color":"#0891b2","alpha":0.55,"x":[12,162],"y":[600,740],"z":[355,380]},{"name":"fan_floor","group":"fan","label":"120 mm floor intake -> GPU-2 underside","color":"#0891b2","alpha":0.55,"x":[28,148],"y":[15,40],"z":[200,320]},{"name":"fan_rear_low1","group":"fan","label":"140 mm exhaust (slot region)","color":"#e11d48","alpha":0.55,"x":[12,162],"y":[130,270],"z":[6,31]},{"name":"fan_rear_low2","group":"fan","label":"","color":"#e11d48","alpha":0.55,"x":[12,162],"y":[280,420],"z":[6,31]},{"name":"fan_rear_up","group":"fan","label":"140 mm exhaust (CPU/VRM)","color":"#e11d48","alpha":0.55,"x":[12,162],"y":[435,575],"z":[6,31]},{"name":"fan_top_1","group":"fan","label":"2x140 rad fans (draw-through)","color":"#e11d48","alpha":0.55,"x":[25,165],"y":[650,675],"z":[30,170]},{"name":"fan_top_2","group":"fan","label":"","color":"#e11d48","alpha":0.55,"x":[25,165],"y":[650,675],"z":[180,320]},{"name":"rad_top","group":"cooling","label":"280 mm radiator, CPU loop, top exhaust","color":"#64748b","alpha":0.85,"x":[25,165],"y":[675,705],"z":[25,340]},{"name":"cable_chan","group":"chassis","label":"20 mm rear cable channel","color":"#374151","alpha":0.55,"x":[160,174],"y":[15,300],"z":[330,378]},{"name":"fan_ctrl","group":"chassis","label":"Fan controller / PWM hub (11 ch)","color":"#1f2937","alpha":1.0,"x":[150,172],"y":[100,250],"z":[330,375]}],"flow":[{"p":[88,370,392],"d":[0,0,-62,"in"],"kind":"in"},{"p":[88,520,392],"d":[0,0,-62,"in"],"kind":"in"},{"p":[88,670,392],"d":[0,0,-62,"in"],"kind":"in"},{"p":[90,8,260],"d":[0,58,0,"in"],"kind":"in"},{"p":[158,130,300],"d":[0,0,-255,"chan"],"kind":"chan"},{"p":[158,234,300],"d":[0,0,-255,"chan"],"kind":"chan"},{"p":[158,320,300],"d":[0,0,-255,"chan"],"kind":"chan"},{"p":[118,350,90],"d":[18,280,0,"out"],"kind":"out"},{"p":[118,350,190],"d":[18,280,0,"out"],"kind":"out"},{"p":[118,350,290],"d":[18,280,0,"out"],"kind":"out"},{"p":[86,200,44],"d":[0,0,-44,"out"],"kind":"out"},{"p":[86,350,44],"d":[0,0,-44,"out"],"kind":"out"},{"p":[86,505,44],"d":[0,0,-44,"out"],"kind":"out"},{"p":[80,63,214],"d":[0,0,-205,"out"],"kind":"out"}],"specs":[["ENVELOPE",""],["External (W x H x D)","176 x 757 x 382 mm"],["Volume","50.9 L  (0.082 m2 floorprint)"],["Dry weight est.","9.6 kg (2 mm Al + 3 mm floor)"],["Form","Mini-server tower / 11U rail-mount"],["",""],["COOLING CAPACITY",""],["Design heat load","1200 W (600 + 350 + 250)"],["Installed fan capacity","1640 m3/h (965 CFM) free flow"],["Operating point","~600 CFM @ 15-20 mm H2O"],["Case air rise @ 1.2 kW","3.8 K  (Q=P/(rho cp dT))"],["Pressure balance","3x140+1x120 in / 3x140+2x140 out, near neutral"],["Fan count","11 (8x140, 2x140 rad, 1x120 floor) + PSU"],["",""],["AIR PATH",""],["Intake","Front mesh (open, no filter) at slot-stack height"],["","+ floor 120 mm under GPU-2"],["Path","Straight through, 3 parallel slots, 0 bends"],["Exhaust","Rear 3x140 (2 slot-region + 1 CPU) + top 280 rad"],["PSU","Sealed bottom-rear tunnel, own rear outlet"],["",""],["CLEARANCES (validated)",""],["Inter-card gap","30.5 mm fresh-air channel"],["GPU-2 underside intake","118 mm to floor fan"],["GPU tip -> front fan","42 mm"],["CPU cooler max","165 mm air / 280 AIO top"],["GPU clearance","312 mm (14 mm spare)"],["PSU max depth","200 mm (1600 W class)"],["",""],["COMPONENT FIT",""],["Motherboard","ATX 305x244 (E-ATX 12x13 w/o top rad)"],["PSU","ATX, 150x86x140-200 mm"],["GPU-1 slot 1","RTX PRO 6000 Blkwell WS (305x137x40)"],["GPU-2 slot 5","RTX 3090 FTW3 (312x146x61, 3-slot)"],["Slot pitch","4-slot ATX = 81.28 mm (board-native)"],["Drive","4x 2.5\" on tray wall behind GPU-1"],["Rack","19\" rails, 11U, 600 mm rack ok"]],"legend":[{"grp":"gpu1","color":"#15803d","text":"GPU-1  RTX PRO 6000 Blackwell WS Ed.  2-slot flow-through"},{"grp":"gpu2","color":"#b8860b","text":"GPU-2  EVGA RTX 3090 FTW3 Ultra  3-slot open-air"},{"grp":"board","color":"#14532d","text":"ATX motherboard 305 x 244"},{"grp":"psu","color":"#4b5563","text":"ATX PSU 1600 W, sealed bottom-rear tunnel"},{"grp":"cooling","color":"#b91c1c","text":"CPU loop: waterblock + 280 mm top radiator"},{"grp":"fan","color":"#0891b2","text":"Intake fans (140/120 mm)"},{"grp":"fan_ex","color":"#e11d48","text":"Exhaust fans (140 mm)"},{"grp":"airflow","color":"#f59e0b","text":"Flow baffles / guide vanes"}]};
+const W = DATA.W, H = DATA.H, D = DATA.D;
+// map:  X -> x (right),  Y -> y (up),  Z(rear->front) -> -z (front faces the camera)
+const M = p => new THREE.Vector3((p[0]+p[1])/2 - W/2, (p[2]+p[3])/2 - H/2, D/2 - (p[4]+p[5])/2);
+const SZ = p => new THREE.Vector3(p[1]-p[0], p[3]-p[2], p[5]-p[4]);
+
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(stage.clientWidth, stage.clientHeight);
+stage.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const cam = new THREE.PerspectiveCamera(42, stage.clientWidth/stage.clientHeight, 1, 8000);
+const HOME = new THREE.Vector3(780, 240, 900);
+cam.position.copy(HOME);
+const ctl = new OrbitControls(cam, renderer.domElement);
+ctl.enableDamping = true; ctl.dampingFactor = 0.08;
+ctl.minDistance = 300; ctl.maxDistance = 3000;
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0x223044, 1.05));
+const dl = new THREE.DirectionalLight(0xffffff, 1.5); dl.position.set(420, 700, 560); scene.add(dl);
+const dl2 = new THREE.DirectionalLight(0x8ab4ff, 0.55); dl2.position.set(-520, -180, -420); scene.add(dl2);
+
+const groups = {};
+const meshes = [], shellMeshes = [], cutMeshes = [];
+const pickables = [];
+
+for (const p of DATA.parts){
+  const dx = p.x[1]-p.x[0], dy = p.y[1]-p.y[0], dz = p.z[1]-p.z[0];
+  const isShell = p.group === 'shell';
+  const mat = new THREE.MeshLambertMaterial({color:p.color, transparent:true,
+    opacity:p.alpha, depthWrite: p.alpha > 0.85, side: isShell ? THREE.DoubleSide : THREE.FrontSide});
+  const m = new THREE.Mesh(new THREE.BoxGeometry(dx, dy, dz), mat);
+  m.position.copy(M([p.x[0],p.x[1],p.y[0],p.y[1],p.z[0],p.z[1]]));
+  m.userData = p;
+  scene.add(m); meshes.push(m); pickables.push(m);
+  if (isShell){ shellMeshes.push(m);
+    if (['side_panel','front_panel','top_panel'].includes(p.name)) cutMeshes.push(m); }
+  if (p.alpha > 0.5 && !isShell){
+    const e = new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry),
+      new THREE.LineBasicMaterial({color:0x05070b, transparent:true, opacity:0.55}));
+    e.position.copy(m.position); e.userData = {deco:true}; scene.add(e);
+    (groups[p.group] ||= []).push(e);
+  }
+  (groups[p.group] ||= []).push(m);
+}
+
+// fans: cylinder + rim torus + hub, axis from the part's thin dimension
+for (const p of DATA.parts){
+  if (p.group !== 'fan') continue;
+  const s = SZ([p.x[0],p.x[1],p.y[0],p.y[1],p.z[0],p.z[1]]);
+  const dia = Math.max(s.x, s.y, s.z) > Math.min(s.x,s.y,s.z)+40
+            ? Math.max(s.x, s.z) : Math.max(s.x, s.y, s.z);
+  const th = Math.min(s.x, s.y, s.z);
+  const g = new THREE.Group();
+  const blade = new THREE.Mesh(new THREE.CylinderGeometry(dia/2*0.94, dia/2*0.94, th*0.8, 34, 1, true),
+    new THREE.MeshLambertMaterial({color:p.color, transparent:true, opacity:0.30, side:THREE.DoubleSide}));
+  const rim = new THREE.Mesh(new THREE.TorusGeometry(dia/2, 4.5, 8, 44),
+    new THREE.MeshBasicMaterial({color:p.color}));
+  rim.rotation.x = Math.PI/2;
+  const hub = new THREE.Mesh(new THREE.CylinderGeometry(dia/9, dia/9, th*0.9, 18),
+    new THREE.MeshLambertMaterial({color:0x111722}));
+  for (let i=0;i<7;i++){
+    const b = new THREE.Mesh(new THREE.BoxGeometry(dia*0.40, th*0.34, 5),
+      new THREE.MeshLambertMaterial({color:p.color, transparent:true, opacity:0.75}));
+    const a = i/7*Math.PI*2;
+    b.position.set(Math.cos(a)*dia*0.24, 0, Math.sin(a)*dia*0.24);
+    b.rotation.y = -a; b.rotation.z = 0.5; g.add(b);
+  }
+  g.add(blade, rim, hub);
+  const c = M([p.x[0],p.x[1],p.y[0],p.y[1],p.z[0],p.z[1]]);
+  if (th === s.y) { /* axis = Y (vertical flow): cylinder default is Y -> no rotation */ }
+  else if (th === s.z) g.rotation.x = Math.PI/2;      // axis = Z
+  else g.rotation.z = Math.PI/2;                       // axis = X
+  g.position.copy(c); g.userData = p; scene.add(g);
+  (groups['fan'] ||= []).push(g);
+}
+
+// flow arrows (static, thin) — ArrowHelper from tail along d
+const COL = {in:0x38bdf8, chan:0x4ade80, out:0xfb7185};
+const flowObjs = [];
+for (const f of DATA.flow){
+  const tail = new THREE.Vector3(f.p[0]-W/2, f.p[1]-H/2, D/2-f.p[2]);
+  const dir  = new THREE.Vector3(f.d[0], f.d[1], -f.d[2]);
+  const len  = dir.length();
+  const a = new THREE.ArrowHelper(dir.clone().normalize(), tail, len, COL[f.kind], 20, 11);
+  a.line.material.transparent = true; a.line.material.opacity = 0.55;
+  a.cone.material.transparent = true; a.cone.material.opacity = 0.55;
+  scene.add(a); flowObjs.push(a);
+}
+
+// animated particles riding the same vectors
+const NP = 1500, seg = [];
+for (const f of DATA.flow){
+  const n = Math.max(60, Math.round(Math.hypot(...f.d) * 1.6));
+  for (let i=0;i<n;i++) seg.push({f, t:Math.random(), sp:0.10+Math.random()*0.10,
+                                   j:(Math.random()-0.5)*26, k:(Math.random()-0.5)*26});
+}
+const pg = new THREE.BufferGeometry();
+const ppos = new Float32Array(seg.length*3), pcol = new Float32Array(seg.length*3);
+seg.forEach((s,i)=>{ const c = new THREE.Color(COL[s.f.kind]);
+  pcol[i*3]=c.r; pcol[i*3+1]=c.g; pcol[i*3+2]=c.b; });
+pg.setAttribute('position', new THREE.BufferAttribute(ppos, 3));
+pg.setAttribute('color', new THREE.BufferAttribute(pcol, 3));
+const pts = new THREE.Points(pg, new THREE.PointsMaterial({size:6.5, vertexColors:true,
+  transparent:true, opacity:0.95, sizeAttenuation:true, depthWrite:false}));
+scene.add(pts);
+
+// floor grid for scale
+const grid = new THREE.GridHelper(1200, 12, 0x2b3648, 0x1c2531);
+grid.position.y = -H/2 - 12; scene.add(grid);
+
+// ---- labels
+const labelLayer = document.createElement('div');
+labelLayer.style.cssText = 'position:absolute;inset:0;pointer-events:none;display:none';
+stage.appendChild(labelLayer);
+const KEY = {gpu1_body:-34, gpu2_body:30, psu:0, rad_top:0, fan_front_2:-34,
+             fan_rear_low2:-34, fan_floor:22, cpu_pump:-22, mobo:58, flow_vane:36,
+             tip_baffle:46, fan_ctrl:0};
+const labels = Object.keys(KEY).filter(k=>DATA.parts.some(p=>p.name===k)).map(k=>{
+  const p = DATA.parts.find(q=>q.name===k);
+  const d = document.createElement('div');
+  d.textContent = (p.label || p.name).split(' - ')[0];
+  d.style.cssText = 'position:absolute;font-size:10.5px;background:#0b0f16dd;border:1px solid '
+    + p.color + ';color:#e6e8ee;padding:2px 6px;border-radius:5px;white-space:nowrap';
+  labelLayer.appendChild(d);
+  return {el:d, dy:KEY[k], v:M([p.x[0],p.x[1],p.y[0],p.y[1],p.z[0],p.z[1]])};
+});
+
+// ---- sidebar
+const byKey = {}; DATA.specs.forEach(([k,v])=>{ byKey[k]=v; });
+function fill(id, names){
+  document.getElementById(id).innerHTML = names.map(k=>{
+    const v = byKey[k] ?? '';
+    return v==='' ? '' : `<div class="row"><b>${k}</b><span>${v}</span></div>`;
+  }).join('');
+}
+const A = DATA.specs.map(r=>r[0]);
+fill('sp1', A.slice(1,6).filter(k=>byKey[k]));
+fill('sp2', A.slice(7,12).filter(k=>byKey[k]));
+fill('sp3', A.slice(21,27).filter(k=>byKey[k]));
+fill('sp4', A.slice(29,36).filter(k=>byKey[k]));
+const GNAME = {gpu1:'GPU-1 RTX PRO 6000 Blackwell', gpu2:'GPU-2 RTX 3090 FTW3',
+  board:'Motherboard / RAM / I/O', psu:'PSU + tunnel', cooling:'CPU loop',
+  fan:'Fans', chassis:'Chassis / feet / cables', airflow:'Baffles / vanes', shell:'Shell panels'};
+const lg = document.getElementById('lg');
+for (const [g,color,text] of [['gpu1','#15803d'],['gpu2','#b8860b'],['board','#14532d'],
+     ['psu','#4b5563'],['cooling','#b91c1c'],['fan','#0891b2'],['airflow','#f59e0b'],
+     ['chassis','#374151'],['shell','#9ca3af']]){
+  const el = document.createElement('div'); el.className='lg';
+  el.innerHTML = `<i style="background:${color}"></i><span>${GNAME[g]||g}</span>`;
+  el.onclick = ()=>{ const arr = groups[g]||[]; const vis = !(arr[0] && arr[0].visible);
+    arr.forEach(o=>o.visible = vis); el.classList.toggle('off', !vis); };
+  lg.appendChild(el);
+}
+
+// ---- hover tooltip
+const ray = new THREE.Raycaster(), mouse = new THREE.Vector2(), tip = document.getElementById('tip');
+renderer.domElement.addEventListener('pointermove', e=>{
+  const r = renderer.domElement.getBoundingClientRect();
+  mouse.x = ((e.clientX-r.left)/r.width)*2-1; mouse.y = -((e.clientY-r.top)/r.height)*2+1;
+  ray.setFromCamera(mouse, cam);
+  const hit = ray.intersectObjects(pickables.filter(o=>o.visible), false)[0];
+  if (hit && hit.object.userData.label){
+    tip.style.display='block'; tip.style.left=(e.clientX-r.left+14)+'px';
+    tip.style.top=(e.clientY-r.top+12)+'px'; tip.textContent = hit.object.userData.label;
+  } else tip.style.display='none';
+});
+
+// ---- controls
+const st = {cut:true, flow:true, spin:true, shell:true, lbl:false};
+function apply(){
+  cutMeshes.forEach(m=>m.visible = st.shell && st.cut);
+  shellMeshes.forEach(m=>{ if(!cutMeshes.includes(m)) m.visible = st.shell; });
+  pts.visible = st.flow; flowObjs.forEach(o=>o.visible = st.flow);
+  labelLayer.style.display = st.lbl ? 'block' : 'none';
+  ctl.autoRotate = st.spin; ctl.autoRotateSpeed = 0.75;
+}
+const bind = (id, key, label)=>{ const b=document.getElementById(id);
+  b.onclick = ()=>{ st[key] = !st[key]; b.classList.toggle('on', st[key]); apply(); }; };
+bind('bCut','cut'); bind('bFlow','flow'); bind('bSpin','spin'); bind('bShell','shell'); bind('bLbl','lbl');
+const VIEWS = {iso:[780,240,900], front:[0,0,1280], side:[1320,0,0], rear:[0,0,-1280], top:[0,1320,0]};
+document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{
+  const v = VIEWS[b.dataset.v]; cam.position.set(...v); ctl.target.set(0,0,0); cam.lookAt(0,0,0);
+});
+addEventListener('keydown', e=>{
+  const k = e.key.toLowerCase();
+  if (k==='c'){ st.cut=!st.cut; bCut.classList.toggle('on',st.cut); apply(); }
+  if (k==='f'){ st.flow=!st.flow; bFlow.classList.toggle('on',st.flow); apply(); }
+  if (k==='s'){ st.spin=!st.spin; bSpin.classList.toggle('on',st.spin); apply(); }
+  if (k==='r'){ cam.position.copy(HOME); ctl.target.set(0,0,0); }
+});
+apply();
+
+addEventListener('resize', ()=>{
+  const w = stage.clientWidth, h = stage.clientHeight;
+  cam.aspect = w/h; cam.updateProjectionMatrix(); renderer.setSize(w,h);
+});
+
+const clock = new THREE.Clock();
+function tick(){
+  const dt = clock.getDelta(), t = clock.elapsedTime;
+  const arr = pg.attributes.position.array;
+  seg.forEach((s,i)=>{
+    s.t += dt*s.sp; if (s.t > 1) s.t -= 1;
+    const f = s.f;
+    arr[i*3]   = f.p[0] + f.d[0]*s.t + s.j - W/2;
+    arr[i*3+1] = f.p[1] + f.d[1]*s.t + s.k - H/2;
+    arr[i*3+2] = D/2 - (f.p[2] + f.d[2]*s.t);
+  });
+  pg.attributes.position.needsUpdate = true;
+  ctl.update();
+  renderer.render(scene, cam);
+  if (st.lbl){
+    for (const L of labels){
+      const v = L.v.clone().project(cam);
+      const on = v.z < 1;
+      L.el.style.display = on ? 'block' : 'none';
+      const w = L.el.offsetWidth || 120;
+      const px = Math.max(6, Math.min(stage.clientWidth - w - 6, (v.x*0.5+0.5)*stage.clientWidth + 10));
+      const py = Math.max(44, Math.min(stage.clientHeight - 22, (-v.y*0.5+0.5)*stage.clientHeight + L.dy));
+      L.el.style.left = px + 'px'; L.el.style.top = py + 'px';
+    }
+  }
+  requestAnimationFrame(tick);
+}
+tick();
+</script>
+</body>
+</html>
