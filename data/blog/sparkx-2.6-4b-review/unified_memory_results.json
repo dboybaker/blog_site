@@ -1,0 +1,28 @@
+{
+  "models": [
+    {
+      "name": "BF16",
+      "size": "vLLM · 7.7 GiB",
+      "report": "unified_mem_report/sparkx-2.6-4b-unified_memory_systems_comparison.pdf",
+      "summary": "The only one of the four that used the task list - and it created, updated and closed every task cleanly, which is rare. Nine searches at the default N=5, prices all valid, though it never covered the M5 Ultra Studios. The report is formatted with no errors, and it is two pages, so the single page ask was ignored."
+    },
+    {
+      "name": "FP8",
+      "size": "vLLM · 4.2 GiB",
+      "report": "unified_mem_report/sparkx-2.6-4b-fp8-Unified_Memory_128GB_2026.pdf",
+      "summary": "Seemingly the most research and the most results of any run here. It never touched the task tools and never deviated from N=5, but it worked really hard to respect the one page limit - checking and revising - and it actually shipped a single page."
+    },
+    {
+      "name": "Q8_0",
+      "size": "llama.cpp · 4.1 GiB",
+      "report": "unified_mem_report/sparkx-2.6-4b-q8-unified_memory_comparison.pdf",
+      "summary": "No task list interaction at all, though it did adjust the search count on one call. Found few devices and the prices were inaccurate. The systems listed in the PDF differ greatly from the ones it told me about in chat."
+    },
+    {
+      "name": "Q4_K_M",
+      "size": "llama.cpp · 3.3 GiB",
+      "report": null,
+      "summary": "Researched better than Q8_0 - it actually found the expected systems and their prices - but still never opened a task, and it could not correctly form the tool call to create the PDF no matter how many times I retried. Nothing to show for it."
+    }
+  ]
+}

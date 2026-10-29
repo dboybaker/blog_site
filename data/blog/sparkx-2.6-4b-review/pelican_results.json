@@ -1,0 +1,28 @@
+{
+  "models": [
+    {
+      "name": "BF16",
+      "size": "vLLM · 7.7 GiB",
+      "report": "pelicans/sparkx-2.6-4b-pelican-bicycle.svg",
+      "summary": "Not a very impressive pelican, but it competes with the best of this size class."
+    },
+    {
+      "name": "FP8",
+      "size": "vLLM · 4.2 GiB",
+      "report": "pelicans/sparkx-2.6-4b-fp8-pelican_bicycle.svg",
+      "summary": "Similar quality to the BF16 run, unimpressive. Competitive for the size range, which is a low bar. Kinda looks like a sick drumset."
+    },
+    {
+      "name": "Q8_0",
+      "size": "llama.cpp · 4.1 GiB",
+      "report": "pelicans/sparkx-2.6-4b-q8-pelican-riding-bicycle.svg",
+      "summary": "Awful. It literally made the body of a bird into a wheeled vehicle."
+    },
+    {
+      "name": "Q4_K_M",
+      "size": "llama.cpp · 3.3 GiB",
+      "report": "pelicans/sparkx-2.6-4b-q_4_k_m-pelican_bicycle.svg",
+      "summary": "As bad as the rest. At least there are wheels, but that's the extent of the praise."
+    }
+  ]
+}

@@ -18,6 +18,9 @@ ignoreFiles = [
   # Drop a fresh run into an article bundle and it lands here; nothing in
   # content/ should ever look like a raw evalscope run.
   'swift1.5_nvidia_nvfp4_comparison/(results|benchmarks)',
+  'sparkx-2.6-4b-review/results',
+  # Running notes kept next to the article while I worked; not site content.
+  'sparkx2.6-notes\.txt$',
   'mnist_nn_project/mnist_train\.py$',
   'local_llm_finetuning_experiments/.*\.csv$',
   '\.DS_Store$',

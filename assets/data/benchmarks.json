@@ -1815,11 +1815,11 @@
   {
     "model": "Gemma3-1b-Q4",
     "benchmark": "BFCL-v4",
-    "score": 0.0000,
+    "score": 0.0,
     "samples": 300,
     "date": "2026-08-12T10:15:44",
     "run": "gemma4-1b-q4",
-    "model_notes":"Run on single RTX 3090",
+    "model_notes": "Run on single RTX 3090",
     "notes": "non-function calling model, irrelevance ignored because it never calls tools, thus perfect score",
     "subsets": [
       {
@@ -3636,7 +3636,7 @@
     ]
   },
   {
-    "model": "Ling-3.0-tiny-BF16",
+    "model": "Ling-3.0-tiny",
     "benchmark": "BFCL-v4",
     "score": 0.7767,
     "samples": 300,
@@ -3678,7 +3678,7 @@
     ]
   },
   {
-    "model": "Ling-3.0-tiny-BF16",
+    "model": "Ling-3.0-tiny",
     "benchmark": "IFEval",
     "score": 0.756,
     "samples": 250,
@@ -3709,7 +3709,7 @@
     ]
   },
   {
-    "model": "Ling-3.0-tiny-BF16",
+    "model": "Ling-3.0-tiny",
     "benchmark": "MMLU-Pro",
     "score": 0.5571,
     "samples": 420,
@@ -3790,7 +3790,7 @@
     ]
   },
   {
-    "model": "Ling-3.0-tiny-BF16",
+    "model": "Ling-3.0-tiny",
     "benchmark": "HumanEval+",
     "score": 0.7927,
     "samples": 164,
@@ -3806,7 +3806,7 @@
     ]
   },
   {
-    "model": "Ling-3.0-tiny-BF16",
+    "model": "Ling-3.0-tiny",
     "benchmark": "MBPP+",
     "score": 0.8413,
     "samples": 378,
@@ -3822,7 +3822,7 @@
     ]
   },
   {
-    "model": "Ling-3.0-tiny-BF16",
+    "model": "Ling-3.0-tiny",
     "benchmark": "Arena-Hard",
     "score": 0.487,
     "samples": 75,
@@ -4640,6 +4640,208 @@
         "name": "pass@1",
         "score": 0.9577,
         "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.6-4B",
+    "benchmark": "BFCL-v4",
+    "score": 0.85,
+    "samples": 300,
+    "date": "2026-10-28T15:08:56",
+    "run": "Spark-X2.6-4B-rerun",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.84,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.88,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.58,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.96,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.9,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.94,
+        "samples": 50
+      }
+    ],
+    "model_notes": "Run on RTX 6000 Blackwell (96 GB) via vLLM. Server default temp, 16k max tokens."
+  },
+  {
+    "model": "Spark-X2.6-4B",
+    "benchmark": "IFEval",
+    "score": 0.744,
+    "samples": 250,
+    "date": "2026-10-28T15:18:40",
+    "run": "Spark-X2.6-4B-rerun",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.744,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.8273,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.784,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.8567,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.6-4B",
+    "benchmark": "MMLU-Pro",
+    "score": 0.6167,
+    "samples": 420,
+    "date": "2026-10-28T15:22:44",
+    "run": "Spark-X2.6-4B-rerun",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.7,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.3,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.5,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.6667,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.5,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.6,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.4333,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.6,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.3333,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.6-4B",
+    "benchmark": "HumanEval+",
+    "score": 0.4939,
+    "samples": 164,
+    "date": "2026-10-28T16:23:35",
+    "run": "Spark-X2.6-4B-rerun",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.4939,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.6-4B",
+    "benchmark": "MBPP+",
+    "score": 0.7804,
+    "samples": 378,
+    "date": "2026-10-28T16:29:47",
+    "run": "Spark-X2.6-4B-rerun",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.7804,
+        "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "Spark-X2.6-4B",
+    "benchmark": "Arena-Hard",
+    "score": 0.588,
+    "samples": 75,
+    "date": "2026-10-28T15:43:07",
+    "run": "Spark-X2.6-4B-rerun",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.588,
+        "samples": 75
       }
     ]
   }
