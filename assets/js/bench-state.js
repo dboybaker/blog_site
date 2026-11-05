@@ -14,6 +14,13 @@
  *      (all selected).
  *   3. On every change event:
  *        window.BenchState.saveSelection("page-key", mySelectedSet);
+ *   4. For a sort control (column plus direction) the same pattern, using
+ *      restoreSort/saveSort so a column that has since disappeared falls back
+ *      to the table default instead of sorting by something no longer shown:
+ *        const saved = window.BenchState.restoreSort("page.sort", columns);
+ *        if (saved) { sortCol = saved.col; sortDir = saved.dir; }
+ *        # ...and on every sort change:
+ *        window.BenchState.saveSort("page.sort", sortCol, sortDir);
  *
  * Keys are namespaced under "demibench." and stored as JSON. All access is
  * wrapped in try/catch so unavailable storage (private browsing, quota,
@@ -62,5 +69,23 @@
     write(key, [...names]);
   }
 
-  window.BenchState = { read, write, restoreSelection, saveSelection };
+  /**
+   * Restore a saved sort choice. Returns { col, dir } only when the stored
+   * column is still among `availableCols`; otherwise null, so the caller keeps
+   * its own default sort. A benchmark that has been renamed or removed since
+   * the visit therefore never leaves the table sorted by a missing column.
+   */
+  function restoreSort(key, availableCols) {
+    const saved = read(key);
+    if (saved === null || typeof saved !== "object") return null;
+    if (typeof saved.col !== "string") return null;
+    if (availableCols.indexOf(saved.col) === -1) return null;
+    return { col: saved.col, dir: saved.dir === "desc" ? "desc" : "asc" };
+  }
+
+  function saveSort(key, col, dir) {
+    write(key, { col: col, dir: dir });
+  }
+
+  window.BenchState = { read, write, restoreSelection, saveSelection, restoreSort, saveSort };
 })();

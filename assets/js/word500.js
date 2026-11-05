@@ -21,6 +21,9 @@
   let activeTests = new Set();
   // localStorage key for the saved test selection (see bench-state.js)
   const TEST_STATE_KEY = "word500.active-tests";
+  // localStorage keys for the remembered sort and priority (see bench-state.js)
+  const SORT_STATE_KEY = "word500.sort";
+  const METRIC_STATE_KEY = "word500.sort-metric";
   // Tests selected by default on first visit (before the user makes their
   // own picks, which are then remembered): the three full-vision suites.
   const DEFAULT_ACTIVE_TESTS = ["SmokeWord500", "PokerWord500", "HoardWord500"];
@@ -171,6 +174,9 @@
   // "Lower is better" for everything except accuracy
   function defaultDirFor(col) {
     if (col === "model") return "asc";
+    // Sizes open smallest-first: the question being asked is usually
+    // "what can I actually run at home".
+    if (col === ModelSize.SIZE_COL) return "asc";
     return sortMetric === "accuracy" ? "desc" : "asc";
   }
 
@@ -181,6 +187,10 @@
       if (sortCol === "model") {
         va = a.toLowerCase();
         vb = b.toLowerCase();
+      } else if (sortCol === ModelSize.SIZE_COL) {
+        // Parameter count from assets/js/model-size.js; unknown sizes stay last
+        // whichever way the table is sorted.
+        return ModelSize.compareBySize(a, b, sortDir);
       } else {
         va = metricValue(getAgg(a, sortCol), sortMetric);
         vb = metricValue(getAgg(b, sortCol), sortMetric);
@@ -275,10 +285,12 @@
 
   metricSelect.addEventListener("change", () => {
     sortMetric = metricSelect.value;
+    window.BenchState.write(METRIC_STATE_KEY, sortMetric);
     // Re-rank the whole table by the new priority (Overall column); clicking
     // a column header still sorts that column by the chosen metric.
     sortCol = OVERALL;
     sortDir = defaultDirFor(OVERALL);
+    rememberSort();
     renderTable();
   });
 
@@ -342,7 +354,12 @@
 
     let head = `<tr>
       <th class="bench-check-col"><input type="checkbox" id="w500SelectAll"></th>
-      <th data-w500-sort="model" class="sortable">Model ${arrow("model")}</th>`;
+      <th data-w500-sort="model" class="sortable bench-model-th"><span class="bench-th-inner"><span>Model ${arrow(
+        "model"
+      )}</span>${ModelSize.sorterHtml(
+      arrow(ModelSize.SIZE_COL),
+      sortCol === ModelSize.SIZE_COL
+    )}</span></th>`;
     tests.forEach((t) => {
       head += `<th data-w500-sort="${esc(t.name)}" class="sortable">${esc(shortName(t.name))} ${arrow(
         t.name
@@ -377,7 +394,10 @@
           }></td>
           <td class="bench-model-name"><a href="#" class="w500-model-link" data-model="${esc(
             model
-          )}">${esc(model)}</a></td>`;
+          )}">${esc(model)}</a>${ModelSize.chipHtml(
+          model,
+          sortCol === ModelSize.SIZE_COL
+        )}</td>`;
         columns.forEach((col) => {
           row += cellHtml(getAgg(model, col), winners[col].has(model));
         });
@@ -386,7 +406,9 @@
       })
       .join("");
 
-    thead.querySelectorAll(".sortable").forEach((th) => {
+    // Scoped to th.sortable; the size sorter sits INSIDE the Model th and is
+    // bound separately so it never inherits this name-sort handler.
+    thead.querySelectorAll("th.sortable").forEach((th) => {
       th.addEventListener("click", () => {
         const col = th.dataset.w500Sort;
         if (sortCol === col) {
@@ -395,12 +417,62 @@
           sortCol = col;
           sortDir = defaultDirFor(col);
         }
+        rememberSort();
         renderTable();
       });
     });
 
+    thead
+      .querySelectorAll(`[data-sort="${ModelSize.SIZE_COL}"]`)
+      .forEach((el) => el.addEventListener("click", sortBySize));
+
     updateCompareBtn();
     updateSelectAllState();
+  }
+
+  // ─── Sort by parameter count ─────────────────────────────────────────
+  // Shared by the "params" sorter in the Model header and the size chip in
+  // every row. The header sorter lives inside the Model th, so the click has
+  // to be stopped from bubbling into that th's own sort-by-name handler.
+  function sortBySize(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (sortCol === ModelSize.SIZE_COL) {
+      sortDir = sortDir === "asc" ? "desc" : "asc";
+    } else {
+      sortCol = ModelSize.SIZE_COL;
+      sortDir = defaultDirFor(ModelSize.SIZE_COL);
+    }
+    rememberSort();
+    renderTable();
+  }
+
+  // Sorts worth remembering: the name column, the size sorter, every test
+  // column currently on screen, and the Overall column.
+  function visibleSortColumns() {
+    const shown = run()
+      .tests.filter((t) => activeTests.has(t.name))
+      .map((t) => t.name);
+    return ["model", ModelSize.SIZE_COL].concat(shown, [OVERALL]);
+  }
+
+  function rememberSort() {
+    window.BenchState.saveSort(SORT_STATE_KEY, sortCol, sortDir);
+  }
+
+  function restoreSortState() {
+    const saved = window.BenchState.restoreSort(SORT_STATE_KEY, visibleSortColumns());
+    if (saved) {
+      sortCol = saved.col;
+      sortDir = saved.dir;
+    }
+    // The Priority select decides what a column sorts by, so restore it with
+    // the column rather than letting the two disagree on open.
+    const savedMetric = window.BenchState.read(METRIC_STATE_KEY);
+    if ([...metricSelect.options].some((o) => o.value === savedMetric)) {
+      sortMetric = savedMetric;
+      metricSelect.value = savedMetric;
+    }
   }
   // ─── Select-All helper ───────────────────────────────────────────────
   function updateSelectAllState() {
@@ -669,7 +741,10 @@
     const r = modelRun[modelName];
     const m = r && r.results[modelName];
     if (!m) return;
-    modalTitle.textContent = modelName;
+    // Size chip repeated here (display-only) so the number is readable outside
+    // the table it came from. The space keeps the two read apart by assistive
+    // tech rather than as one mashed-together string.
+    modalTitle.innerHTML = `${esc(modelName)} ${ModelSize.chipHtml(modelName, false, true)}`;
 
     const cfg = r.config || {};
     let html =
@@ -736,6 +811,11 @@
 
   // ─── Model links & modal wiring ──────────────────────────────────────
   tbody.addEventListener("click", (e) => {
+    // Size chip: sorting affordance that lives inside the Model cell
+    if (e.target.closest(`[data-sort="${ModelSize.SIZE_COL}"]`)) {
+      sortBySize(e);
+      return;
+    }
     const link = e.target.closest(".w500-model-link");
     if (link) {
       e.preventDefault();
@@ -756,6 +836,7 @@
   function renderAll() {
     renderRunBar();
     renderTestFilters();
+    restoreSortState();
     renderTable();
   }
   renderAll();

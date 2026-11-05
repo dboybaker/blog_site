@@ -151,6 +151,9 @@
 
 {{ $benchState := resources.Get "js/bench-state.js" | minify | fingerprint }}
 <script src="{{ $benchState.RelPermalink }}"></script>
+<!-- Model size metadata must load before both table scripts below -->
+{{ $modelSize := resources.Get "js/model-size.js" | minify | fingerprint }}
+<script src="{{ $modelSize.RelPermalink }}"></script>
 {{ $benchData := resources.Get "data/benchmarks.json" | fingerprint }}
 {{ $benchJS := resources.Get "js/benchmarks.js" | minify | fingerprint }}
 <script src="{{ $benchJS.RelPermalink }}" data-bench-url="{{ $benchData.RelPermalink }}"></script>

@@ -1837,6 +1837,74 @@ td.win {
 
 .bench-model-name {
   font-weight: 600;
+  /* Model name on the left, parameter count pinned to the right edge of the
+     SAME cell. This is how the tables gained a size sort without growing a
+     new column (shared by the traditional and Word500 pivot tables). */
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* Parameter-count token in the Model cell (see assets/js/model-size.js) */
+.model-size {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.model-size:hover {
+  color: var(--text-secondary);
+}
+
+/* Active while the table is sorted by parameter count */
+.model-size-active {
+  color: var(--accent);
+}
+
+/* Display-only use outside a table (model detail modal header) */
+.model-size-static {
+  cursor: default;
+  margin-left: 8px;
+}
+
+.model-size-static:hover {
+  color: var(--text-muted);
+}
+
+/* "params" sorter that lives inside the Model header cell */
+.bench-th-inner {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.size-sorter {
+  flex: 0 0 auto;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  color: var(--text-muted);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.size-sorter:hover {
+  color: var(--text-primary);
+}
+
+.size-sorter .sort-arrow {
+  margin-left: 2px;
+  font-size: 0.7rem;
 }
 
 .bench-model-link {
@@ -1968,6 +2036,45 @@ td.win {
 
 .bench-no-data {
   color: var(--text-muted) !important;
+}
+
+/* Overall column: equal-weight average of the shown benchmark columns */
+.bench-overall-th,
+.bench-overall-cell {
+  border-left: 1px solid var(--border);
+}
+
+.bench-overall-cell {
+  min-width: 96px;
+}
+
+.bench-overall-score {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.bench-overall-sub {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Header/cell sub-label: how many columns an average covers */
+.bench-col-sub {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  text-transform: none;
+}
+
+/* Overall row in the comparison table */
+.bench-compare-table .bench-overall-row {
+  background: rgba(124, 92, 252, 0.06);
 }
 
 /* Chart */

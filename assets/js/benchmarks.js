@@ -54,6 +54,8 @@
   let activeBenchmarks = new Set();
   // localStorage key for the saved test selection (see bench-state.js)
   const BENCH_STATE_KEY = "traditional.active-benchmarks";
+  // localStorage key for the saved sort (see bench-state.js)
+  const SORT_STATE_KEY = "traditional.sort";
   // Benchmarks selected by default on first visit (before the user makes
   // their own picks, which are then remembered). Keep this at 6 - update
   // the list when new benchmarks arrive.
@@ -69,6 +71,10 @@
   let compareMode = false;
   let chartInstance = null;
   const MAX_COMPARE = 4;
+  // Synthetic Overall column: an equal-weight average of the scores in the
+  // benchmark columns currently shown. It is not a benchmark, so it never
+  // enters the filter checkboxes, the chart, or getAllBenchmarks().
+  const OVERALL = "__overall__";
 
   // ─── DOM refs ────────────────────────────────────────────────────────
   const $ = (s) => document.querySelector(s);
@@ -174,6 +180,45 @@
     });
   }
 
+  // ─────────────────────────────────────────────────────────────────────
+  // An equal-weight average of the scores a model earned across the benchmark
+  // columns currently shown: it follows the checkboxes, and both the header
+  // and the cell say how many columns the average covers.
+  //
+  // Equal weight rather than sample weight on purpose. The suites run 75 to
+  // 420 samples, so weighting by sample count would hand MMLU-Pro and MBPP+
+  // about half the score and quietly move the small models several points.
+  // This is also what the Word500 Overall does on its own data: there every
+  // suite carries the same rep count, so pooled correct/samples and the
+  // per-test mean come out as the same number.
+  function overallFor(pivot, model, benches) {
+    const row = pivot[model] || {};
+    const parts = [];
+    benches.forEach((b) => {
+      const r = row[b];
+      if (r && r.score != null) parts.push({ bench: b, score: r.score, samples: r.samples });
+    });
+    if (parts.length === 0) return null;
+    return {
+      mean: parts.reduce((sum, p) => sum + p.score, 0) / parts.length,
+      parts,
+      missing: benches.filter((b) => parts.every((p) => p.bench !== b)),
+    };
+  }
+
+  function overallCellHtml(o, isWinner) {
+    if (o === null) return `<td class="bench-no-data bench-overall-cell">—</td>`;
+    const tip =
+      `Average of ${o.parts.length} benchmark${o.parts.length === 1 ? "" : "s"}, equal weight: ` +
+      o.parts.map((p) => `${p.bench} ${fmtPct(p.score)}`).join(", ") +
+      (o.missing.length ? ` not run: ${o.missing.join(", ")}` : "");
+    return (
+      `<td class="bench-overall-cell" title="${esc(tip)}">` +
+      `<div class="bench-overall-score${isWinner ? " bench-winner" : ""}">${fmtPct(o.mean)}</div>` +
+      `<div class="bench-overall-sub">avg of ${o.parts.length}</div></td>`
+    );
+  }
+
   // ─── Render Pivot Table ──────────────────────────────────────────────
   function renderTable() {
     const benches = getAllBenchmarks().filter((b) => activeBenchmarks.has(b));
@@ -191,6 +236,18 @@
       if (sortCol === "model") {
         va = a.toLowerCase();
         vb = b.toLowerCase();
+      } else if (sortCol === ModelSize.SIZE_COL) {
+        // Parameter count, read from the model name (assets/js/model-size.js).
+        // Own comparator: unknown sizes must stay last in both directions.
+        return ModelSize.compareBySize(a, b, sortDir);
+      } else if (sortCol === OVERALL) {
+        const oa = overallFor(pivot, a, benches);
+        const ob = overallFor(pivot, b, benches);
+        if (oa === null && ob === null) return 0;
+        if (oa === null) return 1; // no score in a shown column: last either way
+        if (ob === null) return -1;
+        va = oa.mean;
+        vb = ob.mean;
       } else {
         // Sort by benchmark column
         va = (pivot[a] && pivot[a][sortCol]) ? pivot[a][sortCol].score ?? -1 : -1;
@@ -209,17 +266,39 @@
     }
     noResults.classList.add("hidden");
 
-    // Header
+    // Header. The Model th carries a "params" sorter on its right edge - the
+    // size sort lives inside the existing column instead of adding one.
+    const arrow = (col) => (sortCol === col ? (sortDir === "asc" ? "↑" : "↓") : "↕");
+
     let headHtml = `<tr>
       <th class="bench-check-col"><input type="checkbox" id="benchSelectAll" ${filteredModels.length === 0 ? "disabled" : ""}></th>
-      <th data-sort="model" class="sortable">Model <span class="sort-arrow">${sortCol === "model" ? (sortDir === "asc" ? "↑" : "↓") : "↕"}</span></th>`;
+      <th data-sort="model" class="sortable bench-model-th"><span class="bench-th-inner"><span>Model <span class="sort-arrow">${arrow("model")}</span></span>${ModelSize.sorterHtml(
+      arrow(ModelSize.SIZE_COL),
+      sortCol === ModelSize.SIZE_COL
+    )}</span></th>`;
 
     benches.forEach((b) => {
-      headHtml += `<th data-sort="${esc(b)}" class="sortable">${esc(b)} <span class="sort-arrow">${sortCol === b ? (sortDir === "asc" ? "↑" : "↓") : "↕"}</span></th>`;
+      headHtml += `<th data-sort="${esc(b)}" class="sortable">${esc(b)} <span class="sort-arrow">${arrow(
+        b
+      )}</span></th>`;
     });
+
+    // Overall closes the row, like the Word500 table. Its sub-label states the
+    // scope, so the average is never mistaken for a measured score.
+    headHtml += `<th data-sort="${OVERALL}" class="sortable bench-overall-th">Overall <span class="sort-arrow">${arrow(
+      OVERALL
+    )}</span><div class="bench-col-sub">avg of ${benches.length}</div></th>`;
 
     headHtml += `</tr>`;
     thead.innerHTML = headHtml;
+
+    // Best Overall among the rows currently on screen; ties share the
+    // highlight, the same rule the Word500 table applies to its columns.
+    const overallMeans = filteredModels
+      .map((m) => overallFor(pivot, m, benches))
+      .filter((o) => o !== null)
+      .map((o) => o.mean);
+    const bestOverall = overallMeans.length > 1 ? Math.max(...overallMeans) : null;
 
     // Body
     tbody.innerHTML = filteredModels
@@ -229,7 +308,10 @@
           <td class="bench-check-col">
             <input type="checkbox" class="bench-row-cb" data-model="${esc(model)}" ${isSelected ? "checked" : ""}>
           </td>
-          <td class="bench-model-name"><a href="#" class="bench-model-link" data-model="${esc(model)}">${esc(model)}</a></td>`;
+          <td class="bench-model-name"><a href="#" class="bench-model-link" data-model="${esc(model)}">${esc(model)}</a>${ModelSize.chipHtml(
+          model,
+          sortCol === ModelSize.SIZE_COL
+        )}</td>`;
 
         benches.forEach((b) => {
           const r = pivot[model] && pivot[model][b];
@@ -240,27 +322,69 @@
           }
         });
 
+        const o = overallFor(pivot, model, benches);
+        row += overallCellHtml(
+          o,
+          bestOverall !== null && o !== null && o.mean === bestOverall
+        );
+
         row += `</tr>`;
         return row;
       })
       .join("");
 
-    // Sort header clicks
-    thead.querySelectorAll(".sortable").forEach((th) => {
+    // Sort header clicks. Scoped to th.sortable and the size sorter is bound
+    // separately: it sits INSIDE the Model th, so it must not pick up this
+    // handler (it has no data-sort of the kind a th carries).
+    thead.querySelectorAll("th.sortable").forEach((th) => {
       th.addEventListener("click", () => {
         const col = th.dataset.sort;
         if (sortCol === col) {
           sortDir = sortDir === "asc" ? "desc" : "asc";
         } else {
           sortCol = col;
-          sortDir = "asc";
+          // Overall opens best-first; measured columns keep ascending.
+          sortDir = col === OVERALL ? "desc" : "asc";
         }
+        rememberSort();
         renderTable();
       });
     });
 
+    thead
+      .querySelectorAll(`[data-sort="${ModelSize.SIZE_COL}"]`)
+      .forEach((el) => el.addEventListener("click", sortBySize));
+
     updateCompareBtn();
     updateSelectAllState();
+  }
+
+  // ─── Sort by parameter count ─────────────────────────────────────────
+  // Shared by the "params" sorter in the Model header and the size chip in
+  // every row. The header sorter lives inside the Model th, so the click has
+  // to be stopped from bubbling into that th's own sort-by-name handler.
+  function sortBySize(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (sortCol === ModelSize.SIZE_COL) {
+      sortDir = sortDir === "asc" ? "desc" : "asc";
+    } else {
+      sortCol = ModelSize.SIZE_COL;
+      sortDir = "asc";
+    }
+    rememberSort();
+    renderTable();
+  }
+
+  // Sorts worth remembering: the name column, the size sorter, every benchmark
+  // column currently on screen, and the synthetic Overall column.
+  function visibleSortColumns() {
+    const shown = getAllBenchmarks().filter((b) => activeBenchmarks.has(b));
+    return ["model", ModelSize.SIZE_COL].concat(shown, [OVERALL]);
+  }
+
+  function rememberSort() {
+    window.BenchState.saveSort(SORT_STATE_KEY, sortCol, sortDir);
   }
 
   // ─── Select-All helper ───────────────────────────────────────────────
@@ -329,6 +453,11 @@
 
   // ─── Model Detail Modal ──────────────────────────────────────────────
   tbody.addEventListener("click", (e) => {
+    // Size chip: sorting affordance that lives inside the Model cell
+    if (e.target.closest(`[data-sort="${ModelSize.SIZE_COL}"]`)) {
+      sortBySize(e);
+      return;
+    }
     const link = e.target.closest(".bench-model-link");
     if (link) {
       e.preventDefault();
@@ -343,7 +472,10 @@
 
   function openModelModal(modelName) {
     const results = allResults.filter((r) => r.model === modelName);
-    modalTitle.textContent = modelName;
+    // Size chip repeated here (display-only) so the number is readable outside
+    // the table it came from. The space keeps the two read apart by assistive
+    // tech rather than as one mashed-together string.
+    modalTitle.innerHTML = `${esc(modelName)} ${ModelSize.chipHtml(modelName, false, true)}`;
 
     // Collect model-level notes from any result entry
     const modelNotes = results.find((r) => r.model_notes)?.model_notes || "";
@@ -484,6 +616,23 @@
         return `<tr><td>${esc(bench)}</td><td>${samplesLabel}</td>${cells}</tr>`;
       })
       .join("");
+
+    // Same equal-weight average as the pivot column, so the comparison view
+    // and the main table always agree.
+    const ovs = models.map((m) => overallFor(pivot, m, benches));
+    const ovMeans = ovs.filter((o) => o !== null).map((o) => o.mean);
+    const bestOv = ovMeans.length > 1 ? Math.max(...ovMeans) : null;
+    const ovCells = ovs
+      .map((o) => {
+        if (o === null) return `<td class="bench-no-data">—</td>`;
+        const isWinner = bestOv !== null && o.mean === bestOv;
+        return (
+          `<td class="${isWinner ? "bench-winner" : ""}">${fmtPct(o.mean)}` +
+          `<div class="bench-col-sub">avg of ${o.parts.length}</div></td>`
+        );
+      })
+      .join("");
+    compareBody.innerHTML += `<tr class="bench-overall-row"><td>Overall<div class="bench-col-sub">equal weight, ${benches.length} columns</div></td><td>—</td>${ovCells}</tr>`;
   }
 
   // ─── Bar Chart ───────────────────────────────────────────────────────
@@ -572,5 +721,15 @@
 
   // ─── Init ────────────────────────────────────────────────────────────
   renderBenchFilters();
+
+  // Reopen on the sort the visitor last chose. Only columns that are actually
+  // on screen qualify: a sort saved on a benchmark that has since been
+  // unchecked, renamed, or dropped falls back to the default name order.
+  const savedSort = window.BenchState.restoreSort(SORT_STATE_KEY, visibleSortColumns());
+  if (savedSort) {
+    sortCol = savedSort.col;
+    sortDir = savedSort.dir;
+  }
+
   renderTable();
 })();

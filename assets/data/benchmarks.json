@@ -4844,5 +4844,409 @@
         "samples": 75
       }
     ]
+  },
+  {
+    "model": "Gemma4-26b-NVFP4",
+    "benchmark": "BFCL-v4",
+    "score": 0.8267,
+    "samples": 300,
+    "date": "2026-11-03T21:58:19",
+    "run": "gemma4-26b-nvfp4-benchmarks",
+    "model_notes": "NVIDIA's NVFP4 checkpoint of Gemma-4-26B-A4B (26B total / 4B active experts). vLLM on RTX 6000 Blackwell (96 GB), server-default temperature, thinking disabled, max_tokens 16k (64k for Arena-Hard).",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.84,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.86,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.56,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.92,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.8,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.98,
+        "samples": 50
+      }
+    ]
+  },
+  {
+    "model": "Gemma4-26b-NVFP4",
+    "benchmark": "IFEval",
+    "score": 0.868,
+    "samples": 250,
+    "date": "2026-11-03T22:00:35",
+    "run": "gemma4-26b-nvfp4-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.868,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.9027,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.88,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.916,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "Gemma4-26b-NVFP4",
+    "benchmark": "MMLU-Pro",
+    "score": 0.831,
+    "samples": 420,
+    "date": "2026-11-03T22:05:35",
+    "run": "gemma4-26b-nvfp4-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.9,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.9333,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.9,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 1.0,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.5667,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.6667,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "Gemma4-26b-NVFP4",
+    "benchmark": "HumanEval+",
+    "score": 0.9573,
+    "samples": 164,
+    "date": "2026-11-03T22:20:37",
+    "run": "gemma4-26b-nvfp4-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.9573,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "Gemma4-26b-NVFP4",
+    "benchmark": "MBPP+",
+    "score": 0.9392,
+    "samples": 378,
+    "date": "2026-11-03T22:24:39",
+    "run": "gemma4-26b-nvfp4-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.9392,
+        "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "Gemma4-26b-NVFP4",
+    "benchmark": "Arena-Hard",
+    "score": 0.9598,
+    "samples": 75,
+    "date": "2026-11-03T22:14:39",
+    "run": "gemma4-26b-nvfp4-benchmarks",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.9598,
+        "samples": 75
+      }
+    ]
+  },
+  {
+    "model": "Gemma4-26b-BF16",
+    "benchmark": "BFCL-v4",
+    "score": 0.85,
+    "samples": 300,
+    "date": "2026-11-04T10:47:54",
+    "run": "gemma4-26b-bf16-benchmarks",
+    "model_notes": "BF16 (unquantized) run of Gemma-4-26B-A4B (26B total / 4B active experts) - the unquantized reference for the NVFP4 row. Server-default temperature, thinking disabled, max_tokens 16k (64k for Arena-Hard).",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.84,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.88,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.66,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.92,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.82,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.98,
+        "samples": 50
+      }
+    ]
+  },
+  {
+    "model": "Gemma4-26b-BF16",
+    "benchmark": "IFEval",
+    "score": 0.9,
+    "samples": 250,
+    "date": "2026-11-04T10:52:25",
+    "run": "gemma4-26b-bf16-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.9,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.932,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.9,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.936,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "Gemma4-26b-BF16",
+    "benchmark": "MMLU-Pro",
+    "score": 0.8167,
+    "samples": 420,
+    "date": "2026-11-04T11:05:08",
+    "run": "gemma4-26b-bf16-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.9333,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.9333,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.7333,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.9,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.9667,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.6333,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.6667,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "Gemma4-26b-BF16",
+    "benchmark": "HumanEval+",
+    "score": 0.939,
+    "samples": 164,
+    "date": "2026-11-04T11:28:25",
+    "run": "gemma4-26b-bf16-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.939,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "Gemma4-26b-BF16",
+    "benchmark": "MBPP+",
+    "score": 0.9497,
+    "samples": 378,
+    "date": "2026-11-04T11:39:52",
+    "run": "gemma4-26b-bf16-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.9497,
+        "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "Gemma4-26b-BF16",
+    "benchmark": "Arena-Hard",
+    "score": 0.9897,
+    "samples": 75,
+    "date": "2026-11-04T11:21:05",
+    "run": "gemma4-26b-bf16-benchmarks",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.9897,
+        "samples": 75
+      }
+    ]
   }
 ]
