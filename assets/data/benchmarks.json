@@ -5248,5 +5248,212 @@
         "samples": 75
       }
     ]
+  },
+  {
+    "model": "GLM-5.3-Flash-Maya-M",
+    "benchmark": "BFCL-v4",
+    "score": 0.79,
+    "samples": 300,
+    "date": "2026-11-05T15:40:50",
+    "run": "glm5.3-flash-maya-m-benchmarks",
+    "model_notes": "GLM-5.3-Flash IQ2_S ('Maya-M') GGUF through the Project Maya expert-caching engine - RTX 6000 Blackwell (96 GB) + 128 GB DDR4, server-default temperature, batch_size 1, max_tokens 16k (64k for Arena-Hard).",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.62,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.72,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.68,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.88,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.86,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.98,
+        "samples": 50
+      }
+    ]
+  },
+  {
+    "model": "GLM-5.3-Flash-Maya-M",
+    "benchmark": "IFEval",
+    "score": 0.776,
+    "samples": 250,
+    "date": "2026-11-05T16:03:38",
+    "run": "glm5.3-flash-maya-m-benchmarks",
+    "model_notes": null,
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.776,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.8473,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.82,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.8767,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "GLM-5.3-Flash-Maya-M",
+    "benchmark": "MMLU-Pro",
+    "score": 0.7881,
+    "samples": 420,
+    "date": "2026-11-05T16:22:52",
+    "run": "glm5.3-flash-maya-m-benchmarks",
+    "model_notes": null,
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.7333,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.9333,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.6333,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.9667,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.7,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.9,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.7,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.7,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.7667,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.6,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "GLM-5.3-Flash-Maya-M",
+    "benchmark": "Arena-Hard",
+    "score": 0.9091,
+    "samples": 75,
+    "date": "2026-11-05T19:48:52",
+    "run": "glm5.3-flash-maya-m-benchmarks",
+    "model_notes": null,
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.9091,
+        "samples": 75
+      }
+    ]
+  },
+  {
+    "model": "GLM-5.3-Flash-Maya-M",
+    "benchmark": "HumanEval+",
+    "score": 0.8659,
+    "samples": 164,
+    "date": "2026-11-05T19:54:41",
+    "run": "glm5.3-flash-maya-m-benchmarks",
+    "model_notes": null,
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.8659,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "GLM-5.3-Flash-Maya-M",
+    "benchmark": "MBPP+",
+    "score": 0.9206,
+    "samples": 378,
+    "date": "2026-11-05T20:18:36",
+    "run": "glm5.3-flash-maya-m-benchmarks",
+    "model_notes": null,
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.9206,
+        "samples": 378
+      }
+    ]
   }
 ]

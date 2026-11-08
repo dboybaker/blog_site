@@ -33,7 +33,7 @@ A great deal of the configuration happens by Maya automatically. On load it chec
 
 ## Intro
 
-The neverending wave of specialized inference engines designed to run select models on specific hardware continues to batter the shores of our local machines. This week, Project Maya caught my eye. It's another expert caching, 3-tier-fitting, streaming engine set to run GLM-5.3-Flash, DeepSeek-V4.1-Flash-1017 and MiniMax-M3.1-Flash. 
+The neverending wave of specialized inference engines designed to run select models on specific hardware continues to batter the shores of our local machines. This week, [Project Maya](https://github.com/mw00/project-maya) caught my eye. It's another expert caching, 3-tier-fitting, streaming engine set to run GLM-5.3-Flash, DeepSeek-V4.1-Flash-1017 and MiniMax-M3.1-Flash. 
 
 Project Maya comes with its own nice WebUI and terminal UI.
 <table style="width:100%; table-layout:fixed;">
