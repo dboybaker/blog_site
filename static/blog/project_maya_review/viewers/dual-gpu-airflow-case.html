@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dual-GPU ATX Airflow Case — Interactive 3D</title>
+<style>
+  :root{
+    --fg: var(--foreground, #e8eaf0);
+    --mut: var(--muted-foreground, #9aa1ad);
+    --acc: var(--accent, #4da3ff);
+    --bd: var(--border, #2a2d34);
+    --card: var(--card, #14161a);
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:transparent; color:var(--fg);
+    font: 13px/1.45 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  #app{ width:940px; }
+  header{ display:flex; align-items:baseline; gap:10px; padding:10px 12px 6px; }
+  header h1{ margin:0; font-size:15px; font-weight:650; letter-spacing:.2px; }
+  header .vol{ color:var(--acc); font-weight:600; }
+  header .sub{ color:var(--mut); font-size:12px; }
+  #bar{ display:flex; flex-wrap:wrap; gap:6px; padding:0 12px 8px; align-items:center; }
+  #bar button{ background:var(--card); border:1px solid var(--bd); color:var(--fg);
+    border-radius:6px; padding:4px 10px; font-size:12px; cursor:pointer; }
+  #bar button.on{ border-color:var(--acc); color:var(--acc); }
+  #bar .sp{ flex:1; }
+  #bar label{ color:var(--mut); font-size:12px; display:flex; gap:6px; align-items:center; }
+  #explode{ width:110px; }
+  #stage{ position:relative; width:940px; height:600px; border-top:1px solid var(--bd);
+    border-bottom:1px solid var(--bd); background:radial-gradient(120% 90% at 50% 20%, #1a1d23 0%, #0d0e12 70%); }
+  #stage canvas{ display:block; }
+  #labels{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+  .lbl{ position:absolute; transform:translate(-50%,-130%); white-space:nowrap;
+    background:rgba(12,14,18,.82); border:1px solid var(--bd); border-left:2px solid var(--acc);
+    color:var(--fg); font-size:11px; padding:2px 7px; border-radius:4px; pointer-events:none; }
+  .lbl.ex{ border-left-color:#ff9d5c; }
+  .lbl small{ color:var(--mut); margin-left:5px; }
+  #specs{ display:grid; grid-template-columns:1fr 1fr; gap:2px 18px; padding:10px 12px 14px; font-size:12px; }
+  #specs div b{ color:var(--mut); font-weight:500; display:inline-block; min-width:150px; }
+  #err{ display:none; padding:24px; color:var(--mut); }
+  #err svg{ display:block; margin:10px 0; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>Dual-GPU ATX Airflow Case</h1>
+    <span class="vol">200 × 459 × 364 mm · 33.4 L</span>
+    <span class="sub">RTX PRO 6000 Blackwell + RTX 3090 FTW3 · standard ATX board &amp; PSU</span>
+    <span class="sub" style="margin-left:auto"><span style="color:#35c8ff">●</span> intake&nbsp;&nbsp;<span style="color:#ff9d5c">●</span> exhaust (animated)</span>
+  </header>
+  <div id="bar">
+    <button data-v="iso" class="on">Iso</button>
+    <button data-v="front">Front</button>
+    <button data-v="side">Side</button>
+    <button data-v="top">Top</button>
+    <button data-v="rear">Rear</button>
+    <button data-v="inside">Inside</button>
+    <button data-v="gpu">GPU stack</button>
+    <span class="sp"></span>
+    <label><input type="checkbox" id="tAir" checked> Airflow</label>
+    <label><input type="checkbox" id="tLbl" checked> Labels</label>
+    <label><input type="checkbox" id="tDim" checked> Dims</label>
+    <label><input type="checkbox" id="tShell"> Hide shell</label>
+    <label>Explode <input type="range" id="explode" min="0" max="100" value="0"></label>
+  </div>
+  <div id="stage">
+    <div id="labels"></div>
+  </div>
+  <div id="specs">
+    <div><b>GPU zone</b> 2× 300&nbsp;mm cards side-by-side (front↔back), 137&nbsp;mm wide, 96.6&nbsp;mm stack</div>
+    <div><b>Slot map</b> RTX&nbsp;PRO&nbsp;6000 → x16_1 (slot&nbsp;1) · 3090&nbsp;FTW3 → slot&nbsp;5</div>
+    <div><b>GPU length clearance</b> 313&nbsp;mm (9–14&nbsp;mm spare)</div>
+    <div><b>GPU service gap</b> 22.4&nbsp;mm above FTW3 power plugs · 40.7&nbsp;mm shroud-to-shroud</div>
+    <div><b>Fans (intake)</b> 3×&nbsp;140 front · 1×&nbsp;140 bottom · side mesh feeds GPU fans</div>
+    <div><b>Fans (exhaust)</b> 2×&nbsp;140 top · PSU isolated (floor&nbsp;in → rear&nbsp;out)</div>
+    <div><b>CPU cooler</b> ≤&nbsp;152&nbsp;mm tower (air-optimized)</div>
+    <div><b>PSU</b> ATX 1250&nbsp;W+ recommended, ≤&nbsp;200&nbsp;mm deep, fully isolated chamber</div>
+  </div>
+  <div id="err">
+    The interactive 3D view needs network access (three.js CDN) and JavaScript.
+    <svg width="360" height="300" viewBox="0 0 360 300">
+      <rect x="30" y="20" width="200" height="260" fill="none" stroke="#888"/>
+      <rect x="35" y="180" width="190" height="60" fill="none" stroke="#888" stroke-dasharray="4 3"/>
+      <rect x="45" y="60" width="80" height="30" fill="#666"/>
+      <rect x="45" y="100" width="80" height="30" fill="#666"/>
+      <rect x="240" y="40" width="100" height="6" fill="#888"/>
+      <text x="30" y="298" fill="#888" font-size="12">side view (fallback)</text>
+    </svg>
+  </div>
+</div>
+
+<script>
+  window.__booted = false;
+  window.addEventListener('error', function(){ 
+    var e=document.getElementById('err'); if(e && !window.__booted) e.style.display='block';
+  });
+  setTimeout(function(){ if(!window.__booted){ var e=document.getElementById('err'); if(e) e.style.display='block'; } }, 6000);
+</script>
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+
+/* ================= design constants (mm) =================
+  x: 0 = motherboard-tray face, +x toward glass panel (inner face x=170)
+  y: 0 = floor (interior), up
+  z: 0 = rear panel (interior face), +z toward front (interior depth 360)   */
+const P = 20.32;                       // PCIe slot pitch
+const IX = 170, IY = 455, IZ = 360;    // interior bounds
+const M = { x0:6.4, x1:8.0, y0:120, y1:425, z0:8, z1:252 };        // ATX board
+const slotTop = k => 272 - (k-1)*P;    // connector-gap top y for slot k (1..7)
+
+const G1 = { name:'RTX PRO 6000 Blackwell', slot:1,
+  x0:15, x1:152, z0:8, z1:312.8,                      // PCB shelf
+  pcbY:268, shY0:227.4, shY1:268,                     // shroud hangs below PCB (40.6 thick)
+  fans:[{z:106,r:46},{z:214,r:46}],                   // fans on underside
+  sock:{ x0:92, x1:114, z0:48, z1:80 } };             // 16-pin on top edge
+const G2 = { name:'EVGA RTX 3090 FTW3', slot:5,
+  x0:15, x1:152, z0:8, z1:308,
+  pcbY:187, shY0:131.1, shY1:187,                     // 55.9 thick
+  fans:[{z:72,r:40},{z:160,r:40},{z:248,r:40}],
+  socks:[ {z:150},{z:180},{z:210} ] };                // 3× 8-pin on top edge
+const PSU = { x0:10, x1:160, y0:2, y1:88, z0:10, z1:170 };
+
+/* ================= renderer / scene ================= */
+const stage = document.getElementById('stage');
+const labelsEl = document.getElementById('labels');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(38, 940/600, 1, 4000);
+const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+renderer.setClearColor(0x000000, 0);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(940, 600);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
+stage.appendChild(renderer.domElement);
+
+const css = new CSS2DRenderer({ element: labelsEl });
+css.setSize(940, 600);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; controls.dampingFactor = .08;
+controls.target.set(0, 0, 0);
+
+scene.add(new THREE.AmbientLight(0xffffff, .95));
+scene.add(new THREE.HemisphereLight(0xa8bdd8, 0x1a1c22, .7));
+const key = new THREE.DirectionalLight(0xffffff, 2.6); key.position.set(300, 500, 400); scene.add(key);
+const fill = new THREE.DirectionalLight(0x88aaff, 1.1); fill.position.set(-400, 100, -300); scene.add(fill);
+const rim  = new THREE.DirectionalLight(0xffffff, 1.3); rim.position.set(-200, -300, -500); scene.add(rim);
+const inner = new THREE.PointLight(0xffffff, .8, 700); inner.position.set(40, 0, 40); scene.add(inner);   // interior fill
+const inner2 = new THREE.PointLight(0xbfd6ff, .55, 700); inner2.position.set(60, 160, 220); scene.add(inner2);
+
+/* ================= materials ================= */
+function meshTex(repeatX=26, repeatY=26){
+  const c=document.createElement('canvas'); c.width=c.height=64;
+  const g=c.getContext('2d');
+  g.fillStyle='#000'; g.fillRect(0,0,64,64);            // black = transparent holes (alphaMap)
+  g.fillStyle='#fff';                                    // white = solid mesh material
+  for(let i=0;i<8;i++)for(let j=0;j<8;j++){ g.beginPath(); g.arc(i*8+4,j*8+4,3.1,0,7); g.fill(); }
+  const t=new THREE.CanvasTexture(c); t.wrapS=t.wrapT=THREE.RepeatWrapping;
+  t.repeat.set(repeatX,repeatY); return t;
+}
+function meshMat(rx,ry, tint=0x1c1f24){
+  return new THREE.MeshStandardMaterial({ color:tint, roughness:.75, metalness:.45,
+    alphaMap:meshTex(rx,ry), alphaTest:.5, side:THREE.DoubleSide });
+}
+const mat = {
+  steel:  new THREE.MeshStandardMaterial({ color:0x2c2f35, roughness:.55, metalness:.75 }),
+  dark:   new THREE.MeshStandardMaterial({ color:0x1b1d21, roughness:.7,  metalness:.35 }),
+  darker: new THREE.MeshStandardMaterial({ color:0x121316, roughness:.8,  metalness:.25 }),
+  silver: new THREE.MeshStandardMaterial({ color:0x9aa2ad, roughness:.35, metalness:.9 }),
+  pcb:    new THREE.MeshStandardMaterial({ color:0x10241c, roughness:.75, metalness:.15 }),
+  fan:    new THREE.MeshStandardMaterial({ color:0x23262c, roughness:.6,  metalness:.4 }),
+  blade:  new THREE.MeshStandardMaterial({ color:0x2e323a, roughness:.5,  metalness:.55 }),
+  copper: new THREE.MeshStandardMaterial({ color:0x8a6a45, roughness:.4,  metalness:.85 }),
+  acc:    new THREE.MeshStandardMaterial({ color:0x1f6feb, roughness:.4,  metalness:.3 }),
+  rgb:    new THREE.MeshStandardMaterial({ color:0x1f6feb, emissive:0x1f6feb, emissiveIntensity:.75, roughness:.4, metalness:.2 }),
+  gpuS:   new THREE.MeshStandardMaterial({ color:0x24272e, roughness:.55, metalness:.5 }),
+  cable:  new THREE.MeshStandardMaterial({ color:0x141518, roughness:.9 }),
+  meshF:  meshMat(34, 26, 0x23262c),
+  meshS:  meshMat(30, 22),
+  meshT:  meshMat(30, 8),
+  glass:  new THREE.MeshPhysicalMaterial({ color:0x9fb4c8, transparent:true, opacity:.16, roughness:.06, metalness:0, side:THREE.DoubleSide }),
+};
+
+/* ================= helpers ================= */
+const V3 = (x,y,z)=>new THREE.Vector3(x,y,z);
+function box(parent, matl, x0,x1, y0,y1, z0,z1, r=0){
+  const g = r>0 ? new RoundedBoxGeometry(x1-x0, y1-y0, z1-z0, 3, r)
+                : new THREE.BoxGeometry(x1-x0, y1-y0, z1-z0);
+  const m = new THREE.Mesh(g, matl);
+  m.position.set((x0+x1)/2,(y0+y1)/2,(z0+z1)/2);
+  parent.add(m); return m;
+}
+function plateHole(parent, matl, w, h, holes, thick, axis='y', at=0){
+  // rectangle w×h with circular holes, extruded `thick`, centered at `at` on `axis`
+  const s = new THREE.Shape();
+  s.moveTo(-w/2,-h/2); s.lineTo(w/2,-h/2); s.lineTo(w/2,h/2); s.lineTo(-w/2,h/2); s.closePath();
+  for(const [hx,hy,r] of holes){ const p=new THREE.Path(); p.absarc(hx,hy,r,0,Math.PI*2,true); s.holes.push(p); }
+  const geo = new THREE.ExtrudeGeometry(s,{depth:thick,bevelEnabled:false});
+  const m = new THREE.Mesh(geo, matl);
+  if(axis==='y'){ m.rotation.x = -Math.PI/2; m.position.y = at; }
+  else if(axis==='x'){ m.rotation.y = Math.PI/2; m.position.x = at; }
+  else { m.position.z = at; }
+  parent.add(m); return m;
+}
+function makeFan(size, depth){
+  const f = new THREE.Group();
+  const s = new THREE.Shape(); const h = size/2 - 5;
+  s.moveTo(-h,-h); s.lineTo(h,-h); s.lineTo(h,h); s.lineTo(-h,h); s.closePath();
+  const hole = new THREE.Path(); const r = size/2 - 7; hole.absarc(0,0,r,0,Math.PI*2,true);
+  s.holes.push(hole);
+  const frame = new THREE.Mesh(new THREE.ExtrudeGeometry(s,{depth,bevelEnabled:false}), mat.fan);
+  frame.position.z = -depth/2; f.add(frame);
+  const hub = new THREE.Mesh(new THREE.CylinderGeometry(size*.17, size*.17, depth*.7, 24), mat.dark);
+  hub.rotation.x = Math.PI/2; f.add(hub);
+  const bladeShape = new THREE.Shape();
+  bladeShape.moveTo(0,0);
+  bladeShape.quadraticCurveTo(size*.16, size*.10, size*.30, size*.015);
+  bladeShape.quadraticCurveTo(size*.16, size*.035, 0,0);
+  const bg = new THREE.ExtrudeGeometry(bladeShape,{depth:1.6,bevelEnabled:false});
+  bg.translate(0,0,-0.8);
+  const rot = new THREE.Group();
+  for(let i=0;i<7;i++){
+    const b = new THREE.Mesh(bg, mat.blade);
+    b.rotation.z = i/7*Math.PI*2; b.rotateOnAxis(new THREE.Vector3(0,1,0), .5);
+    rot.add(b);
+  }
+  rot.position.z = depth*.08; f.add(rot);
+  f.userData.rotor = rot;
+  return f;
+}
+const spinners = [];
+function placeFan(parent, size, depth, cx,cy,cz, axis, tag){
+  const f = makeFan(size, depth);
+  if(axis==='y') f.rotation.x = Math.PI/2;
+  if(axis==='x') f.rotation.y = Math.PI/2;
+  if(axis==='y-') f.rotation.x = -Math.PI/2;
+  if(axis==='z-') f.rotation.y = Math.PI;
+  f.position.set(cx,cy,cz);
+  parent.add(f); spinners.push(f);
+  return f;
+}
+function label(text, sub, x,y,z, parent, ex=false){
+  const d = document.createElement('div');
+  d.className = 'lbl' + (ex?' ex':'');
+  d.innerHTML = text + (sub?`<small>${sub}</small>`:'');
+  const o = new CSS2DObject(d); o.position.set(x,y,z);
+  (parent||scene).add(o); labelObjs.push(o); return o;
+}
+const labelObjs = [];
+
+/* ================= build ================= */
+const root = new THREE.Group(); scene.add(root);
+const gShell = new THREE.Group();   // panels & frame
+const gGlass = new THREE.Group();
+const gFrontF = new THREE.Group();
+const gTopF = new THREE.Group();
+const gBotF = new THREE.Group();
+const gMobo = new THREE.Group();
+const gCooler = new THREE.Group();
+const gGPU1 = new THREE.Group();
+const gGPU2 = new THREE.Group();
+const gPSU = new THREE.Group();
+const gSSD = new THREE.Group();
+const gCables = new THREE.Group();
+root.add(gShell,gGlass,gFrontF,gTopF,gBotF,gMobo,gCooler,gGPU1,gGPU2,gPSU,gSSD,gCables);
+root.position.set(-72.5, -219.5, -181);   // center the 200×459×364 envelope on the origin
+
+/* ---- shell: floor / top / frame rails ---- */
+box(gShell, mat.steel, -30, 173, -2, 0, -2, IZ+4);            // floor
+box(gShell, mat.steel, -30, 173, IY, IY+4, -2, IZ+4);         // top
+// frame rails (vertical corners)
+for(const [x0,x1] of [[-30,-26],[169.5,173]])
+  for(const [y0,y1] of [[0,26],[IY-26,IY]])
+    box(gShell, mat.steel, x0,x1, y0,y1, -2, IZ+4);
+box(gShell, mat.steel, -30, 173, 0, 26, IZ+2, IZ+4);          // front top rail
+box(gShell, mat.steel, -30, 173, IY-26, IY, IZ+2, IZ+4);      // front bottom rail
+// feet
+for(const [fx,fz] of [[-8,-8],[-8,IZ-8],[158,IZ-8],[158,-8]]){
+  const ft = new THREE.Mesh(new THREE.CylinderGeometry(9,11,16,20), mat.darker);
+  ft.position.set(fx,-10,fz); gShell.add(ft);
+}
+
+/* ---- rear panel (with cutouts) ---- */
+{
+  // panel spans case x -28..173 (center 72.5), y -2..457 (center 227.5); extruded z -2..0
+  const s = new THREE.Shape();
+  s.moveTo(-100.5,-229.5); s.lineTo(100.5,-229.5); s.lineTo(100.5,229.5); s.lineTo(-100.5,229.5); s.closePath();
+  const rect = (x0,x1,y0,y1)=>{ const p=new THREE.Path();
+    p.moveTo(x0-72.5,y0-227.5); p.lineTo(x1-72.5,y0-227.5); p.lineTo(x1-72.5,y1-227.5); p.lineTo(x0-72.5,y1-227.5); p.closePath(); return p; };
+  s.holes.push(rect(6,166,223,427));     // ATX I/O aperture
+  s.holes.push(rect(5,155,128,220));     // expansion-slot strip
+  s.holes.push(rect(20,150,432,453));    // top vent
+  s.holes.push(rect(12,158,12,82));      // PSU exhaust grille
+  const g = new THREE.ExtrudeGeometry(s,{depth:2,bevelEnabled:false});
+  const m = new THREE.Mesh(g, mat.steel);
+  m.position.set(72.5, 227.5, -2);
+  gShell.add(m);
+}
+
+/* ---- front panel: mesh + frame ---- */
+box(gShell, mat.steel, -30, 173, 0, IY, IZ+2, IZ+4);
+const frontMesh = new THREE.Mesh(new THREE.PlaneGeometry(198, IY-4), mat.meshF);
+frontMesh.position.set(72.5, IY/2, IZ+1.5); gShell.add(frontMesh);
+// front I/O bump
+box(gShell, mat.darker, 120, 158, IY-10, IY-4, IZ+2, IZ+7, 2);
+
+/* ---- right wall (cable channel side) + tray ---- */
+box(gShell, mat.steel, -28, -26, 0, IY, -2, IZ+4);              // right outer panel
+const rVent = new THREE.Mesh(new THREE.PlaneGeometry(IZ-40, IY-160), mat.meshS);
+rVent.rotation.y = -Math.PI/2; rVent.position.set(-27, IY/2, IZ/2); gShell.add(rVent);
+box(gShell, mat.dark, -1.5, 0, 0, IY, -2, IZ+2);               // tray wall
+// tray grommets (dark insets)
+box(gShell, mat.darker, -0.7, 0.3, 250, 360, 250, 310);
+box(gShell, mat.darker, -0.7, 0.3, 130, 240, 250, 310);
+
+/* ---- glass side panel (upper glass, lower mesh intake) ---- */
+box(gGlass, mat.glass, IX, IX+3, 300, IY, 2, IZ-2);
+const sideMesh = new THREE.Mesh(new THREE.PlaneGeometry(IZ-8, 296), mat.meshS);
+sideMesh.rotation.y = -Math.PI/2; sideMesh.position.set(IX+1, 148, IZ/2); gGlass.add(sideMesh);
+box(gShell, mat.steel, IX, IX+3, 296, 304, 0, IZ);             // mesh/glass divider rail
+
+/* ---- PSU chamber: shroud plate + walls ---- */
+box(gPSU, mat.steel, 0, IX, 88, 90.5, 0, 185);                 // shroud plate
+box(gPSU, mat.steel, 0, IX, 0, 2, 183, 185);                   // chamber front sill
+box(gPSU, mat.dark, PSU.x0, PSU.x1, PSU.y0, PSU.y1, PSU.z0, PSU.z1, 2);   // the PSU
+const psuLbl = box(gPSU, mat.darker, 30, 140, 40, 80, PSU.z1-0.5, PSU.z1+0.2); // label plate
+// PSU rear exhaust grille hint
+const psuGr = new THREE.Mesh(new THREE.PlaneGeometry(146, 70), mat.meshS);
+psuGr.rotation.y = Math.PI; psuGr.position.set(85, 45, -2.5); gShell.add(psuGr);
+
+/* ---- SSDs on shroud ---- */
+box(gSSD, mat.darker, 60, 129, 90.5, 97.5, 25, 125, 1.5);
+box(gSSD, mat.darker, 60, 129, 90.5, 97.5, 132, 232, 1.5);
+
+/* ---- motherboard assembly ---- */
+box(gMobo, mat.pcb, M.x0, M.x1, M.y0, M.y1, M.z0, M.z1);
+for(let i=0;i<4;i++) box(gMobo, mat.silver, 0, 6.4, 150+i*70, 158+i*70, 20, 28);  // standoffs
+// I/O shield (protrudes rear through aperture)
+box(gMobo, mat.silver, 8, 167, 223, 428, -19, 2, 1);
+box(gMobo, mat.darker, 20, 155, 240, 410, -19.5, -18.5);
+// CPU socket hint + VRM
+box(gMobo, mat.darker, 8, 12, 300, 350, 100, 190);
+// RAM
+for(let i=0;i<4;i++) box(gMobo, mat.dark, 8, 40, 340+i*22, 344+i*22, 200, 246);
+// 24-pin connector
+box(gMobo, mat.darker, 8, 16, 260, 320, 240, 250);
+
+/* ---- PCIe connectors (7, stacked vertically) ---- */
+for(let k=1;k<=7;k++){
+  const top = slotTop(k);
+  box(gMobo, mat.darker, 8, 16, top-6, top+0.5, M.z0, M.z0+89);
+}
+
+/* ---- CPU tower cooler ---- */
+box(gCooler, mat.copper, 8, 30, 305, 345, 105, 190);            // base block
+for(let i=0;i<16;i++)                                            // fin stack
+  box(gCooler, mat.silver, 12, 152, 312, 424, 112+i*5.4, 115+i*5.4);
+placeFan(gCooler, 132, 22, 82, 368, 208, 'z');                 // fan blowing rearward (-z)
+
+/* ================= GPU 1: RTX PRO 6000 Blackwell (slot 1) ================= */
+{
+  const g = gGPU1;
+  box(g, mat.pcb, G1.x0, G1.x1, G1.pcbY, G1.pcbY+1.6, G1.z0, G1.z1);
+  box(g, mat.dark, G1.x0, G1.x1, G1.shY0+3, G1.shY1-3, G1.z0, G1.z1, 2);          // shroud core
+  box(g, mat.darker, G1.x0+2, G1.x1-2, G1.shY1-4, G1.shY1-0.5, G1.z0+3, G1.z1-3); // top plate
+  // bottom fan grille: plate in x-z plane (normal -y), circular cutouts at fan z positions
+  {
+    const hx = (G1.x1-G1.x0)/2, hz = (G1.z1-G1.z0)/2;
+    const s = new THREE.Shape();
+    s.moveTo(-hx,-hz); s.lineTo(hx,-hz); s.lineTo(hx,hz); s.lineTo(-hx,hz); s.closePath();
+    for(const f of G1.fans){ const p=new THREE.Path(); p.absarc(0, f.z-(G1.z0+G1.z1)/2, f.r, 0, Math.PI*2, true); s.holes.push(p); }
+    const gm = new THREE.Mesh(new THREE.ExtrudeGeometry(s,{depth:3,bevelEnabled:false}), mat.darker);
+    gm.rotation.x = Math.PI/2;                       // local (x,y,z) -> case (x, -z, y): plane in x-z, depth along -y
+    gm.position.set((G1.x0+G1.x1)/2, G1.shY0+3, (G1.z0+G1.z1)/2);
+    g.add(gm);
+  }
+  for(const f of G1.fans){
+    const fan = makeFan(f.r*2, 16);
+    fan.rotation.x = Math.PI/2;
+    fan.position.set((G1.x0+G1.x1)/2, G1.shY0+8, f.z);
+    g.add(fan); spinners.push(fan);
+  }
+  // 16-pin socket on top edge + right-angle plug
+  box(g, mat.darker, G1.sock.x0, G1.sock.x1, G1.pcbY+1.6, G1.pcbY+19, G1.sock.z0, G1.sock.z1, 2);
+  box(g, mat.acc, G1.sock.x0+2, G1.sock.x1-2, G1.pcbY+12, G1.pcbY+20, G1.sock.z0+3, G1.sock.z1-3, 1);
+  // RGB badge strip along top edge (near bracket end)
+  box(g, mat.gpuS, G1.x0+8, G1.x0+78, G1.shY1-1.6, G1.shY1, G1.z0+30, G1.z0+110);
+  box(g, mat.rgb, G1.x0+12, G1.x0+74, G1.shY1-0.9, G1.shY1-0.2, G1.z0+34, G1.z0+106);
+  // rear bracket
+  box(g, mat.silver, 0, 2.2, G1.shY0-120, G1.shY0+40.6, G1.z0, G1.z0+20.3);
+  label('RTX PRO 6000 Blackwell', 'slot 1 · dual-slot · 304.8 × 137 × 40.6 · 600 W',
+        84, G1.pcbY+34, 160, g);
+  label('16-pin power', 'top edge · included adapter + extender', 103, G1.pcbY+26, 64, g, true);
+}
+
+/* ================= GPU 2: EVGA 3090 FTW3 (slot 5) ================= */
+{
+  const g = gGPU2;
+  box(g, mat.pcb, G2.x0, G2.x1, G2.pcbY, G2.pcbY+1.6, G2.z0, G2.z1);
+  box(g, mat.dark, G2.x0, G2.x1, G2.shY0+3, G2.shY1-3, G2.z0, G2.z1, 2);
+  box(g, mat.darker, G2.x0+2, G2.x1-2, G2.shY1-4, G2.shY1-0.5, G2.z0+3, G2.z1-3);
+  const hx = (G2.x1-G2.x0)/2, hz = (G2.z1-G2.z0)/2;
+  const s = new THREE.Shape();
+  s.moveTo(-hx,-hz); s.lineTo(hx,-hz); s.lineTo(hx,hz); s.lineTo(-hx,hz); s.closePath();
+  for(const f of G2.fans){ const p=new THREE.Path(); p.absarc(0, f.z-(G2.z0+G2.z1)/2, f.r, 0, Math.PI*2, true); s.holes.push(p); }
+  const gm = new THREE.Mesh(new THREE.ExtrudeGeometry(s,{depth:3,bevelEnabled:false}), mat.darker);
+  gm.rotation.x = Math.PI/2;
+  gm.position.set((G2.x0+G2.x1)/2, G2.shY0+3, (G2.z0+G2.z1)/2);
+  g.add(gm);
+  for(const f of G2.fans){
+    const fan = makeFan(f.r*2, 14);
+    fan.rotation.x = Math.PI/2;
+    fan.position.set((G2.x0+G2.x1)/2, G2.shY0+8, f.z);
+    g.add(fan); spinners.push(fan);
+  }
+  // 3× 8-pin right-angle sockets on top edge
+  for(const sk of G2.socks){
+    box(g, mat.darker, 88, 118, G2.pcbY+1.6, G2.pcbY+16, sk.z-12, sk.z+12, 2);
+  }
+  // RGB badge strip along top edge
+  box(g, mat.gpuS, G2.x0+8, G2.x0+78, G2.shY1-1.6, G2.shY1, G2.z0+30, G2.z0+110);
+  box(g, mat.rgb, G2.x0+12, G2.x0+74, G2.shY1-0.9, G2.shY1-0.2, G2.z0+34, G2.z0+106);
+  box(g, mat.silver, 2.2, 4.4, G2.shY0-63, G2.shY0+55.9, G2.z0, G2.z0+20.3);
+  label('EVGA RTX 3090 FTW3', 'slot 5 · 2.75-slot · 300 × 136.75 × 56 · 350-450 W',
+        84, G2.shY1-30, 200, g);
+  label('3× 8-pin power', 'right-angle plugs route along top edge', 100, G2.pcbY+24, 190, g, true);
+}
+
+/* ================= fans: front / bottom / top ================= */
+placeFan(gFrontF, 140, 25, 84, 87,  340, 'z');
+placeFan(gFrontF, 140, 25, 84, 232, 340, 'z');
+placeFan(gFrontF, 140, 25, 84, 377, 340, 'z');
+placeFan(gBotF, 140, 25, 84, 14, 270, 'y');
+placeFan(gTopF, 140, 25, 84, IY-13, 115, 'y-');
+placeFan(gTopF, 140, 25, 84, IY-13, 260, 'y-');
+
+/* floor mesh (bottom intake zone) */
+const floorMesh = new THREE.Mesh(new THREE.PlaneGeometry(140, 150), mat.meshT);
+floorMesh.rotation.x = -Math.PI/2; floorMesh.position.set(84, 0.5, 268); gBotF.add(floorMesh);
+
+/* ================= cables ================= */
+function tube(pts, r=4.5){
+  const c = new THREE.CatmullRomCurve3(pts.map(p=>V3(...p)));
+  const m = new THREE.Mesh(new THREE.TubeGeometry(c, 40, r, 8), mat.cable);
+  gCables.add(m); return c;
+}
+// GPU power bundle: PSU -> shroud pass -> up front channel -> FTW3 sockets -> 6000 socket
+tube([[85,42,166],[85,58,205],[80,80,225],[60,110,248],[52,160,252],[50,205,248],[52,198,215],[53,196,190]]);
+tube([[85,48,166],[85,66,210],[78,96,240],[58,150,250],[55,225,250],[54,265,235],[56,282,170],[58,284,95],[60,281,70]]);
+// 24-pin + EPS from grommets
+tube([[0,300,278],[20,310,272],[14,330,255],[12,340,240]]);
+tube([[0,180,278],[18,195,270],[12,300,255],[12,330,225],[14,350,190]]);
+
+/* ================= airflow ================= */
+const flows = new THREE.Group(); root.add(flows);
+function flow(pts, color, n=2, speed=.14, delay=0){
+  const c = new THREE.CatmullRomCurve3(pts.map(p=>V3(...p)));
+  const trail = new THREE.Mesh(new THREE.TubeGeometry(c, 48, 1.1, 6),
+    new THREE.MeshBasicMaterial({ color, transparent:true, opacity:.14 }));
+  flows.add(trail);
+  for(let i=0;i<n;i++){
+    const cone = new THREE.Mesh(new THREE.ConeGeometry(2.6, 8, 10),
+      new THREE.MeshBasicMaterial({ color, transparent:true, opacity:.72 }));
+    flows.add(cone);
+    flowAnim.push({ cone, curve:c, speed, off: delay + i/n });
+  }
+}
+const flowAnim = [];
+const IN = 0x35c8ff, OUT = 0xff9d5c;
+// front intakes
+flow([[84,87,385],[84,87,330],[84,87,240],[84,120,150],[84,160,90]], IN, 3, .12, 0);
+flow([[84,232,385],[84,232,330],[84,240,240],[84,260,150],[84,290,80],[84,320,60]], IN, 3, .12, .33);
+flow([[84,377,385],[84,377,330],[84,380,240],[84,400,140],[84,430,90],[84,470,70]], IN, 3, .12, .66);
+// bottom intake -> plenum -> side gap -> GPU fans
+flow([[84,-25,270],[84,5,270],[84,60,260],[100,110,240],[125,150,200],[140,190,170],[150,215,150]], IN, 2, .11, .2);
+flow([[84,-25,270],[84,5,270],[84,70,255],[40,105,235],[20,140,215],[16,165,200]], IN, 2, .1, .55);
+// side mesh intake -> down into under-card plenum (GPU fans face down)
+flow([[185,170,150],[172,170,150],[160,165,150],[145,135,145],[130,105,140]], IN, 2, .09, .1);
+flow([[185,220,220],[172,220,220],[160,205,220],[145,165,215],[125,115,205]], IN, 2, .09, .45);
+// top exhaust
+flow([[60,300,150],[60,380,140],[60,430,130],[60,480,125]], OUT, 2, .13, .15);
+flow([[110,300,240],[110,385,235],[110,432,230],[110,480,228]], OUT, 2, .13, .5);
+// PSU: floor in, rear out
+flow([[84,-25,90],[84,20,90],[84,55,80],[84,45,-20]], OUT, 1, .12, .3);
+// CPU cooler front->rear
+flow([[84,368,225],[84,368,180],[70,380,120],[40,395,60],[20,400,20]], OUT, 1, .1, .4);
+
+/* ================= dimensions ================= */
+const dims = new THREE.Group(); root.add(dims);
+function dimLine(a, b, text, offAxis, off){
+  const g = new THREE.Group();
+  const geo = new THREE.BufferGeometry().setFromPoints([a,b]);
+  g.add(new THREE.Line(geo, new THREE.LineBasicMaterial({ color:0x35c8ff })));
+  const pa = a.clone().add(offAxis.clone().multiplyScalar(off));
+  const pb = b.clone().add(offAxis.clone().multiplyScalar(off));
+  g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([a,pa]), new THREE.LineBasicMaterial({ color:0x35c8ff })));
+  g.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([b,pb]), new THREE.LineBasicMaterial({ color:0x35c8ff })));
+  const d = document.createElement('div'); d.className='lbl'; d.textContent = text;
+  const o = new CSS2DObject(d); o.position.copy(pa.clone().add(pb).multiplyScalar(.5));
+  g.add(o); dims.add(g);
+}
+dimLine(V3(-28,-30,-2), V3(173,-30,-2), '200 W', V3(0,0,1), -18);
+dimLine(V3(-40,-2,0), V3(-40,459,0), '459 H (+18 feet)', V3(0,0,1), -14);
+dimLine(V3(178,-30,-2), V3(178,-30,364), '364 D', V3(0,1,0), -26);
+
+/* ================= interactivity ================= */
+const views = {
+  iso:   { p:[520, 380, 760],  t:[0,0,0] },
+  front: { p:[20, 30, 950],    t:[0,40,0] },
+  side:  { p:[820, 120, 30],   t:[0,130,0] },
+  top:   { p:[20, 880, 160],   t:[0,0,80] },
+  rear:  { p:[60, 110, -880],  t:[0,140,0] },
+  inside:{ p:[560, 230, 300],  t:[30,160,100] },
+  gpu:   { p:[420, -40, 130],  t:[-20,-70,-30] },
+};
+function setView(name){
+  const v = views[name];
+  camera.position.set(...v.p); controls.target.set(...v.t); controls.update();
+}
+document.querySelectorAll('#bar button').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('#bar button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); setView(b.dataset.v);
+  });
+});
+setView('iso');
+
+const explodeGroups = [
+  [gGlass,  V3(1,0,0)], [gFrontF, V3(0,0,1)], [gTopF, V3(0,1,0)], [gBotF, V3(0,-1,0)],
+  [gMobo, V3(-1,0,0)], [gCooler, V3(-.6,.4,0)], [gGPU1, V3(.8,.6,0)], [gGPU2, V3(.8,.2,0)],
+  [gPSU, V3(0,-1,0)], [gSSD, V3(.5,-.8,0)], [gCables, V3(.9,-.3,0)],
+];
+const basePos = explodeGroups.map(([g])=>g.position.clone());
+document.getElementById('explode').addEventListener('input', e=>{
+  const t = e.target.value/100 * 130;
+  explodeGroups.forEach(([g],i)=> g.position.copy(basePos[i]).addScaledVector(explodeGroups[i][1], t));
+});
+document.getElementById('tAir').addEventListener('change', e=> flows.visible = e.target.checked);
+document.getElementById('tLbl').addEventListener('change', e=> labelObjs.forEach(o=>o.visible = e.target.checked));
+document.getElementById('tDim').addEventListener('change', e=> dims.visible = e.target.checked);
+document.getElementById('tShell').addEventListener('change', e=> gShell.visible = !e.target.checked);
+
+/* labels */
+label('ATX motherboard', '305 × 244 · 7 slots', 40, 425, 130, gMobo);
+label('CPU tower ≤ 152 mm', 'air-optimized build', 60, 430, 150, gCooler);
+label('ATX PSU (isolated)', 'floor intake → rear exhaust', 85, 45, 90, gPSU);
+label('PSU shroud + 2× 2.5″ SSD', 'bottom plenum 43 mm', 95, 96, 130, gSSD);
+label('3× 140 front intake', 'mesh', 84, 232, 375, gFrontF);
+label('140 bottom intake', 'feeds GPU zone from below', 84, 10, 270, gBotF);
+label('2× 140 top exhaust', '', 84, IY-8, 190, gTopF);
+label('Side mesh intake', 'feeds GPU fans directly (16 mm gap)', 172, 150, 200, gGlass);
+label('Cable channel + grommets', '', -12, 290, 280, gShell);
+
+window.__booted = true;
+
+/* ================= animate ================= */
+const clock = new THREE.Clock();
+window.__pause = false;
+window.__snap = function(view){
+  if (view && views[view]){ const v=views[view]; camera.position.set(...v.p); controls.target.set(...v.t); controls.update(); }
+  for(const f of spinners) f.userData.rotor.rotation.z += 0.03;
+  renderer.render(scene, camera);
+  css.render(scene, camera);
+  return renderer.domElement.toDataURL('image/jpeg', 0.88);
+};
+function tick(){
+  requestAnimationFrame(tick);
+  if (window.__pause) return;
+  const dt = Math.min(clock.getDelta(), .05);
+  const t = clock.elapsedTime;
+  for(const f of spinners) f.userData.rotor.rotation.z += dt*2.2;
+  for(const a of flowAnim){
+    const u = (t*a.speed + a.off) % 1;
+    a.cone.position.copy(a.curve.getPointAt(u));
+    const tan = a.curve.getTangentAt(u);
+    a.cone.quaternion.setFromUnitVectors(V3(0,1,0), tan);
+  }
+  controls.update();
+  renderer.render(scene, camera);
+  css.render(scene, camera);
+}
+tick();
+</script>
+</body>
+</html>

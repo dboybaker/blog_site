@@ -21,7 +21,21 @@
     - width: Chart width in pixels or "100%" (default: "100%")
 
     The content between the shortcode tags is a JSON object with Chart.js
-    chart data (labels and datasets).
+    chart data (labels and datasets). Alongside "labels" and "datasets" it
+    accepts three optional keys, which are merged over the theme defaults:
+
+    - "scales": axis config (min/max, ticks, grid, axis titles), passed
+                through to the chart options.
+    - "legend": Chart.js legend options. {"display": false} drops the legend -
+                handy when every bar carries its own colour and the x-axis
+                already names them.
+    - "title":  Chart.js title options. {"display": true, "text": "..."} leads
+                the chart with a descriptive line in place of a dataset
+                legend, which reads better for single-series charts.
+
+    Bar datasets may pass backgroundColor/borderColor as an array - one colour
+    per bar - which is easier to read than a single hue repeated across
+    unrelated bars.
 */}}
 
 {{ $chartType := .Get "type" | default "bar" }}
@@ -55,29 +69,42 @@
     });
   }
 
+  // Theme defaults for the legend and title. An optional "legend" or "title"
+  // key in the chart JSON is merged over these, the same way "scales" is
+  // merged into the axis options below.
+  var plugins = {
+    legend: {
+      labels: {
+        color: '#e8e8f0',
+        font: {
+          family: "'Inter', sans-serif"
+        }
+      }
+    },
+    title: {
+      display: false,
+      color: '#e8e8f0',
+      font: {
+        family: "'Inter', sans-serif"
+      }
+    }
+  };
+
+  ['legend', 'title'].forEach(function(key) {
+    var override = chartData[key];
+    if (!override) return;
+    plugins[key] = Object.assign({}, plugins[key], override);
+    if (override.labels) plugins[key].labels = Object.assign({}, plugins[key].labels, override.labels);
+    if (override.font) plugins[key].font = Object.assign({}, plugins[key].font, override.font);
+  });
+
   new Chart(ctx, {
     type: '{{ $chartType }}',
     data: chartData,
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          labels: {
-            color: '#e8e8f0',
-            font: {
-              family: "'Inter', sans-serif"
-            }
-          }
-        },
-        title: {
-          display: false,
-          color: '#e8e8f0',
-          font: {
-            family: "'Inter', sans-serif"
-          }
-        }
-      },
+      plugins: plugins,
       scales: chartData.scales ? Object.assign({}, chartData.scales, {
         x: (chartData.scales.x || Object.assign({}, {
           ticks: { color: '#9898a8' },
