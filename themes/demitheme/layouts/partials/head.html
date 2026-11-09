@@ -5,6 +5,11 @@
 {{ with resources.Get "css/style.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ .RelPermalink }}">
 {{ end }}
+{{/* Near-fullscreen image viewer for article screenshots; loaded everywhere so
+    a post needs no markup of its own to get it. */}}
+{{ with resources.Get "js/lightbox.js" | minify | fingerprint }}
+<script src="{{ .RelPermalink }}" defer></script>
+{{ end }}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">

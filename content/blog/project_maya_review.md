@@ -73,13 +73,13 @@ I went with the quant labeled "Maya-M" which shows as IQ2_S on [HuggingFace](htt
 | Router, norms, stream-mixing weights | F32 |
 | NextN draft layer experts | Q3_K (gate/up), Q4_K (down) |
 
-Doing the math its really something more along 2.7-bit (or 2.9-bit if you go just off file size). Still a far step from the minimum 4-bit floor that has felt usable in other models I've tried. 
+Doing the math it's really something more along 2.7-bit (or 2.9-bit if you go just off file size). Still a far step from the minimum 4-bit floor that has felt usable in other models I've tried. 
 
 My goal with this article is to measure GLM-5.3-Flash at this quant in this engine and determine if the deep quantization doesn't render the model too damaged AND to consider the speed difference. My current "use 100% of my machine's brain" model is Qwen3.8-flash-next-nvfp4. This would have to perform pretty impressively and token-efficiently for me to swap. I'll start with a speed analysis, run the typical benchmark suites, and end with real world style in-harness uses. 
 
 ## Speed & Size
 
-First things first, how fast is this model on my hardware? I originally configured the model to run with MTP, Maya's measurements said thats slower. I then tried with the dflash2 draft model - it once again measured and said no dice. So these numbers are without spec of any kind.
+First things first, how fast is this model on my hardware? I originally configured the model to run with MTP, Maya's measurements said that's slower. I then tried with the dflash2 draft model - it once again measured and said no dice. So these numbers are without spec of any kind.
 
 ### Prefill/Decode Sweep
 
@@ -385,9 +385,9 @@ Overall token stats: total 1,027,653 · median 16,124 · min 5,444 · max 33,040
 
 </details>
 
-Maya-M pulled off a big 55/60 correct result, which puts it on par with Qwen3.8-flash-next-nvfp4 (my benchmark leader) with a big caveat: the vision boards essentially never followed the single-word format (3 of 30). It consistently produced responses in the format of **ANSWER** [explanation]. I've actually only seen tiny models that outright can't handle the benchmark at all fail to format its answer correctly. Going further, the average token count of 17k is very good, also within error of our current leader's numbers.
+Maya-M pulled off a big 55/60 correct result, which puts it on par with Qwen3.8-flash-next-nvfp4 (my benchmark leader) with a big caveat: the vision boards essentially never followed the single-word format (3 of 30). It consistently produced responses in the format of **ANSWER** [explanation]. I've actually only seen tiny models that outright can't handle the benchmark at all fail to format their answer correctly. Going further, the average token count of 17k is very good, also within error of our current leader's numbers.
 
-It's important to observe there generall seems to be a reduction in capability when vision is involved. With just text boards provided, the model only missed one guess. Meanwhile in the vision-testing puzzles it missed 3 more. I would need to run a whole lot more reps to determine the significance, but with how long these runs take with this model thats not in the cards. Just consider, the mmproj might be a weaker avenue for this model.
+It's important to observe there generally seems to be a reduction in capability when vision is involved. With just text boards provided, the model only missed one guess. Meanwhile in the vision-testing puzzles it missed 3 more. I would need to run a whole lot more reps to determine the significance, but with how long these runs take with this model that's not in the cards. Just consider, the mmproj might be a weaker avenue for this model.
 
 ## In-Harness Tests
 
@@ -406,7 +406,7 @@ Same expectations as the prior entries: Nvidia RTX/DGX Spark, the M_ Ultra Mac S
 
 {{< model-report-tabs file="root:data/blog/project_maya_review/unified_memory_results.json" uid="umem" >}}
 
-The cleanest result I've had with a model in this harness. Most expected contenders can get the search -> fetch tool pattern, fewer properly set the search result count, and not a single other has handled the task creation, update, and closure this well. Very impressed by the models behavior and results. The output is accurate to the requirements and formatted cleanly.
+The cleanest result I've had with a model in this harness. Most expected contenders can get the search -> fetch tool pattern, fewer properly set the search result count, and not a single other has handled the task creation, update, and closure this well. Very impressed by the model's behavior and results. The output is accurate to the requirements and formatted cleanly.
 
 ### Pelican on a Bicycle
 
