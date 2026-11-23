@@ -4,7 +4,8 @@ date: 2026-11-22T00:00:00Z
 publishDate: 2026-11-22T00:00:00Z
 draft: false
 tags: ["llm", "inkling-2-mini", "thinking-machines", "nvfp4", "vllm", "inference", "benchmark"]
-summary: "Inkling's first accessible entry"
+summary: "Thinking Machine's first accessible entry in its Inkling lineup."
+cardImage: "cardimage.png"
 ---
 
 {{< ctx-bar >}}
@@ -47,6 +48,8 @@ I ran the provided container for this model. DSpark was not working day one, so 
 `--speculative-config '{"method":"dspark","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}'`
 
 </details>
+
+{{< figure src="inkling-cover.png" width="100%" >}}
 
 ## Intro
 

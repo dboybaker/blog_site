@@ -1,0 +1,23 @@
+{
+  "models": [
+    {
+      "name": "Inkling 2 Mini",
+      "size": "vLLM · NVFP4",
+      "hf": "https://huggingface.co/thinkingmachines/Inkling-2-Mini",
+      "report": "pelicans/inkling-2-mini-pelican-bike.svg",
+      "summary": ""
+    },
+    {
+      "name": "Qwen3.8-27B",
+      "size": "vLLM · NVFP4",
+      "report": "pelicans/qwen3.8-27b-pelican-bicycle.svg",
+      "summary": ""
+    },
+    {
+      "name": "Gemma4-26B",
+      "size": "vLLM · NVFP4",
+      "report": "pelicans/gemma4-26b-pelican_bicycle.svg",
+      "summary": ""
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "models": [
+    {
+      "name": "Inkling 2 Mini",
+      "size": "vLLM · NVFP4",
+      "hf": "https://huggingface.co/thinkingmachines/Inkling-2-Mini",
+      "report": "unified_mem_report/inkling-2-mini-unified_memory_systems_comparison.pdf",
+      "summary": "Excellent PDF output. Meets the 1-pager requirement and formatted all the information it found cleanly. Visually one of my favorites generated."
+    }
+  ]
+}

@@ -13,9 +13,14 @@
 # outside content/ so Hugo never assembles it, and out of git so it never ships.
 /_offline/
 
-# The Inkling 2 Mini run dumped its harness venv and the generated Plex app into
-# the results folder, so only the two *_results.json files that feed the article
-# shortcodes are wanted in git. The published copies of the images/SVG/PDF live
-# in the article bundle under content/.
-/data/blog/inkling-2-mini-review/*
-!/data/blog/inkling-2-mini-review/*_results.json
+# data/ is Hugo's site-data dir, and a fresh benchmark run unpacked next to an
+# article lands here - tens of megabytes of evalscope cache that Hugo would
+# happily parse into .Site.Data and `git add -A` would happily commit. Only the
+# small *_results.json files that feed the article shortcodes belong in git
+# (data/blog/<article>/), so allow just those back in; the raw runs, scratch
+# notes and generated app trees stay in _offline/ (above), and the published
+# images/SVG/PDF live in the article bundle under content/.
+/data/**
+!/data/blog/
+!/data/blog/*/
+!/data/blog/*/*_results.json
