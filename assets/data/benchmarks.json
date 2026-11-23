@@ -5455,5 +5455,409 @@
         "samples": 378
       }
     ]
+  },
+  {
+    "model": "Qwen3.8-27B-NVFP4",
+    "benchmark": "BFCL-v4",
+    "score": 0.85,
+    "samples": 300,
+    "date": "2026-11-22T15:30:01",
+    "run": "qwen3.8-27b-nvfp4-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.86,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.82,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.7,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.9,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.9,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.92,
+        "samples": 50
+      }
+    ],
+    "model_notes": "Qwen3.8-27B in NVIDIA's NVFP4 format, served through a local OpenAI-compatible endpoint (localhost:8500/v1). evalscope batch_size 8, server default temperature, max_tokens 16k (64k for Arena-Hard)."
+  },
+  {
+    "model": "Qwen3.8-27B-NVFP4",
+    "benchmark": "IFEval",
+    "score": 0.796,
+    "samples": 250,
+    "date": "2026-11-22T15:33:29",
+    "run": "qwen3.8-27b-nvfp4-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.796,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.8593,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.824,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.886,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-27B-NVFP4",
+    "benchmark": "MMLU-Pro",
+    "score": 0.8048,
+    "samples": 420,
+    "date": "2026-11-22T15:42:17",
+    "run": "qwen3.8-27b-nvfp4-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.9667,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.9,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.6333,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.9667,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.7,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.9333,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.5333,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.6,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-27B-NVFP4",
+    "benchmark": "Arena-Hard",
+    "score": 0.9878,
+    "samples": 75,
+    "date": "2026-11-22T16:03:43",
+    "run": "qwen3.8-27b-nvfp4-benchmarks",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.9878,
+        "samples": 75
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-27B-NVFP4",
+    "benchmark": "HumanEval+",
+    "score": 0.9024,
+    "samples": 164,
+    "date": "2026-11-22T16:04:50",
+    "run": "qwen3.8-27b-nvfp4-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.9024,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "Qwen3.8-27B-NVFP4",
+    "benchmark": "MBPP+",
+    "score": 0.9365,
+    "samples": 378,
+    "date": "2026-11-22T16:06:53",
+    "run": "qwen3.8-27b-nvfp4-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.9365,
+        "samples": 378
+      }
+    ]
+  },
+  {
+    "model": "Inkling-2-Mini-NVFP4",
+    "benchmark": "BFCL-v4",
+    "score": 0.76,
+    "samples": 300,
+    "date": "2026-11-20T15:03:52",
+    "run": "inkling-2-mini-nvfp4-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "irrelevance",
+        "score": 0.84,
+        "samples": 50
+      },
+      {
+        "name": "live_multiple",
+        "score": 0.68,
+        "samples": 50
+      },
+      {
+        "name": "multi_turn_base",
+        "score": 0.54,
+        "samples": 50
+      },
+      {
+        "name": "multiple",
+        "score": 0.8,
+        "samples": 50
+      },
+      {
+        "name": "parallel",
+        "score": 0.84,
+        "samples": 50
+      },
+      {
+        "name": "simple_python",
+        "score": 0.86,
+        "samples": 50
+      }
+    ],
+    "model_notes": "Thinking Machines Inkling-2-Mini, mixed NVFP4/MXFP8 checkpoint (26.4B total / 3.4B active), served by the vllm/vllm-openai:inkling-2-mini container on an RTX PRO 6000 Blackwell (96 GB) + 128 GB DDR4. evalscope batch_size 6 against localhost:8500/v1, server default temperature, max_tokens 16k (64k for Arena-Hard)."
+  },
+  {
+    "model": "Inkling-2-Mini-NVFP4",
+    "benchmark": "IFEval",
+    "score": 0.888,
+    "samples": 250,
+    "date": "2026-11-20T15:20:25",
+    "run": "inkling-2-mini-nvfp4-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "prompt_level_strict",
+        "score": 0.888,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_strict",
+        "score": 0.9147,
+        "samples": 250
+      },
+      {
+        "name": "prompt_level_loose",
+        "score": 0.916,
+        "samples": 250
+      },
+      {
+        "name": "inst_level_loose",
+        "score": 0.936,
+        "samples": 250
+      }
+    ]
+  },
+  {
+    "model": "Inkling-2-Mini-NVFP4",
+    "benchmark": "MMLU-Pro",
+    "score": 0.8048,
+    "samples": 420,
+    "date": "2026-11-20T15:58:38",
+    "run": "inkling-2-mini-nvfp4-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "computer science",
+        "score": 0.9,
+        "samples": 30
+      },
+      {
+        "name": "math",
+        "score": 0.9667,
+        "samples": 30
+      },
+      {
+        "name": "chemistry",
+        "score": 0.9,
+        "samples": 30
+      },
+      {
+        "name": "engineering",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "law",
+        "score": 0.6667,
+        "samples": 30
+      },
+      {
+        "name": "biology",
+        "score": 0.9333,
+        "samples": 30
+      },
+      {
+        "name": "health",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "physics",
+        "score": 0.9667,
+        "samples": 30
+      },
+      {
+        "name": "business",
+        "score": 0.8,
+        "samples": 30
+      },
+      {
+        "name": "philosophy",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "economics",
+        "score": 0.8667,
+        "samples": 30
+      },
+      {
+        "name": "other",
+        "score": 0.5333,
+        "samples": 30
+      },
+      {
+        "name": "psychology",
+        "score": 0.8333,
+        "samples": 30
+      },
+      {
+        "name": "history",
+        "score": 0.4333,
+        "samples": 30
+      }
+    ]
+  },
+  {
+    "model": "Inkling-2-Mini-NVFP4",
+    "benchmark": "Arena-Hard",
+    "score": 0.9752,
+    "samples": 75,
+    "date": "2026-11-20T16:13:27",
+    "run": "inkling-2-mini-nvfp4-benchmarks",
+    "notes": "Deepseek-V4-Flash-0731 Judged",
+    "subsets": [
+      {
+        "name": "winrate",
+        "score": 0.9752,
+        "samples": 75
+      }
+    ]
+  },
+  {
+    "model": "Inkling-2-Mini-NVFP4",
+    "benchmark": "HumanEval+",
+    "score": 0.9512,
+    "samples": 164,
+    "date": "2026-11-20T16:21:47",
+    "run": "inkling-2-mini-nvfp4-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.9512,
+        "samples": 164
+      }
+    ]
+  },
+  {
+    "model": "Inkling-2-Mini-NVFP4",
+    "benchmark": "MBPP+",
+    "score": 0.9735,
+    "samples": 378,
+    "date": "2026-11-20T16:41:07",
+    "run": "inkling-2-mini-nvfp4-benchmarks",
+    "notes": "",
+    "subsets": [
+      {
+        "name": "pass@1",
+        "score": 0.9735,
+        "samples": 378
+      }
+    ]
   }
 ]

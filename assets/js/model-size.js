@@ -52,10 +52,14 @@
     "qwen3.8-flash-next": 125,
     "gemma4-e2b": 5.1,
     "gemma4-e4b": 8,
+    // Thinking Machines Inkling-2-Mini: 26.4B total / 3.4B active (5.4B once the
+    // looped middle block runs). Total, the way LFM2.5-8B-A1B is sized at 8B.
+    "inkling-2-mini": 26.4,
   };
 
   // A parameter token: optional E/A prefix, a number, then B. Case-insensitive
-  // so the lowercase word500 names ("qwen3.8-27b-fp8") match too.
+  // so "Gemma4-31b-Q8" reads as 31B, and so the lowercase spellings the early
+  // Word500 runs used (e.g. "qwen3.8-27b-fp8") still resolve.
   const SIZE_SEGMENT = /^([ae]?)(\d+(?:\.\d+)?)b$/i;
 
   function normalize(name) {

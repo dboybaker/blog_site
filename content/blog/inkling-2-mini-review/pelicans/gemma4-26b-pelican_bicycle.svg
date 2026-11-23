@@ -1,0 +1,52 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background / Ground -->
+  <rect width="400" height="400" fill="#f0f8ff" />
+  <line x1="50" y1="350" x2="350" y2="350" stroke="#888" stroke-width="2" />
+
+  <!-- Bicycle -->
+  <g id="bicycle" stroke="#333" stroke-width="4" fill="none">
+    <!-- Wheels -->
+    <circle cx="120" cy="320" r="30" stroke="#555" />
+    <circle cx="280" cy="320" r="30" stroke="#555" />
+    <!-- Spokes (Simplified) -->
+    <line x1="120" y1="290" x2="120" y2="350" stroke="#ddd" stroke-width="1" />
+    <line x1="280" y1="290" x2="280" y2="350" stroke="#ddd" stroke-width="1" />
+    <line x1="90" y1="320" x2="150" y2="320" stroke="#ddd" stroke-width="1" />
+    <line x1="250" y1="320" x2="310" y2="320" stroke="#ddd" stroke-width="1" />
+    
+    <!-- Frame -->
+    <polyline points="120,320 180,320 240,260 280,320" /> <!-- Main triangle -->
+    <line x1="180" y1="320" x2="180" y2="260" stroke-width="5" /> <!-- Seat post -->
+    <line x1="240" y1="260" x2="260" y2="240" stroke-width="4" /> <!-- Handlebar stem -->
+    
+    <!-- Handlebars -->
+    <path d="M 250 240 Q 270 230 280 245" stroke="#333" fill="none" />
+    <!-- Seat -->
+    <path d="M 165 260 L 195 260" stroke="#333" stroke-width="6" stroke-linecap="round" />
+  </g>
+
+  <!-- Pelican -->
+  <g id="pelican">
+    <!-- Legs/Feet (connecting to pedals) -->
+    <line x1="185" y1="280" x2="185" y2="320" stroke="#f39c12" stroke-width="3" />
+    
+    <!-- Body -->
+    <ellipse cx="180" cy="230" rx="40" ry="50" fill="#fff" stroke="#ccc" stroke-width="1" />
+    
+    <!-- Neck -->
+    <path d="M 200 200 Q 230 180 220 140" fill="none" stroke="#fff" stroke-width="25" stroke-linecap="round" />
+    
+    <!-- Head -->
+    <circle cx="220" cy="130" r="22" fill="#fff" />
+    
+    <!-- Eye -->
+    <circle cx="230" cy="125" r="3" fill="#000" />
+    
+    <!-- The Famous Large Beak -->
+    <path d="M 235 130 Q 280 130 285 160 Q 230 175 230 145 Z" fill="#ffcc00" stroke="#e67e22" stroke-width="1" />
+    <path d="M 235 145 L 280 155" stroke="#e67e22" stroke-width="1" opacity="0.5" />
+
+    <!-- Wing -->
+    <path d="M 150 230 Q 130 250 160 270" fill="none" stroke="#ddd" stroke-width="3" stroke-linecap="round" />
+  </g>
+</svg>
