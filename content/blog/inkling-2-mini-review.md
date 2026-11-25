@@ -159,7 +159,7 @@ Both reps as measured:
 
 </details>
 
-Prefill/decode were stable up to 32k, but had a notable falloff up at the top range. These numbers make me extra committed to avoid the YaRN extension beyond the native 262k. The speed is pretty competitive to Qwen3.8-Flash-Next up to ~64k on my hardware, but falls well behind in long contexts. It bests Qwen3.8-27B in prefill at any level and only falls to match the decode at the full 262k.
+Prefill/decode were stable up to 32k, but had a notable falloff up at the top range. These numbers make me committed to avoid context beyond the 262k range. The speed is pretty competitive to Qwen3.8-Flash-Next up to ~64k on my hardware, but falls well behind in long contexts. It bests Qwen3.8-27B in prefill at any level and only falls to match the decode at the full 262k.
 
 ### Concurrency
 
